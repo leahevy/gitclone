@@ -100,6 +100,8 @@ class GitCloneException(Exception):
 
 
 def clone(repos: list[CloneProcess]) -> None:
+    if not repos:
+        return
     progress = GitRichProgress()
     threads = []
     result = {}
