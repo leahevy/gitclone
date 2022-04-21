@@ -41,11 +41,6 @@ def clone_repos(repos: list[str]):
 
     try:
         ClonePerServerHandler(repos_to_clone).run()
-    except KeyboardInterrupt:
-        sys.exit(5)
-    except Exception as e:
-        print(f"[red]{str(e)}[/]")
-        sys.exit(6)
     finally:
         if repos_existing:
             print(
@@ -84,18 +79,21 @@ def handle_autofetch(y):
 
 
 def main():
-    print("[green]Reading configuration file: [blue]ethclone.yaml[/][/]")
-    with open("ethclone.yaml", "r") as f:
-        try:
+    try:
+        print("[green]Reading configuration file: [blue]ethclone.yaml[/][/]")
+        with open("ethclone.yaml", "r") as f:
             y = yaml.safe_load(f)
-        except yaml.YAMLError as exc:
-            print(str(exc), file=sys.stderr)
-            sys.exit(1)
 
-    repos = []
-    if "autofetch" in y:
-        repos += handle_autofetch(y["autofetch"])
-    if "other" in y:
-        repos += y["other"]
-    clone_repos(repos)
-    print("[green]DONE[/]")
+            repos = []
+            if "autofetch" in y:
+                repos += handle_autofetch(y["autofetch"])
+            if "other" in y:
+                repos += y["other"]
+            clone_repos(repos)
+            print("[green]DONE[/]")
+    except KeyboardInterrupt:
+        print(f"[red]Aborted by user...[/]")
+        sys.exit(5)
+    except Exception as e:
+        print(f"[red]{str(e)}[/]")
+        sys.exit(6)
