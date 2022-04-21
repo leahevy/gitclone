@@ -5,6 +5,7 @@ Project to pull git repositories into directory structure
 [![Build](https://github.com/evyli/ethclone/workflows/Build/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/build.yml)
 [![Tests](https://github.com/evyli/ethclone/workflows/Tests/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/tests.yml)
 [![Style](https://github.com/evyli/ethclone/workflows/Style/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/style.yml)
+[![Style](https://github.com/evyli/ethclone/workflows/Analysis/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/analysis.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
