@@ -4,7 +4,7 @@ from rich import print
 import sys
 import os
 
-from ethclone.gitcmds import clone, GitCloneException, CloneProcess
+from ethclone.gitcmds import ClonePerServerHandler, CloneProcess
 
 import yaml
 import re
@@ -40,7 +40,7 @@ def clone_repos(repos: list[str]):
             sys.exit(7)
 
     try:
-        clone(repos_to_clone)
+        ClonePerServerHandler(repos_to_clone).run()
     except KeyboardInterrupt:
         sys.exit(5)
     except Exception as e:

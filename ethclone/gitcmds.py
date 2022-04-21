@@ -2,8 +2,10 @@ import git
 from rich import progress
 from pathlib import Path
 import os
+import sys
 from dataclasses import dataclass
 from threading import Thread
+import time
 
 
 class GitRichProgress:
@@ -64,12 +66,20 @@ class GitRichProgress:
         return RemoteProgress()
 
 
-@dataclass
+@dataclass(frozen=True, eq=True)
 class CloneProcess:
     base_url: str
     remote_src: str
     dest: str
     branch: str | None = None
+
+    @property
+    def full_url(self):
+        if not (self.base_url.endswith("/") or self.base_url.endswith(":")):
+            url = self.base_url + "/" + self.remote_src
+        else:
+            url = self.base_url + self.remote_src
+        return url
 
 
 def _clonefunc(progress, repo, result):
@@ -80,19 +90,15 @@ def _clonefunc(progress, repo, result):
         parent_dir.mkdir(parents=True, exist_ok=True)
 
         if not dest_path.exists():
-            if not (repo.base_url.endswith("/") or repo.base_url.endswith(":")):
-                url = repo.base_url + "/" + repo.remote_src
-            else:
-                url = repo.base_url + repo.remote_src
             git.Repo.clone_from(
-                url=url,
+                url=repo.full_url,
                 to_path=Path(repo.dest).resolve(),
                 progress=task,
                 branch=repo.branch,
             )
+        result[repo.dest] = None
     except Exception as e:
         task.stop()
-        result[repo.dest] = None
         result[repo.dest] = e
 
 
@@ -104,36 +110,84 @@ class GitCloneException(Exception):
         return os.linesep.join([str(e) for e in self.exceptions if e is not None])
 
 
-def clone(repos: list[CloneProcess]) -> None:
-    if not repos:
-        return
-    progress = GitRichProgress()
-    threads = []
-    result = {}
-    for repo in repos:
-        threads.append(Thread(target=_clonefunc, args=(progress, repo, result)))
-        threads[-1].start()
+class ClonePerServerHandler:
+    MAX_CONNECTIONS_PER_SERVER = 6
+    MAX_CONNECTIONS_TOTAL = sys.maxsize
 
-    for thread in threads:
-        thread.join()
-    del progress
+    def __init__(self, repos) -> None:
+        self.servers = {}
+        self.cur_downloads = {}
+        self.cur_total_downloads = 0
 
-    for _, e in result.items():
-        if e is not None:
-            raise GitCloneException(result.values())
+        for repo in repos:
+            self.add_download(repo)
+
+    def add_download(self, repo):
+        if repo.base_url not in self.servers:
+            self.servers[repo.base_url] = []
+            self.cur_downloads[repo.base_url] = 0
+        self.servers[repo.base_url].append(repo)
+
+    def run(self):
+        progress = GitRichProgress()
+        threads = {}
+        result = {}
+
+        while True:
+            for server, repos in list(self.servers.items()):
+                for repo in repos[:]:
+                    if (
+                        self.cur_downloads[server]
+                        >= ClonePerServerHandler.MAX_CONNECTIONS_PER_SERVER
+                        or self.cur_total_downloads
+                        >= ClonePerServerHandler.MAX_CONNECTIONS_TOTAL
+                    ):
+                        break
+                    else:
+                        self.cur_downloads[server] += 1
+                        self.cur_total_downloads += 1
+                        thread = Thread(
+                            target=_clonefunc, args=(progress, repo, result)
+                        )
+                        repos.remove(repo)
+                        if not repos:
+                            del self.servers[server]
+                        threads[repo] = thread
+                        thread.start()
+
+            for repo, thread in list(threads.items()):
+                if not thread.is_alive():
+                    del threads[repo]
+                    self.cur_downloads[repo.base_url] -= 1
+                    self.cur_total_downloads -= 1
+            if not self.servers and not threads:
+                break
+
+            time.sleep(1)
+        del progress
+
+        for _, e in result.items():
+            if e is not None:
+                raise GitCloneException(result.values())
 
 
 if __name__ == "__main__":
-    c = CloneProcess(
+    c1 = CloneProcess(
         base_url="https://github.com",
         remote_src="Homebrew/brew",
         dest="TEST/1",
         branch="master",
     )
-    c = CloneProcess(
+    c2 = CloneProcess(
         base_url="https://github.com",
         remote_src="Homebrew/brew",
         dest="TEST/2",
         branch="master",
     )
-    clone([c, c2])
+    c3 = CloneProcess(
+        base_url="https://github.com",
+        remote_src="Homebrew/brew",
+        dest="TEST/3",
+        branch="master",
+    )
+    ClonePerServerHandler([c1, c2, c3]).run()
