@@ -11,6 +11,7 @@
 !/setup.py
 !/.github
 !/tests
+!/screenshots
 
 
 # Python gitignore
