@@ -1,0 +1,11 @@
+autofetch:
+  github.com:
+    user: GITHUB_USER
+    method: ssh
+    token: GITHUB_TOKEN
+    private-repos: true
+    path: "github.com/{user}/{repo}"
+
+
+other:
+  - git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git as kernel/linux
