@@ -2,6 +2,7 @@
 from rich import print
 
 import sys
+import os
 
 from ethclone.gitcmds import clone, GitCloneException, CloneProcess
 
@@ -16,19 +17,27 @@ def clone_repos(repos: list[str]):
     repos_existing = []
     repos_to_clone = []
     for repostr in repos:
-        result = re.search(r"([^\s]+)\s+as\s+(.+)", repostr)
+        result = re.search(r"([^\s]+)\s+at\s+([^\s]+)\s+as\s+(.+)", repostr)
         if result:
-            url = result.group(1)
-            dest = result.group(2)
+            base_url = result.group(1)
+            remote_src = result.group(2)
+            dest = result.group(3)
 
             dest_path = pathlib.Path(dest)
 
+            process = CloneProcess(base_url=base_url, remote_src=remote_src, dest=dest)
             if not dest_path.exists():
-                repos_to_clone.append(CloneProcess(url=url, dest=dest))
+                repos_to_clone.append(process)
             else:
-                repos_existing.append(CloneProcess(url=url, dest=dest))
+                repos_existing.append(process)
         else:
-            raise ValueError(repostr)
+            print(
+                f"[red]Error:[/]{os.linesep}"
+                f"  [red]Got[/] [yellow]'{repostr}[/]{os.linesep}"
+                "  [red]Expected[/] [green]BASEURL[/] [blue]at[/]"
+                " [green]REMOTE_SRC[/] [blue]as[/] [green]LOCAL_DEST_DIR[/]"
+            )
+            sys.exit(7)
 
     try:
         clone(repos_to_clone)
@@ -61,9 +70,11 @@ def handle_autofetch(y):
                 path = path.replace("{user}", user.login)
                 path = path.replace("{repo}", repo.name)
                 if v["method"] == "ssh":
-                    repos.append(f"git@github.com:{repo.full_name}.git as {path}")
+                    repos.append(f"git@github.com: at {repo.full_name}.git as {path}")
                 elif v["method"] == "https":
-                    repos.append(f"https://github.com/{repo.full_name}.git as {path}")
+                    repos.append(
+                        f"https://github.com at {repo.full_name}.git as {path}"
+                    )
                 else:
                     raise ValueError(v["method"])
         else:

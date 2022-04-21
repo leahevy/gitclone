@@ -8,4 +8,4 @@ autofetch:
 
 
 other:
-  - git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git as kernel/linux
+  - git://git.kernel.org/pub/scm/linux/kernel/git at torvalds/linux.git as kernel/linux

@@ -66,7 +66,8 @@ class GitRichProgress:
 
 @dataclass
 class CloneProcess:
-    url: str
+    base_url: str
+    remote_src: str
     dest: str
     branch: str | None = None
 
@@ -79,8 +80,12 @@ def _clonefunc(progress, repo, result):
         parent_dir.mkdir(parents=True, exist_ok=True)
 
         if not dest_path.exists():
+            if not (repo.base_url.endswith("/") or repo.base_url.endswith(":")):
+                url = repo.base_url + "/" + repo.remote_src
+            else:
+                url = repo.base_url + repo.remote_src
             git.Repo.clone_from(
-                url=repo.url,
+                url=url,
                 to_path=Path(repo.dest).resolve(),
                 progress=task,
                 branch=repo.branch,
@@ -120,9 +125,15 @@ def clone(repos: list[CloneProcess]) -> None:
 
 if __name__ == "__main__":
     c = CloneProcess(
-        url="https://github.com/Homebrew/brew", dest="TEST/1", branch="master"
+        base_url="https://github.com",
+        remote_src="Homebrew/brew",
+        dest="TEST/1",
+        branch="master",
     )
-    c2 = CloneProcess(
-        url="https://github.com/Homebrew/brew", dest="TEST/2", branch="master"
+    c = CloneProcess(
+        base_url="https://github.com",
+        remote_src="Homebrew/brew",
+        dest="TEST/2",
+        branch="master",
     )
     clone([c, c2])
