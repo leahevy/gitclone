@@ -14,7 +14,7 @@ Project to pull git repositories into directory structure
 
 <br/>
 <div align="center">
-    <img src="/screenshots/ethclone_iterm2.png" width="600px"</img> 
+    <img src="/img/ethclone_iterm2.png" width="600px"</img> 
 </div>
 <br/>
 
