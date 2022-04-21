@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from rich import print
 
 import sys
 
@@ -33,13 +34,13 @@ def clone_repos(repos: list[str]):
         clone(repos_to_clone)
     except KeyboardInterrupt:
         sys.exit(5)
-    except GitCloneException as e:
-        print(str(e))
+    except Exception as e:
+        print(f"[red]{str(e)}[/]")
         sys.exit(6)
     finally:
         if repos_existing:
             print(
-                f"Info: {len(repos_existing)} of {len(repos_existing) + len(repos_to_clone)} repositories already existed."
+                f"[yellow]Info:[/] {len(repos_existing)} of {len(repos_existing) + len(repos_to_clone)} repositories already existed."
             )
 
 
@@ -72,6 +73,7 @@ def handle_autofetch(y):
 
 
 def main():
+    print("[green]Reading configuration file: [blue]ethclone.yaml[/][/]")
     with open("ethclone.yaml", "r") as f:
         try:
             y = yaml.safe_load(f)
@@ -85,3 +87,4 @@ def main():
     if "other" in y:
         repos += y["other"]
     clone_repos(repos)
+    print("[green]DONE[/]")
