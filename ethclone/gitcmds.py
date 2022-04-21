@@ -95,6 +95,7 @@ def _clonefunc(progress, repo, result):
                 to_path=Path(repo.dest).resolve(),
                 progress=task,
                 branch=repo.branch,
+                multi_options=["--recurse-submodules"],
             )
         result[repo.dest] = None
     except Exception as e:
