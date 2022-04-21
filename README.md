@@ -12,6 +12,12 @@ Project to pull git repositories into directory structure
 [![macOS](https://svgshare.com/i/ZjP.svg)](https://svgshare.com/i/ZjP.svg)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
+<br/>
+<div align="center">
+    <img src="/screenshots/ethclone_iterm2.png" width="600px"</img> 
+</div>
+<br/>
+
 Install the python package with `pip install -e .`.
 
 Change values in file `ethclone.yaml` to your needs.
