@@ -51,7 +51,7 @@ def handle_autofetch(y):
                 visibility="all" if v["private-repos"] else "public"
             ):
                 path = v["path"]
-                path = path.replace("{user}", v["user"])
+                path = path.replace("{user}", user.login)
                 path = path.replace("{repo}", repo.name)
                 if v["method"] == "ssh":
                     repos.append(f"git@github.com:{repo.full_name}.git as {path}")
