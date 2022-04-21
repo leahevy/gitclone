@@ -19,9 +19,8 @@ def clone_repos(repos: list[str]):
         if result:
             url = result.group(1)
             dest = result.group(2)
+
             dest_path = pathlib.Path(dest)
-            parent_dir = dest_path.parents[0]
-            parent_dir.mkdir(parents=True, exist_ok=True)
 
             if not dest_path.exists():
                 repos_to_clone.append(CloneProcess(url=url, dest=dest))

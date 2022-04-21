@@ -74,12 +74,17 @@ class CloneProcess:
 def _clonefunc(progress, repo, result):
     task = progress.task(repo.dest)
     try:
-        git.Repo.clone_from(
-            url=repo.url,
-            to_path=Path(repo.dest).resolve(),
-            progress=task,
-            branch=repo.branch,
-        )
+        dest_path = Path(repo.dest)
+        parent_dir = dest_path.parents[0]
+        parent_dir.mkdir(parents=True, exist_ok=True)
+
+        if not dest_path.exists():
+            git.Repo.clone_from(
+                url=repo.url,
+                to_path=Path(repo.dest).resolve(),
+                progress=task,
+                branch=repo.branch,
+            )
     except Exception as e:
         task.stop()
         result[repo.dest] = None
