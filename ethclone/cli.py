@@ -11,30 +11,37 @@ import pathlib
 from github import Github
 
 
-def clone_repo(repostr: str):
-    result = re.search(r"([^\s]+)\s+as\s+(.+)", repostr)
-    if result:
-        url = result.group(1)
-        dest = result.group(2)
-        dest_path = pathlib.Path(dest)
-        parent_dir = dest_path.parents[0]
-        parent_dir.mkdir(parents=True, exist_ok=True)
+def clone_repos(repos: list[str]):
+    repos_existing = []
+    repos_to_clone = []
+    for repostr in repos:
+        result = re.search(r"([^\s]+)\s+as\s+(.+)", repostr)
+        if result:
+            url = result.group(1)
+            dest = result.group(2)
+            dest_path = pathlib.Path(dest)
+            parent_dir = dest_path.parents[0]
+            parent_dir.mkdir(parents=True, exist_ok=True)
 
-        if not dest_path.exists():
-            try:
-                print(f"Cloning {url} to {dest}")
-                clone([CloneProcess(url=url, dest=dest)])
-                print()
-            except KeyboardInterrupt:
-                sys.exit(5)
-            except GitCloneException as e:
-                print(str(e))
-                sys.exit(6)
+            if not dest_path.exists():
+                repos_to_clone.append(CloneProcess(url=url, dest=dest))
+            else:
+                repos_existing.append(CloneProcess(url=url, dest=dest))
         else:
-            print(f"Repository {dest} exists")
+            raise ValueError(repostr)
 
-    else:
-        raise ValueError(repostr)
+    try:
+        clone(repos_to_clone)
+    except KeyboardInterrupt:
+        sys.exit(5)
+    except GitCloneException as e:
+        print(str(e))
+        sys.exit(6)
+    finally:
+        if repos_existing:
+            print(
+                f"Info: {len(repos_existing)} of {len(repos_existing) + len(repos_to_clone)} repositories already existed."
+            )
 
 
 def handle_autofetch(y):
@@ -78,5 +85,4 @@ def main():
         repos += handle_autofetch(y["autofetch"])
     if "other" in y:
         repos += y["other"]
-    for repo in repos:
-        clone_repo(repo)
+    clone_repos(repos)
