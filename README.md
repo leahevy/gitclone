@@ -18,15 +18,15 @@
 [![macOS](https://svgshare.com/i/ZjP.svg)](https://svgshare.com/i/ZjP.svg)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
+# 💡 About 
+
+**Gitclone** allows you to *manage* multiple **git** repositories in a *directory structure*.
+
 <br/>
 <div align="center">
     <img src="/img/terminalizer/demo.gif" width="600px"</img> 
 </div>
 <br/>
-
-# 💡 About 
-
-**Gitclone** allows you to *manage* multiple **git** repositories in a *directory structure*.
 
 Currently this is **still in heavy development**. This Readme will be updated when it is ready. Use at your own risk at this moment.
 
