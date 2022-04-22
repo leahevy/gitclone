@@ -18,7 +18,7 @@
 
 <br/>
 <div align="center">
-    <img src="/img/gitclone_iterm2.png" width="600px"</img> 
+    <img src="/img/gitclone_terminalizer.gif" width="600px"</img> 
 </div>
 <br/>
 
