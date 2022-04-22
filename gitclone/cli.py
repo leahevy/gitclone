@@ -3,6 +3,7 @@ from rich import print
 
 import sys
 import os
+import shutil
 
 from gitclone.gitcmds import ClonePerServerHandler, CloneProcess
 
@@ -80,6 +81,9 @@ def handle_autofetch(y):
 
 def main():
     try:
+        if not shutil.which("git"):
+            raise ValueError("Git is not installed")
+
         print("[green]Reading configuration file: [blue]gitclone.yaml[/][/]")
         with open("gitclone.yaml", "r") as f:
             y = yaml.safe_load(f)
