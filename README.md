@@ -1,9 +1,9 @@
 <div align="center">
-    <img src="/img/logo.gif" width="600px"</img> 
+    <img src="/img/gitclone.gif" width="350px"</img> 
 </div>
 <br/>
 
-Project to pull git repositories into directory structure
+**Gitclone** allows you to *manage* multiple **git** repositories in a *directory structure*.
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/evyli/ethclone/graphs/commit-activity)
 [![Build](https://github.com/evyli/ethclone/workflows/Build/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/build.yml)
