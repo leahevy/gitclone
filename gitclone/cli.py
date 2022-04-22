@@ -7,6 +7,8 @@ import shutil
 import re
 import pathlib
 
+from collections import OrderedDict
+
 from gitclone.gitcmds import ClonePerServerHandler, CloneProcess
 
 import yaml
@@ -16,6 +18,8 @@ from github import Github
 
 
 def clone_repos(repos: list[str]):
+    repos = list(OrderedDict.fromkeys(repos))
+
     repos_existing = []
     repos_to_clone = []
     for repostr in repos:
