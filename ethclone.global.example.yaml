@@ -1,4 +1,4 @@
-dest: ./
+dest: ~/src
 
 autofetch:
   github.com:

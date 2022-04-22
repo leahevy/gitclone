@@ -1,4 +1,8 @@
-# ethclone
+<div align="center">
+    <img src="/img/logo.gif" width="600px"</img> 
+</div>
+<br/>
+
 Project to pull git repositories into directory structure
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/evyli/ethclone/graphs/commit-activity)
