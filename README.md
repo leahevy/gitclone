@@ -3,7 +3,9 @@
 </div>
 <br/>
 
-**Gitclone** allows you to *manage* multiple **git** repositories in a *directory structure*.
+<p align="center">
+<u><b> The git clone utility. </b></u><br><b>Manages multiple git repositories with ease.</b> 
+</p>
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/evyli/ethclone/graphs/commit-activity)
 [![Build](https://github.com/evyli/gitclone/workflows/Build/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/build.yml)
@@ -18,17 +20,45 @@
 
 <br/>
 <div align="center">
-    <img src="/img/gitclone_terminalizer.gif" width="600px"</img> 
+    <img src="/img/terminalizer/demo.gif" width="600px"</img> 
 </div>
 <br/>
 
-Install the python package with `pip install -e .`.
+# 💡 About 
 
-Change values in file `gitclone.yaml` to your needs.
+**Gitclone** allows you to *manage* multiple **git** repositories in a *directory structure*.
 
-Then run `gitclone` from root src root directory.
+Currently this is **still in heavy development**. This Readme will be updated when it is ready. Use at your own risk at this moment.
 
-## License
+# 💻 Installation 
+
+Install the python package with `pip install -e .`. It will be published on **pip** as soon as it is ready.
+
+# 💫 Features
+
+- Clone specified *git repositories* in local directory.
+- Use a local *configuration* file.
+- Autofetch with **github.com** to automatically clone all your owned repositories, including *private* ones if you specify an API token.
+
+# ⌨️ Configuration
+
+Change values in directory local file `gitclone.yaml` to your needs. You can copy the file from `gitclone.example.yaml`. A config generation is under development.
+
+# 😎 Usage
+
+Run `gitclone` from the same directory. Your configured git repositories will be cloned.
+
+# 🔮 Planned Features
+
+- **Pull** in existing directories.
+- **Find** local git directories.
+- **Config generation**.
+- Better handling when stdout is a **pipe**.
+- Using of **credential stores** for used API tokens.
+- Better **CLI**.
+
+# 📝 License
+
 Copyright (C)  2022 Leah Lackner
 
 This program is free software: you can redistribute it and/or modify
