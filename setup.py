@@ -6,7 +6,7 @@ with open("requirements.txt", "r") as f:
 
 setup_info = dict(
     name="gitclone",
-    version="0.0.1",
+    version="0.0.2",
     author="Leah Lackner",
     author_email="leah.lackner+github@gmail.com",
     url="https://github.com/evyli/gitclone",
