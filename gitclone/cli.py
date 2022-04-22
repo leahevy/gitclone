@@ -4,7 +4,7 @@ from rich import print
 import sys
 import os
 
-from ethclone.gitcmds import ClonePerServerHandler, CloneProcess
+from gitclone.gitcmds import ClonePerServerHandler, CloneProcess
 
 import yaml
 import re
@@ -80,8 +80,8 @@ def handle_autofetch(y):
 
 def main():
     try:
-        print("[green]Reading configuration file: [blue]ethclone.yaml[/][/]")
-        with open("ethclone.yaml", "r") as f:
+        print("[green]Reading configuration file: [blue]gitclone.yaml[/][/]")
+        with open("gitclone.yaml", "r") as f:
             y = yaml.safe_load(f)
 
             repos = []

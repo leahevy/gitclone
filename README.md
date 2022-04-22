@@ -6,10 +6,10 @@
 **Gitclone** allows you to *manage* multiple **git** repositories in a *directory structure*.
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/evyli/ethclone/graphs/commit-activity)
-[![Build](https://github.com/evyli/ethclone/workflows/Build/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/build.yml)
-[![Tests](https://github.com/evyli/ethclone/workflows/Tests/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/tests.yml)
-[![Style](https://github.com/evyli/ethclone/workflows/Style/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/style.yml)
-[![Style](https://github.com/evyli/ethclone/workflows/Analysis/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/analysis.yml)
+[![Build](https://github.com/evyli/gitclone/workflows/Build/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/build.yml)
+[![Tests](https://github.com/evyli/gitclone/workflows/Tests/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/tests.yml)
+[![Style](https://github.com/evyli/gitclone/workflows/Style/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/style.yml)
+[![Style](https://github.com/evyli/gitclone/workflows/Analysis/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/analysis.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
@@ -18,15 +18,15 @@
 
 <br/>
 <div align="center">
-    <img src="/img/ethclone_iterm2.png" width="600px"</img> 
+    <img src="/img/gitclone_iterm2.png" width="600px"</img> 
 </div>
 <br/>
 
 Install the python package with `pip install -e .`.
 
-Change values in file `ethclone.yaml` to your needs.
+Change values in file `gitclone.yaml` to your needs.
 
-Then run `ethclone` from root src root directory.
+Then run `gitclone` from root src root directory.
 
 ## License
 Copyright (C)  2022 Leah Lackner

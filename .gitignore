@@ -2,10 +2,10 @@
 # project directory for testing purposes.
 /*
 !/.vscode/
-!/ethclone
+!/gitclone
 !/.gitignore
-!/ethclone.example.yaml
-!/ethclone.global.example.yaml
+!/gitclone.example.yaml
+!/gitclone.global.example.yaml
 !/README.md
 !/LICENSE
 !/requirements.txt

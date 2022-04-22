@@ -5,15 +5,15 @@ with open("requirements.txt", "r") as f:
     required_packages = f.read().strip().split()
 
 setup_info = dict(
-    name="ethclone",
+    name="gitclone",
     version="0.0.1",
     author="Leah Lackner",
     author_email="leah.lackner+github@gmail.com",
-    url="https://github.com/evyli/ethclone",
+    url="https://github.com/evyli/gitclone",
     project_urls={
-        "Documentation": "https://github.com/evyli/ethclone/blob/master/README.md#ethclone",
-        "Source": "https://github.com/evyli/ethclone",
-        "Tracker": "https://github.com/evyli/ethclone/issues",
+        "Documentation": "https://github.com/evyli/gitclone/blob/master/README.md#ethclone",
+        "Source": "https://github.com/evyli/gitclone",
+        "Tracker": "https://github.com/evyli/gitclone/issues",
     },
     description="Project to pull git repositories into directory structure",
     long_description=open("README.md").read(),
@@ -32,7 +32,7 @@ setup_info = dict(
     ],
     zip_safe=True,
     entry_points={
-        "console_scripts": ["ethclone=ethclone.cli:main"],
+        "console_scripts": ["gitclone=gitclone.cli:main"],
     },
     package_dir={"": "."},
     packages=find_packages(where="."),
