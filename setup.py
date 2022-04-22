@@ -1,6 +1,32 @@
 #!/usr/bin/env python
 from setuptools import find_packages, setup
 
+import pathlib
+import distutils.cmd
+import subprocess
+
+
+class TestCommand(distutils.cmd.Command):
+    description = "Run pytest with coverage"
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        command = [
+            "pytest",
+            "--cov-report",
+            "html",
+            f"--cov=gitclone",
+            str(pathlib.Path("tests").resolve()),
+        ]
+        subprocess.check_call(command)
+
+
 with open("requirements.txt", "r") as f:
     required_packages = f.read().strip().split()
 
@@ -37,5 +63,8 @@ setup_info = dict(
     package_dir={"": "."},
     packages=find_packages(where="."),
     install_requires=required_packages,
+    cmdclass={
+        "test": TestCommand,
+    },
 )
 setup(**setup_info)
