@@ -18,6 +18,8 @@
 [![macOS](https://svgshare.com/i/ZjP.svg)](https://svgshare.com/i/ZjP.svg)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
+---
+
 # 💡 About 
 
 **Gitclone** allows you to *manage* multiple **git** repositories in a *directory structure*.
@@ -30,9 +32,22 @@
 
 Currently this is **still in heavy development**. This Readme will be updated when it is ready. Use at your own risk at this moment.
 
+---
+
+# Table of Contents
+
+* [Installation](#-installation)
+* [Features](#-features)
+* [Configuration](#%EF%B8%8F-configuration)
+* [Usage](#-usage)
+* [Planned Features](#-planned-features)
+* [License](#-license)
+
 # 💻 Installation 
 
 Install the python package with `pip install -e .`. It will be published on **pip** as soon as it is ready.
+
+---
 
 # 💫 Features
 
@@ -40,13 +55,19 @@ Install the python package with `pip install -e .`. It will be published on **pi
 - Use a local *configuration* file.
 - Autofetch with **github.com** to automatically clone all your owned repositories, including *private* ones if you specify an API token.
 
+---
+
 # ⌨️ Configuration
 
 Change values in directory local file `gitclone.yaml` to your needs. You can copy the file from `gitclone.example.yaml`. A config generation is under development.
 
+---
+
 # 😎 Usage
 
 Run `gitclone` from the same directory. Your configured git repositories will be cloned.
+
+---
 
 # 🔮 Planned Features
 
@@ -56,6 +77,8 @@ Run `gitclone` from the same directory. Your configured git repositories will be
 - Better handling when stdout is a **pipe**.
 - Using of **credential stores** for used API tokens.
 - Better **CLI**.
+
+---
 
 # 📝 License
 
