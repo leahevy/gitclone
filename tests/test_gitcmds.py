@@ -1,4 +1,4 @@
-import ethclone.gitcmds as gitcmds
+import gitclone.gitcmds as gitcmds
 
 
 def test_example():
