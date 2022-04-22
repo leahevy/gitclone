@@ -4,12 +4,13 @@ from rich import print
 import sys
 import os
 import shutil
+import re
+import pathlib
 
 from gitclone.gitcmds import ClonePerServerHandler, CloneProcess
 
 import yaml
-import re
-import pathlib
+from yamlable import YamlAble, yaml_info
 
 from github import Github
 
@@ -79,6 +80,13 @@ def handle_autofetch(y):
     return repos
 
 
+@yaml_info(yaml_tag_ns="gitclone")
+class Config(YamlAble):
+    def __init__(self, autofetch={}, other=None, dest="."):
+        self.autofetch = autofetch
+        self.other = other
+
+
 def main():
     try:
         if not shutil.which("git"):
@@ -86,13 +94,12 @@ def main():
 
         print("[green]Reading configuration file: [blue]gitclone.yaml[/][/]")
         with open("gitclone.yaml", "r") as f:
-            y = yaml.safe_load(f)
+            config_str = os.linesep.join(["--- !yamlable/gitclone.Config", f.read()])
+            config = yaml.safe_load(config_str)
 
             repos = []
-            if "autofetch" in y:
-                repos += handle_autofetch(y["autofetch"])
-            if "other" in y:
-                repos += y["other"]
+            repos += handle_autofetch(config.autofetch)
+            repos += config.other
             clone_repos(repos)
             print("[green]DONE[/]")
     except KeyboardInterrupt:
