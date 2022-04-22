@@ -20,7 +20,7 @@ def cwd(path):
         os.chdir(oldpwd)
 
 
-def test_cli_main():
+def test_cli_main_repos():
     with tempfile.TemporaryDirectory() as tmpdirname:
         with cwd(tmpdirname):
             with open("gitclone.yaml", "w") as f:
@@ -34,3 +34,25 @@ def test_cli_main():
                 )
             cli.main()
             assert os.path.exists(os.path.join("gitclone", ".git"))
+
+
+def test_cli_main_autofetch_github():
+    with tempfile.TemporaryDirectory() as tmpdirname:
+        with cwd(tmpdirname):
+            with open("gitclone.yaml", "w") as f:
+                f.write(
+                    textwrap.dedent(
+                        """\
+                    autofetch:
+                        github.com:
+                            user: evyli
+                            method: https
+                            private-repos: false
+                            path: "github.com/{user}/{repo}"
+                    """
+                    )
+                )
+            cli.main()
+            assert os.path.exists(
+                os.path.join("github.com", "evyli", "gitclone", ".git")
+            )

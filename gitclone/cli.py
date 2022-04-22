@@ -57,12 +57,14 @@ def handle_autofetch(y):
             if "token" in v:
                 g = Github(v["token"])
                 user = g.get_user()
+                remote_repos = user.get_repos(
+                    visibility="all" if v["private-repos"] else "public"
+                )
             else:
                 g = Github()
                 user = g.get_user(v["user"])
-            for repo in user.get_repos(
-                visibility="all" if v["private-repos"] else "public"
-            ):
+                remote_repos = user.get_repos()
+            for repo in remote_repos:
                 path = v["path"]
                 path = path.replace("{user}", user.login)
                 path = path.replace("{repo}", repo.name)
@@ -99,7 +101,7 @@ def main():
 
             repos = []
             repos += handle_autofetch(config.autofetch)
-            repos += config.other
+            repos += config.other or []
             clone_repos(repos)
             print("[green]DONE[/]")
     except KeyboardInterrupt:
