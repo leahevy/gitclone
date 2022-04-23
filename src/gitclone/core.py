@@ -18,13 +18,19 @@ from gitclone.exceptions import (
 )
 
 
-def clone_repos(repos: list[str]):
+def clone_repos(config, repos: list[str]):
     repos = list(OrderedDict.fromkeys(repos))
 
     repos_existing = []
     repos_to_clone = []
     for repostr in repos:
         baseurl, path, branch, dest = parse_url(repostr)
+
+        dest = os.path.expanduser(dest)
+        if os.path.normpath(dest) != ".":
+            dest_root = os.path.expanduser(config.dest)
+            dest = os.path.join(dest_root, dest)
+
         dest_path = pathlib.Path(dest)
 
         process = CloneProcess(
@@ -81,7 +87,9 @@ def clone_from_config(repos=None, verbose=False, debug=False):
     if not shutil.which("git"):
         raise CoreException("Git is not installed")
 
-    if not repos:
+    if repos:
+        config = Config()
+    else:
         repos = []
         if os.path.exists("gitclone.yaml"):
             print("[green]Reading configuration file: [blue]gitclone.yaml[/][/]")
@@ -99,7 +107,7 @@ def clone_from_config(repos=None, verbose=False, debug=False):
                     if line.strip()
                 ]
     if repos:
-        clone_repos(repos)
+        clone_repos(config, repos)
         print("[green]DONE[/]")
     else:
         print("[orange]No repositories were specified, nothing to do... exiting[/]")
