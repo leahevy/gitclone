@@ -31,5 +31,9 @@ class CoreException(GitcloneException):
     pass
 
 
+class GitOperationException(GitcloneException):
+    pass
+
+
 class RepositoryFormatException(GitcloneException):
     values = ["repostr"]

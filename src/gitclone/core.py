@@ -71,26 +71,33 @@ def handle_autofetch(config):
     return repos
 
 
-def clone():
+def clone_single(repo_tuple, verbose=False, debug=False):
+    return clone_from_config(
+        [f"{repo_tuple[0]} {repo_tuple[1]}"], verbose=verbose, debug=debug
+    )
+
+
+def clone_from_config(repos=None, verbose=False, debug=False):
     if not shutil.which("git"):
         raise CoreException("Git is not installed")
 
-    repos = []
-    if os.path.exists("gitclone.yaml"):
-        print("[green]Reading configuration file: [blue]gitclone.yaml[/][/]")
-        config = Config.from_path("gitclone.yaml")
-        repos += handle_autofetch(config)
-        repos += config.other
-    if os.path.exists("gitclone.txt"):
-        print(
-            "[green]Reading additional repositories from file: [blue]gitclone.txt[/][/]"
-        )
-        with open("gitclone.txt", "r") as f:
-            repos += [
-                line.strip()
-                for line in f.read().strip().split(os.linesep)
-                if line.strip()
-            ]
+    if not repos:
+        repos = []
+        if os.path.exists("gitclone.yaml"):
+            print("[green]Reading configuration file: [blue]gitclone.yaml[/][/]")
+            config = Config.from_path("gitclone.yaml")
+            repos += handle_autofetch(config)
+            repos += config.other
+        if os.path.exists("gitclone.txt"):
+            print(
+                "[green]Reading additional repositories from file: [blue]gitclone.txt[/][/]"
+            )
+            with open("gitclone.txt", "r") as f:
+                repos += [
+                    line.strip()
+                    for line in f.read().strip().split(os.linesep)
+                    if line.strip()
+                ]
     if repos:
         clone_repos(repos)
         print("[green]DONE[/]")

@@ -10,6 +10,8 @@ from pathlib import Path
 from git import RemoteProgress
 from git import Repo
 
+from gitclone.exceptions import GitOperationException
+
 
 class GitRichProgress:
     max_name_length = 20
@@ -106,12 +108,10 @@ def _clonefunc(progress, repo, result):
         result[repo.dest] = e
 
 
-class GitCloneException(Exception):
-    def __init__(self, exceptions: list[Exception]):
-        self.exceptions = exceptions
-
-    def __str__(self):
-        return os.linesep.join([str(e) for e in self.exceptions if e is not None])
+def git_error_to_str(giterror):
+    if "exit code(128)" in str(giterror):
+        return str(giterror) + "\n" + "  Remote repository does not exist."
+    return str(giterror)
 
 
 class ClonePerServerHandler:
@@ -172,4 +172,7 @@ class ClonePerServerHandler:
 
         for _, e in result.items():
             if e is not None:
-                raise GitCloneException(result.values())
+                raise GitOperationException(
+                    "The following git error occurred:\n"
+                    + "\n".join([git_error_to_str(e) for e in result.values()])
+                )

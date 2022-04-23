@@ -1,7 +1,7 @@
 import tempfile
 import textwrap
 
-from gitclone.core import clone
+from gitclone.core import clone_from_config as clone
 
 from .utils import *
 
