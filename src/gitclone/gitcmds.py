@@ -173,25 +173,3 @@ class ClonePerServerHandler:
         for _, e in result.items():
             if e is not None:
                 raise GitCloneException(result.values())
-
-
-if __name__ == "__main__":
-    c1 = CloneProcess(
-        base_url="https://github.com",
-        remote_src="Homebrew/brew",
-        dest="TEST/1",
-        branch="master",
-    )
-    c2 = CloneProcess(
-        base_url="https://github.com",
-        remote_src="Homebrew/brew",
-        dest="TEST/2",
-        branch="master",
-    )
-    c3 = CloneProcess(
-        base_url="https://github.com",
-        remote_src="Homebrew/brew",
-        dest="TEST/3",
-        branch="master",
-    )
-    ClonePerServerHandler([c1, c2, c3]).run()
