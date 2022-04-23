@@ -4,3 +4,4 @@ ipython==8.2.0
 pytest-cov==3.0.0
 twine==4.0.0
 anybadge==1.9.0
+mypy==0.942

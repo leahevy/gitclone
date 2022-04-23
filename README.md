@@ -8,11 +8,12 @@
 </p>
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/evyli/ethclone/graphs/commit-activity)
-[![Build](https://github.com/evyli/gitclone/workflows/Build/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/build.yml)
-[![Tests](https://github.com/evyli/gitclone/workflows/Tests/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/tests.yml)
-[![Style](https://github.com/evyli/gitclone/workflows/Style/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/style.yml)
-[![Analysis](https://github.com/evyli/gitclone/workflows/Analysis/badge.svg)](https://github.com/evyli/ethclone/actions/workflows/analysis.yml)
+[![Build](https://github.com/evyli/gitclone/actions/workflows/build.yml/badge.svg)](https://github.com/evyli/gitclone/actions/workflows/build.yml)
+[![Tests](https://github.com/evyli/gitclone/actions/workflows/tests.yml/badge.svg)](https://github.com/evyli/gitclone/actions/workflows/tests.yml)
 [![Test coverage](https://raw.githubusercontent.com/evyli/gitclone/master/img/coverage.svg)](https://github.com/evyli/gitclone/tree/master/tests)
+[![Typechecks](https://github.com/evyli/gitclone/actions/workflows/typechecks.yml/badge.svg)](https://github.com/evyli/gitclone/actions/workflows/typechecks.yml)
+[![Style](https://github.com/evyli/gitclone/actions/workflows/style.yml/badge.svg)](https://github.com/evyli/gitclone/actions/workflows/style.yml)
+[![Analysis](https://github.com/evyli/gitclone/actions/workflows/analysis.yml/badge.svg)](https://github.com/evyli/gitclone/actions/workflows/analysis.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
