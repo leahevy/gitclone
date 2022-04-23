@@ -9,6 +9,7 @@
 !/README.md
 !/LICENSE
 !/CONTRIBUTING.md
+!/manifest.in
 !/requirements.txt
 !/requirements-dev.txt
 !/setup.py
