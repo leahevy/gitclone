@@ -7,6 +7,9 @@ import subprocess
 import os
 
 
+os.chdir(os.path.dirname(__file__))
+
+
 class TestCommand(distutils.cmd.Command):
     description = "Run pytest with coverage"
     user_options = []
