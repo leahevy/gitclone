@@ -98,16 +98,32 @@ def main():
         if not shutil.which("git"):
             raise ValueError("Git is not installed")
 
-        print("[green]Reading configuration file: [blue]gitclone.yaml[/][/]")
-        with open("gitclone.yaml", "r") as f:
-            config_str = os.linesep.join(["--- !yamlable/gitclone.Config", f.read()])
-            config = yaml.safe_load(config_str)
+        repos = []
+        if os.path.exists("gitclone.yaml"):
+            print("[green]Reading configuration file: [blue]gitclone.yaml[/][/]")
+            with open("gitclone.yaml", "r") as f:
+                config_str = os.linesep.join(
+                    ["--- !yamlable/gitclone.Config", f.read()]
+                )
+                config = yaml.safe_load(config_str)
 
-            repos = []
-            repos += handle_autofetch(config.autofetch)
-            repos += config.other or []
+                repos += handle_autofetch(config.autofetch)
+                repos += config.other or []
+        if os.path.exists("gitclone.txt"):
+            print(
+                "[green]Reading additional repositories from file: [blue]gitclone.txt[/][/]"
+            )
+            with open("gitclone.txt", "r") as f:
+                repos += [
+                    line.strip()
+                    for line in f.read().strip().split(os.linesep)
+                    if line.strip()
+                ]
+        if repos:
             clone_repos(repos)
             print("[green]DONE[/]")
+        else:
+            print("[orange]No repositories were specified, nothing to do... exiting[/]")
     except KeyboardInterrupt:
         print(f"[red]Aborted by user...[/]")
         sys.exit(5)
