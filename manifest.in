@@ -3,5 +3,5 @@ include CONTRIBUTING.md
 include LICENSE
 include gitclone.example.yaml
 include gitclone.global.example.yaml
-recursive-include gitclone *
+recursive-include src *
 recursive-include img *

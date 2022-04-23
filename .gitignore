@@ -2,7 +2,7 @@
 # project directory for testing purposes.
 /*
 !/.vscode/
-!/gitclone
+!/src
 !/.gitignore
 !/gitclone.example.yaml
 !/gitclone.global.example.yaml

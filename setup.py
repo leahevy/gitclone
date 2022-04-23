@@ -60,8 +60,8 @@ setup_info = dict(
     entry_points={
         "console_scripts": ["gitclone=gitclone.cli:main"],
     },
-    package_dir={"": "."},
-    packages=find_packages(where="."),
+    package_dir={"": "src"},
+    packages=find_packages(where="src"),
     install_requires=required_packages,
     cmdclass={
         "test": TestCommand,
