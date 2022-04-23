@@ -1,3 +1,5 @@
+import os
+
 from pydantic import BaseModel, validator, root_validator, ValidationError
 from pydantic_yaml import YamlModel
 
@@ -38,6 +40,21 @@ class AuofetchConfig(BaseConfig):
     github: GithubAutofetchConfig | None = None
 
 
+class TextConfig(BaseConfig):
+    repositories: list[str] = []
+
+    @classmethod
+    def from_path(cls, path):
+        with open(path, "r") as f:
+            return cls(
+                [
+                    line.strip()
+                    for line in f.read().strip().split(os.linesep)
+                    if line.strip()
+                ]
+            )
+
+
 class Config(BaseConfig):
     dest: str = "."
     autofetch: list[AuofetchConfig] = []
@@ -50,3 +67,8 @@ class Config(BaseConfig):
                 return cls.parse_raw(f.read())
         except ValidationError as e:
             raise GitConfigurationException(e)
+
+
+class GlobalConfig(BaseConfig):
+    config: Config = Config()
+    textconfig: TextConfig = TextConfig()

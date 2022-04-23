@@ -9,7 +9,7 @@ import yaml
 
 from github import Github
 
-from gitclone.config import Config
+from gitclone.config import GlobalConfig, TextConfig, Config
 from gitclone.utils import print
 from gitclone.urls import parse_url
 from gitclone.gitcmds import ClonePerServerHandler, CloneProcess
@@ -87,26 +87,23 @@ def clone_from_config(repos=None, verbose=False, debug=False):
     if not shutil.which("git"):
         raise CoreException("Git is not installed")
 
-    config = Config()
+    globalconfig = GlobalConfig()
     if not repos:
         repos = []
         if os.path.exists("gitclone.yaml"):
             print("[green]Reading configuration file: [blue]gitclone.yaml[/][/]")
-            config = Config.from_path("gitclone.yaml")
-            repos += handle_autofetch(config)
-            repos += config.repositories
+            globalconfig.config = Config.from_path("gitclone.yaml")
+            repos += handle_autofetch(globalconfig.config)
+            repos += globalconfig.config.repositories
         if os.path.exists("gitclone.txt"):
             print(
                 "[green]Reading additional repositories from file: [blue]gitclone.txt[/][/]"
             )
             with open("gitclone.txt", "r") as f:
-                repos += [
-                    line.strip()
-                    for line in f.read().strip().split(os.linesep)
-                    if line.strip()
-                ]
+                globalconfig.textconfig = TextConfig.from_path("gitclone.txt")
+            repos += globalconfig.textconfig.repositories
     if repos:
-        clone_repos(config, repos)
+        clone_repos(globalconfig.config, repos)
         print("[green]DONE[/]")
     else:
         print("[orange]No repositories were specified, nothing to do... exiting[/]")
