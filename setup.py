@@ -4,6 +4,7 @@ from setuptools import find_packages, setup
 import pathlib
 import distutils.cmd
 import subprocess
+import os
 
 
 class TestCommand(distutils.cmd.Command):
@@ -25,6 +26,23 @@ class TestCommand(distutils.cmd.Command):
             str(pathlib.Path("tests").resolve()),
         ]
         subprocess.check_call(command)
+
+        import anybadge
+        from coverage import coverage
+
+        thresholds = {20: "red", 40: "orange", 60: "yellow", 100: "green"}
+        cov = coverage()
+        cov.load()
+        total = int(cov.report())
+
+        badge = anybadge.Badge(
+            "Test coverage", total, value_suffix="%", thresholds=thresholds
+        )
+        try:
+            os.remove(os.path.join("img", "coverage.svg"))
+        except Exception:
+            pass
+        badge.write_badge(os.path.join("img", "coverage.svg"))
 
 
 with open("requirements.txt", "r") as f:
