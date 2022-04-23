@@ -5,3 +5,4 @@ include gitclone.example.yaml
 include gitclone.global.example.yaml
 recursive-include src *
 recursive-include img *
+recursive-include examples *
