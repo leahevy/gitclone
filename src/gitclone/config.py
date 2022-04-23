@@ -47,7 +47,7 @@ class TextConfig(BaseConfig):
     def from_path(cls, path):
         with open(path, "r") as f:
             return cls(
-                [
+                repositories=[
                     line.strip()
                     for line in f.read().strip().split(os.linesep)
                     if line.strip()
