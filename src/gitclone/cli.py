@@ -14,6 +14,11 @@ from yamlable import YamlAble, yaml_info
 from github import Github
 
 from gitclone.gitcmds import ClonePerServerHandler, CloneProcess
+from gitclone.exceptions import (
+    RepositoryFormatException,
+    CoreException,
+    ConfigException,
+)
 
 
 def rpartition(s, d):
@@ -72,10 +77,11 @@ def parse_url(repostr):
         dest = dest[: len(dest) - len(".git")]
 
     if not baseurl or not path:
-        raise ValueError(
+        raise RepositoryFormatException(
             f"[red]Error:[/]{os.linesep}"
             f"  [red]Got invalid repository url[/] [yellow]'{repostr}'[/]{os.linesep}"
-            "  [red]Expected[/] [green]url[/][blue]@[/][green]branch[/] or just [green]url[/]"
+            "  [red]Expected[/] [green]url[/][blue]@[/][green]branch[/] or just [green]url[/]",
+            repostr,
         )
 
     return (baseurl, path, branch, dest)
@@ -129,7 +135,13 @@ def handle_autofetch(y):
                 elif v["method"] == "https":
                     repos.append(f"https://github.com/{repo.full_name}.git {path}")
                 else:
-                    raise ValueError(v["method"])
+                    raise ConfigException(
+                        f"Unknown autofetch method for github.com: {v['method']}",
+                        file="Unknown",
+                        key="autofetch.github.com.method",
+                        value=v["method"],
+                        expected=["ssh", "https"],
+                    )
         else:
             print(f"Unsupported autofetch: {k}", file=sys.stderr)
             sys.exit(2)
@@ -146,7 +158,7 @@ class Config(YamlAble):
 def main():
     try:
         if not shutil.which("git"):
-            raise ValueError("Git is not installed")
+            raise CoreException("Git is not installed")
 
         repos = []
         if os.path.exists("gitclone.yaml"):
