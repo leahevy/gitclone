@@ -1,12 +1,13 @@
 dest: ~/src
 
 autofetch:
-  github.com:
-    user: GITHUB_USER
-    method: ssh
-    token: GITHUB_TOKEN
-    private-repos: true
-    path: "github.com/{user}/{repo}"
+  -
+    github:
+      user: GITHUB_USER
+      method: ssh
+      token: GITHUB_TOKEN
+      private: true
+      path: "github.com/{user}/{repo}"
 
 
 other:

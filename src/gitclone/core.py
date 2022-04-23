@@ -15,7 +15,6 @@ from gitclone.urls import parse_url
 from gitclone.gitcmds import ClonePerServerHandler, CloneProcess
 from gitclone.exceptions import (
     CoreException,
-    ConfigException,
 )
 
 
@@ -44,39 +43,31 @@ def clone_repos(repos: list[str]):
             )
 
 
-def handle_autofetch(y):
+def handle_autofetch(config):
     repos = []
-    for k, v in y.items():
-        if k == "github.com":
-            if "token" in v:
-                g = Github(v["token"])
+    for autofetch in config.autofetch:
+        if autofetch.github:
+            github = autofetch.github
+            if github.token:
+                g = Github(github.token)
                 user = g.get_user()
                 remote_repos = user.get_repos(
-                    visibility="all" if v["private-repos"] else "public"
+                    visibility="all" if github.private else "public"
                 )
             else:
                 g = Github()
-                user = g.get_user(v["user"])
+                user = g.get_user(github.user)
                 remote_repos = user.get_repos()
             for repo in remote_repos:
-                path = v["path"]
+                path = github.path
                 path = path.replace("{user}", user.login)
                 path = path.replace("{repo}", repo.name)
-                if v["method"] == "ssh":
+                if github.method == "ssh":
                     repos.append(f"git@github.com:{repo.full_name}.git {path}")
-                elif v["method"] == "https":
+                elif github.method == "https":
                     repos.append(f"https://github.com/{repo.full_name}.git {path}")
                 else:
-                    raise ConfigException(
-                        f"Unknown autofetch method for github.com: {v['method']}",
-                        file="Unknown",
-                        key="autofetch.github.com.method",
-                        value=v["method"],
-                        expected=["ssh", "https"],
-                    )
-        else:
-            print(f"Unsupported autofetch: {k}", file=sys.stderr)
-            sys.exit(2)
+                    assert False
     return repos
 
 
@@ -87,12 +78,9 @@ def clone():
     repos = []
     if os.path.exists("gitclone.yaml"):
         print("[green]Reading configuration file: [blue]gitclone.yaml[/][/]")
-        with open("gitclone.yaml", "r") as f:
-            config_str = os.linesep.join(["--- !yamlable/gitclone.Config", f.read()])
-            config = yaml.safe_load(config_str)
-
-            repos += handle_autofetch(config.autofetch)
-            repos += config.other or []
+        config = Config.from_path("gitclone.yaml")
+        repos += handle_autofetch(config)
+        repos += config.other
     if os.path.exists("gitclone.txt"):
         print(
             "[green]Reading additional repositories from file: [blue]gitclone.txt[/][/]"

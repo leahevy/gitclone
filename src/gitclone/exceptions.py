@@ -33,7 +33,3 @@ class CoreException(GitcloneException):
 
 class RepositoryFormatException(GitcloneException):
     values = ["repostr"]
-
-
-class ConfigException(GitcloneException):
-    values = ["file", "key", "value", "expected"]

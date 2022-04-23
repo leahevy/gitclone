@@ -30,11 +30,10 @@ def test_core_main_autofetch_github():
                     textwrap.dedent(
                         """\
                     autofetch:
-                        github.com:
-                            user: evyli
-                            method: https
-                            private-repos: false
-                            path: "github.com/{user}/{repo}"
+                        -
+                            github:
+                                user: evyli
+                                path: "github.com/{user}/{repo}"
                     """
                     )
                 )
