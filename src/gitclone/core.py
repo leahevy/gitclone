@@ -87,9 +87,8 @@ def clone_from_config(repos=None, verbose=False, debug=False):
     if not shutil.which("git"):
         raise CoreException("Git is not installed")
 
-    if repos:
-        config = Config()
-    else:
+    config = Config()
+    if not repos:
         repos = []
         if os.path.exists("gitclone.yaml"):
             print("[green]Reading configuration file: [blue]gitclone.yaml[/][/]")

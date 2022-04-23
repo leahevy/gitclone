@@ -4,9 +4,9 @@ import json
 class GitcloneException(Exception):
     values: list[str] = []
 
-    def __init__(self, message: str, **kwargs: object) -> None:
+    def __init__(self, message: str | Exception, **kwargs: object) -> None:
         super().__init__(message)
-        self.message = message
+        self.message = message if isinstance(message, str) else str(message)
         self._values = kwargs
 
         for k, v in kwargs.items():
@@ -32,6 +32,10 @@ class CoreException(GitcloneException):
 
 
 class GitOperationException(GitcloneException):
+    pass
+
+
+class GitConfigurationException(GitcloneException):
     pass
 
 

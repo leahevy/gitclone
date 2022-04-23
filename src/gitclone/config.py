@@ -1,13 +1,15 @@
 from pydantic import BaseModel, validator, root_validator, ValidationError
 from pydantic_yaml import YamlModel
 
+from gitclone.exceptions import GitConfigurationException
+
 
 class BaseConfig(YamlModel):
     @root_validator(pre=True)
     def check_model(cls, values):
         for k, v in values.items():
             if k not in cls.__fields__.keys():
-                raise ValueError(k)
+                raise ValueError(f"Field '{k}' is not allowed in '{cls.__name__}'")
         return values
 
 
@@ -43,13 +45,8 @@ class Config(BaseConfig):
 
     @classmethod
     def from_path(cls, path):
-        with open(path, "r") as f:
-            return cls.from_file(f)
-
-    @classmethod
-    def from_file(cls, file):
-        return cls.from_str(file.read())
-
-    @classmethod
-    def from_str(cls, s):
-        return cls.parse_raw(s)
+        try:
+            with open(path, "r") as f:
+                return cls.parse_raw(f.read())
+        except ValidationError as e:
+            raise GitConfigurationException(e)
