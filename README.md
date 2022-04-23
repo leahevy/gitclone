@@ -77,7 +77,7 @@ Run `gitclone` from the same directory. Your configured git repositories will be
 - **Pull** in existing directories.
 - **Find** local git directories.
 - **Config generation**.
-- Better handling when stdout is a **pipe**.
+- Use **typed** Python.
 - Using of **credential stores** for used API tokens.
 - Better **CLI**.
 
