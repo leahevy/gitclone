@@ -2,6 +2,17 @@
 
 👋 Want to add a contribution to **gitclone**? Feel free to send me a [pull request](https://github.com/evyli/gitclone/compare).
 
+# Terminal Recording
+
+The terminal recording is done with [Terminalizer](https://github.com/faressoft/terminalizer) by running:
+
+```bash
+terminalizer record demo
+terminalier render demo
+```
+
+The *demo.yml file is slightly modified, e.g. modify some of the delays or omit lines at the beginning of the recording session. For the other values except for `records`, the current [file](https://github.com/evyli/gitclone/blob/master/img/terminalizer/demo.yml) can be used as a reference. The resulting gif as well as the recordings file are checked into the repository.
+
 # How to Create Releases
 
 A release commit should advance the version set in the *setup.py* file.
