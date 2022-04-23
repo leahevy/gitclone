@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="/img/gitclone.png" width="350px"</img> 
+    <img src="https://raw.githubusercontent.com/evyli/gitclone/master/img/gitclone.png" width="350px"</img> 
 </div>
 <br/>
 
@@ -26,7 +26,7 @@
 
 <br/>
 <div align="center">
-    <img src="/img/terminalizer/demo.gif" width="600px"</img> 
+    <img src="https://raw.githubusercontent.com/evyli/gitclone/master/img/terminalizer/demo.gif" width="600px"</img> 
 </div>
 <br/>
 
@@ -41,6 +41,7 @@ Currently this is **still in heavy development**. This Readme will be updated wh
 * [Configuration](#%EF%B8%8F-configuration)
 * [Usage](#-usage)
 * [Planned Features](#-planned-features)
+* [Contributing](#-contributing)
 * [License](#-license)
 
 # 💻 Installation 
@@ -77,6 +78,12 @@ Run `gitclone` from the same directory. Your configured git repositories will be
 - Better handling when stdout is a **pipe**.
 - Using of **credential stores** for used API tokens.
 - Better **CLI**.
+
+---
+
+# 👭 Contributing
+
+👋 Want to add a contribution to **gitclone**? Feel free to send me a (pull request)[https://github.com/evyli/gitclone/compare].
 
 ---
 

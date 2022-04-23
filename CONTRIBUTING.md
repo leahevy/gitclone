@@ -1,6 +1,6 @@
 # Contributing
 
-👋 Want to add a contribution to **gitclone**? Feel free to send me a pull request.
+👋 Want to add a contribution to **gitclone**? Feel free to send me a (pull request)[https://github.com/evyli/gitclone/compare].
 
 # How to Create Releases
 
