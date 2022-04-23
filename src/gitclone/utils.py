@@ -34,3 +34,10 @@ def catch_cli_exception(
         return exception_handled_fuction
 
     return decorator
+
+
+def rpartition(s, d):
+    res = s.rpartition(d)
+    if res[0]:
+        return (res[0], res[2])
+    return (res[2], res[0])
