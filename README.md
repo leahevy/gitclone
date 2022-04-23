@@ -83,7 +83,7 @@ Run `gitclone` from the same directory. Your configured git repositories will be
 
 # 👭 Contributing
 
-👋 Want to add a contribution to **gitclone**? Feel free to send me a (pull request)[https://github.com/evyli/gitclone/compare].
+👋 Want to add a contribution to **gitclone**? Feel free to send me a [pull request](https://github.com/evyli/gitclone/compare).
 
 ---
 
