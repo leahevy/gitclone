@@ -11,6 +11,11 @@ from gitclone.utils import print, catch_cli_exception
 cli = typer.Typer()
 
 
+@cli.callback(invoke_without_command=True)
+def default():
+    pass
+
+
 @cli.command()
 @catch_cli_exception()
 def clone(debug: bool = typer.Option(False, "--debug", "-d")):
