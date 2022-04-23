@@ -1,7 +1,12 @@
+import tempfile
+import textwrap
+
+from gitclone.core import clone
+
 from .utils import *
 
 
-def test_cli_main_repos():
+def test_core_main_repos():
     with tempfile.TemporaryDirectory() as tmpdirname:
         with cwd(tmpdirname):
             with open("gitclone.yaml", "w") as f:
@@ -13,11 +18,11 @@ def test_cli_main_repos():
                     """
                     )
                 )
-            cli.main()
+            clone()
             assert os.path.exists(os.path.join("gitclone", ".git"))
 
 
-def test_cli_main_autofetch_github():
+def test_core_main_autofetch_github():
     with tempfile.TemporaryDirectory() as tmpdirname:
         with cwd(tmpdirname):
             with open("gitclone.yaml", "w") as f:
@@ -33,13 +38,13 @@ def test_cli_main_autofetch_github():
                     """
                     )
                 )
-            cli.main()
+            clone()
             assert os.path.exists(
                 os.path.join("github.com", "evyli", "gitclone", ".git")
             )
 
 
-def test_cli_main_txt_file():
+def test_core_main_txt_file():
     with tempfile.TemporaryDirectory() as tmpdirname:
         with cwd(tmpdirname):
             with open("gitclone.txt", "w") as f:
@@ -51,12 +56,12 @@ def test_cli_main_txt_file():
                     """
                     )
                 )
-            cli.main()
+            clone()
             assert os.path.exists(os.path.join("gitclone1", ".git"))
             assert os.path.exists(os.path.join("gitclone2", ".git"))
 
 
-def test_cli_main_txt_file_longer_base():
+def test_core_main_txt_file_longer_base():
     with tempfile.TemporaryDirectory() as tmpdirname:
         with cwd(tmpdirname):
             with open("gitclone.txt", "w") as f:
@@ -67,11 +72,11 @@ def test_cli_main_txt_file_longer_base():
                     """
                     )
                 )
-            cli.main()
+            clone()
             assert os.path.exists(os.path.join("base", "gitclone", ".git"))
 
 
-def test_cli_main_txt_file_branch():
+def test_core_main_txt_file_branch():
     with tempfile.TemporaryDirectory() as tmpdirname:
         with cwd(tmpdirname):
             with open("gitclone.txt", "w") as f:
@@ -82,11 +87,11 @@ def test_cli_main_txt_file_branch():
                     """
                     )
                 )
-            cli.main()
+            clone()
             assert os.path.exists(os.path.join("gitclone", ".git"))
 
 
-def test_cli_main_txt_file_default_dest():
+def test_core_main_txt_file_default_dest():
     with tempfile.TemporaryDirectory() as tmpdirname:
         with cwd(tmpdirname):
             with open("gitclone.txt", "w") as f:
@@ -97,12 +102,12 @@ def test_cli_main_txt_file_default_dest():
                     """
                     )
                 )
-            cli.main()
+            clone()
             assert os.path.exists(os.path.join("gitclone", ".git"))
 
 
-def test_cli_main_noconfig():
+def test_core_main_noconfig():
     with tempfile.TemporaryDirectory() as tmpdirname:
         with cwd(tmpdirname):
-            cli.main()
+            clone()
             assert not len(os.listdir())

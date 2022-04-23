@@ -1,11 +1,5 @@
-import gitclone.gitcmds as gitcmds
-import gitclone.cli as cli
-
-import tempfile
 import os
 import os.path
-import sys
-import textwrap
 
 from contextlib import contextmanager
 
