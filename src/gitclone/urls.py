@@ -55,8 +55,8 @@ def parse_url(repostr):
 
     if not baseurl or not path:
         raise RepositoryFormatException(
-            f"[red]Error:[/]{os.linesep}"
-            f"  [red]Got invalid repository url[/] [yellow]'{repostr}'[/]{os.linesep}"
+            f"[red]Error:[/]\n"
+            f"  [red]Got invalid repository url[/] [yellow]'{repostr}'[/]\n"
             "  [red]Expected[/] [green]url[/][blue]@[/][green]branch[/] or just [green]url[/]",
             repostr,
         )
