@@ -5,6 +5,7 @@ import pathlib
 import distutils.cmd
 import subprocess
 import os
+import sys
 
 
 os.chdir(os.path.dirname(__file__))
@@ -28,7 +29,10 @@ class TestCommand(distutils.cmd.Command):
             f"--cov=gitclone",
             str(pathlib.Path("tests").resolve()),
         ]
-        subprocess.check_call(command)
+        try:
+            subprocess.check_call(command)
+        except:
+            sys.exit(1)
 
         import anybadge
         from coverage import coverage
