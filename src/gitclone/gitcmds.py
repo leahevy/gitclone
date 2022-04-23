@@ -1,11 +1,14 @@
-import git
-from rich import progress
-from pathlib import Path
 import os
 import sys
+import time
+
 from dataclasses import dataclass
 from threading import Thread
-import time
+
+from rich import progress
+from pathlib import Path
+from git import RemoteProgress
+from git import Repo
 
 
 class GitRichProgress:
@@ -44,7 +47,7 @@ class GitRichProgress:
             message="",
         )
 
-        class RemoteProgress(git.RemoteProgress):
+        class GitRemoteProgress(RemoteProgress):
             def update(
                 self,
                 op_code: int,
@@ -63,7 +66,7 @@ class GitRichProgress:
                 progressbar.stop_task(task)
                 progressbar.remove_task(task)
 
-        return RemoteProgress()
+        return GitRemoteProgress()
 
 
 @dataclass(frozen=True, eq=True)
@@ -90,7 +93,7 @@ def _clonefunc(progress, repo, result):
         parent_dir.mkdir(parents=True, exist_ok=True)
 
         if not dest_path.exists():
-            git.Repo.clone_from(
+            Repo.clone_from(
                 url=repo.full_url,
                 to_path=Path(repo.dest).resolve(),
                 progress=task,

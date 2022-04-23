@@ -1,20 +1,17 @@
-#!/usr/bin/env python3
-from rich import print
-
 import sys
 import os
 import shutil
 import re
 import pathlib
+import yaml
 
 from collections import OrderedDict
 
-from gitclone.gitcmds import ClonePerServerHandler, CloneProcess
-
-import yaml
+from rich import print
 from yamlable import YamlAble, yaml_info
-
 from github import Github
+
+from gitclone.gitcmds import ClonePerServerHandler, CloneProcess
 
 
 def clone_repos(repos: list[str]):

@@ -5,8 +5,9 @@ import tempfile
 import os
 import os.path
 import sys
-from contextlib import contextmanager
 import textwrap
+
+from contextlib import contextmanager
 
 
 @contextmanager
