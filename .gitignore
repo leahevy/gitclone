@@ -1,4 +1,4 @@
-# Restrictive /* ignore with exceptions to allow running ethclone in the
+# Restrictive /* ignore with exceptions to allow running gitclone in the
 # project directory for testing purposes.
 /*
 !/.vscode/
