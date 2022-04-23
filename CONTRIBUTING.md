@@ -8,7 +8,7 @@ The terminal recording is done with [Terminalizer](https://github.com/faressoft/
 
 ```bash
 terminalizer record demo
-terminalier render demo
+terminalier render demo.yml
 ```
 
 The *demo.yml file is slightly modified, e.g. modify some of the delays or omit lines at the beginning of the recording session. For the other values except for `records`, the current [file](https://github.com/evyli/gitclone/blob/master/img/terminalizer/demo.yml) can be used as a reference. The resulting gif as well as the recordings file are checked into the repository.
