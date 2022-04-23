@@ -95,7 +95,7 @@ def clone_from_config(repos=None, verbose=False, debug=False):
             print("[green]Reading configuration file: [blue]gitclone.yaml[/][/]")
             config = Config.from_path("gitclone.yaml")
             repos += handle_autofetch(config)
-            repos += config.other
+            repos += config.repositories
         if os.path.exists("gitclone.txt"):
             print(
                 "[green]Reading additional repositories from file: [blue]gitclone.txt[/][/]"

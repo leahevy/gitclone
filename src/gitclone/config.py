@@ -39,7 +39,7 @@ class AuofetchConfig(BaseConfig):
 class Config(BaseConfig):
     dest: str = "."
     autofetch: list[AuofetchConfig] = []
-    other: list[str] = []
+    repositories: list[str] = []
 
     @classmethod
     def from_path(cls, path):

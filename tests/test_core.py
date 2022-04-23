@@ -13,7 +13,7 @@ def test_core_main_repos():
                 f.write(
                     textwrap.dedent(
                         """\
-                    other:
+                    repositories:
                         - https://github.com/evyli/gitclone.git gitclone
                     """
                     )
