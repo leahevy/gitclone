@@ -71,18 +71,17 @@ class OnPushCommand(BaseCommand):
     description = "Prepare a push"
 
     def run(self):
-        shell("python setup.py test")
-        shell("python setup.py badges")
+        shell("./setup.py test")
+        shell("./setup.py badges")
 
 
 class OnCommitCommand(BaseCommand):
     description = "Prepare a commit"
 
     def run(self):
-        shell("python setup.py format")
-        shell("python setup.py style")
-        shell("python setup.py typechecks")
-        shell("python setup.py badges")
+        shell("./setup.py check_format")
+        shell("./setup.py style")
+        shell("./setup.py typechecks")
 
 
 class BadgesCommand(BaseCommand):

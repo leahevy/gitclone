@@ -3,15 +3,15 @@ repos:
     hooks:
     -   id: OnCommit
         name: On Commit
-        entry: "python setup.py on_commit"
+        entry: "python setup.py on_commit --"
         language: system
         types: [python]
         stages: [commit]
-        always_run: true
+        pass_filenames: false
     -   id: OnPush
         name: On Push
-        entry: "python setup.py on_push"
+        entry: "python setup.py on_push --"
         language: system
         types: [python]
         stages: [push]
-        always_run: true
+        pass_filenames: false
