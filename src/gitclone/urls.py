@@ -15,13 +15,16 @@ def split_url_branch(given_url):
     return url, branch
 
 
+ssh_base_re = r"([^@ ]+@[^:]+)"
+ssh_url_re = ssh_base_re + r":(.*)"
+
+
 def parse_url(repostr):
     repostr.strip()
     url, dest = rpartition(repostr, " ")
     url = url.strip()
     dest = dest.strip()
 
-    ssh_url_re = r"([^@ ]+@[^:]+:)(.*)"
     result = re.search(ssh_url_re, url)
     if result:
         baseurl = result.group(1)

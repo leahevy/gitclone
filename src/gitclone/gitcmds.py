@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import re
 
 from dataclasses import dataclass
 from threading import Thread
@@ -11,6 +12,7 @@ from git import RemoteProgress
 from git import Repo
 
 from gitclone.exceptions import GitOperationException
+from gitclone.urls import ssh_base_re
 
 
 class GitRichProgress:
@@ -80,7 +82,12 @@ class CloneProcess:
 
     @property
     def full_url(self):
-        if not (self.base_url.endswith("/") or self.base_url.endswith(":")):
+        def is_ssh(s):
+            return re.match(ssh_base_re, s)
+
+        if is_ssh(self.base_url) and not self.base_url.endswith(":"):
+            url = self.base_url + ":" + self.remote_src
+        elif not (self.base_url.endswith("/") or self.base_url.endswith(":")):
             url = self.base_url + "/" + self.remote_src
         else:
             url = self.base_url + self.remote_src
