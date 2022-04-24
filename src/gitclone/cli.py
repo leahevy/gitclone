@@ -11,12 +11,14 @@ from click.exceptions import Abort, NoSuchOption, BadArgumentUsage, UsageError
 
 from gitclone.core import clone_from_config, clone_single
 from gitclone.utils import print
+from gitclone.version import __VERSION__
 
 
 DEFAULT_COMMAND = []
 COMMANDS = []
 VERBOSE_HELP = "Print more log messages during run"
 DEBUG_HELP = "Run in debug mode (print exceptions)"
+VERSION_HELP = "Print the version and exit"
 
 cli = typer.Typer()
 state = {"verbose": False, "debug": False}
@@ -25,10 +27,14 @@ state = {"verbose": False, "debug": False}
 def command():
     def decorator(f):
         @functools.wraps(f)
-        def inner_cmd(*args, verbose=None, debug=None, **kwargs):
+        def inner_cmd(*args, verbose=None, debug=None, version=None, **kwargs):
             update_state(verbose=verbose, debug=debug)
             if state["verbose"]:
                 print(f"Command {f.__name__}, Args: " + str(sys.argv[1:]))
+
+            if version:
+                print(f"v{__VERSION__}")
+                sys.exit(0)
             f(*args, verbose=verbose, debug=debug, **kwargs)
 
         COMMANDS.append(f.__name__)
@@ -54,6 +60,7 @@ def default_command():
 def pull(
     verbose: bool = typer.Option(None, "--verbose", "-v", help=VERBOSE_HELP),
     debug: bool = typer.Option(None, "--debug", "-d", help=DEBUG_HELP),
+    version: bool = typer.Option(None, "--version", help=VERSION_HELP),
 ):
     raise ValueError("pull not implemented")
 
@@ -68,6 +75,7 @@ def clone(
     ),
     verbose: bool = typer.Option(None, "--verbose", "-v", help=VERBOSE_HELP),
     debug: bool = typer.Option(None, "--debug", "-d", help=DEBUG_HELP),
+    version: bool = typer.Option(None, "--version", help=VERSION_HELP),
 ):
     if repository_and_directory:
         clone_single(repository_and_directory, verbose=verbose, debug=debug)
@@ -79,6 +87,7 @@ def clone(
 def typer_main(
     verbose: bool = typer.Option(None, "--verbose", "-v", help=VERBOSE_HELP),
     debug: bool = typer.Option(None, "--debug", "-d", help=DEBUG_HELP),
+    version: bool = typer.Option(None, "--version", help=VERSION_HELP),
 ):
     update_state(verbose=verbose, debug=debug)
 

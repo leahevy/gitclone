@@ -6,6 +6,7 @@ import distutils.cmd
 import subprocess
 import os
 import sys
+import shutil
 
 
 os.chdir(os.path.dirname(__file__))
@@ -55,9 +56,13 @@ class TestCommand(distutils.cmd.Command):
 with open("requirements.txt", "r") as f:
     required_packages = f.read().strip().split()
 
+with open("VERSION", "r") as f:
+    version = f.read().strip()
+shutil.copyfile("VERSION", "src/gitclone/VERSION")
+
 setup_info = dict(
     name="gitclone",
-    version="0.0.2",
+    version=version,
     author="Leah Lackner",
     author_email="leah.lackner+github@gmail.com",
     url="https://github.com/evyli/gitclone",
@@ -87,7 +92,7 @@ setup_info = dict(
     },
     package_dir={"": "src"},
     packages=find_packages(where="src"),
-    python_requires='>=3.10'
+    python_requires=">=3.10",
     install_requires=required_packages,
     cmdclass={
         "test": TestCommand,

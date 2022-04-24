@@ -1,8 +1,7 @@
 include requirements.txt
 include CONTRIBUTING.md
 include LICENSE
-include gitclone.example.yaml
-include gitclone.global.example.yaml
+include VERSION
 recursive-include src *
 recursive-include img *
 recursive-include examples *
