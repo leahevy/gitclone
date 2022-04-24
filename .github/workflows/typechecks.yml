@@ -17,7 +17,6 @@ jobs:
       matrix:
         include:
           - python-version: "3.10"
-          - python-version: "3.10.3"
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
@@ -33,4 +32,4 @@ jobs:
         python -m pip install -r requirements-dev.txt
     - name: Run mypy
       run: |
-        mypy --pretty --strict src tests
+        python setup.py typechecks
