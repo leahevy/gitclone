@@ -8,7 +8,7 @@ oauth_re = r"^([a-z]+://[^@/]+@[^@/]+)/([^@]+)(?:@([^@]+))?$"
 normal_re = r"^([a-z]+://[^@/]+)/([^@]+)(?:@([^@]+))?$"
 
 
-def parse_url(repostr):
+def parse_url(repostr: str) -> tuple[str, str, str, str, str, str]:
     try:
         repostr.strip()
         url, dest = rpartition(repostr, " ")
@@ -49,7 +49,9 @@ def parse_url(repostr):
     except ValueError:
         raise RepositoryFormatException(
             f"[red]Got invalid repository url[/] [yellow]'{repostr}'[/]\n"
-            "  [red]Expected[/] [green]url[/][blue]@[/][green]branch[/] [green]directory[/] or just [green]url[/] [green]directory[/] or [green]url[/]",
+            "  [red]Expected[/] [green]url[/][blue]@[/][green]branch[/] "
+            "[green]directory[/] or just [green]url[/] [green]directory[/]"
+            " or [green]url[/]",
             repostr=repostr,
         )
     return (baseurl, delimiter, path, fullurl, branch, dest)

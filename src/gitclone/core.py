@@ -1,28 +1,22 @@
-import sys
 import os
-import shutil
 import pathlib
-
+import shutil
 from collections import OrderedDict
 
-import yaml
+from github import AuthenticatedUser, Github, NamedUser
 
-from github import Github
-
-from gitclone.config import GlobalConfig, TextConfig, Config
-from gitclone.utils import print
-from gitclone.urls import parse_url
+from gitclone.config import Config, GlobalConfig, TextConfig
+from gitclone.exceptions import CoreException
 from gitclone.gitcmds import ClonePerServerHandler, CloneProcess
-from gitclone.exceptions import (
-    CoreException,
-)
+from gitclone.urls import parse_url
+from gitclone.utils import print
 
 
-def clone_repos(config, repos: list[str]):
+def clone_repos(config: Config, repos: list[str]) -> None:
     repos = list(OrderedDict.fromkeys(repos))
 
-    repos_existing = []
-    repos_to_clone = []
+    repos_existing: list[CloneProcess] = []
+    repos_to_clone: list[CloneProcess] = []
     for repostr in repos:
         baseurl, delimiter, path, full_url, branch, dest = parse_url(repostr)
 
@@ -50,15 +44,21 @@ def clone_repos(config, repos: list[str]):
     finally:
         if repos_existing:
             print(
-                f"[yellow]Info:[/] {len(repos_existing)} of {len(repos_existing) + len(repos_to_clone)} repositories already existed."
+                f"[yellow]Info:[/] {len(repos_existing)} of"
+                f" {len(repos_existing) + len(repos_to_clone)}"
+                " repositories already existed."
             )
 
 
-def handle_autofetch(config):
-    repos = []
+def handle_autofetch(config: Config) -> list[str]:
+    repos: list[str] = []
     for autofetch in config.autofetch:
         if autofetch.github:
             github = autofetch.github
+
+            user: (
+                NamedUser.NamedUser | AuthenticatedUser.AuthenticatedUser
+            ) | None = None
             if github.token:
                 g = Github(github.token)
                 user = g.get_user()
@@ -84,14 +84,18 @@ def handle_autofetch(config):
     return repos
 
 
-def clone_single(repo_tuple, verbose=False, debug=False):
+def clone_single(
+    repo_tuple: tuple[str, str], verbose: bool = False, debug: bool = False
+) -> None:
     repostr = repo_tuple[0]
     if repo_tuple[1] is not None:
         repostr = " ".join([repostr, repo_tuple[1]])
-    return clone_from_config([repostr], verbose=verbose, debug=debug)
+    clone_from_config([repostr], verbose=verbose, debug=debug)
 
 
-def clone_from_config(repos=None, verbose=False, debug=False):
+def clone_from_config(
+    repos: list[str] | None = None, verbose: bool = False, debug: bool = False
+) -> None:
     if not shutil.which("git"):
         raise CoreException("Git is not installed")
 
@@ -107,15 +111,16 @@ def clone_from_config(repos=None, verbose=False, debug=False):
             repos += globalconfig.config.repositories
         if os.path.exists("gitclone.txt"):
             print(
-                "[green]Reading additional repositories from file: [blue]gitclone.txt[/][/]"
+                "[green]Reading additional repositories from file:"
+                " [blue]gitclone.txt[/][/]"
             )
-            with open("gitclone.txt", "r") as f:
-                globalconfig.textconfig = TextConfig.from_path("gitclone.txt")
+            globalconfig.textconfig = TextConfig.from_path("gitclone.txt")
             repos += globalconfig.textconfig.repositories
     if repos:
         clone_repos(globalconfig.config, repos)
         print("[green]DONE[/]")
     else:
         print(
-            "[orange]No repositories were specified, nothing to do... exiting[/]"
+            "[orange]No repositories were specified,"
+            " nothing to do... exiting[/]"
         )

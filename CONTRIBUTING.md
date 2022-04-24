@@ -17,11 +17,9 @@ The *demo.yml* file is slightly modified, e.g. modify some of the delays or omit
 
 ---
 
-# Tests
+# Development
 
-Please check the source code with `python setup.py on_commit` before committing.
-
-Also run `python setup.py on_push` prior to a push.
+Please check the source code with `python setup.py pre_commit` before committing.
 
 You can also use [pre-commit](https://github.com/pre-commit/pre-commit) for that by running:
 
@@ -29,6 +27,8 @@ You can also use [pre-commit](https://github.com/pre-commit/pre-commit) for that
 pip install -r requirements-dev.txt
 pre-commit install
 ```
+
+Also regenerate the badges with `python setup.py badges` before committing.
 
 ---
 

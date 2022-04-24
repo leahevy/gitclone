@@ -1,17 +1,11 @@
 repos:
 -   repo: local
     hooks:
-    -   id: OnCommit
-        name: On Commit
-        entry: "python setup.py on_commit --"
+    -   id: PreCommit
+        name: Pre Commit
+        entry: "python setup.py pre_commit --"
         language: system
         types: [python]
         stages: [commit]
         pass_filenames: false
-    -   id: OnPush
-        name: On Push
-        entry: "python setup.py on_push --"
-        language: system
-        types: [python]
-        stages: [push]
-        pass_filenames: false
+        always_run: true

@@ -59,6 +59,7 @@ Install the python package with `pip install -e .`. It will be published on **pi
 - Clone specified *git repositories* in local directory.
 - Use a local *configuration* file.
 - Autofetch with **github.com** to automatically clone all your owned repositories, including *private* ones if you specify an API token.
+- **Typechecked** library code.
 
 ---
 
@@ -79,7 +80,6 @@ Run `gitclone` from the same directory. Your configured git repositories will be
 - **Pull** in existing directories.
 - **Find** local git directories.
 - **Config generation**.
-- Use **typed** Python.
 - Using of **credential stores** for used API tokens.
 - Better **CLI**.
 

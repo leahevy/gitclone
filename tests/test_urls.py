@@ -1,8 +1,8 @@
-from gitclone.urls import parse_url
 from gitclone.exceptions import RepositoryFormatException
+from gitclone.urls import parse_url
 
 
-def test_url_failing_empty():
+def test_url_failing_empty() -> None:
     try:
         res = parse_url("")
         assert res is None
@@ -10,7 +10,7 @@ def test_url_failing_empty():
         pass
 
 
-def test_url_https_working():
+def test_url_https_working() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "https://github.com/evyli/gitclone gitclone"
     )
@@ -21,7 +21,7 @@ def test_url_https_working():
     assert delimiter == "/"
 
 
-def test_url_https_working_with_feature_branch():
+def test_url_https_working_with_feature_branch() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "https://github.com/evyli/gitclone@feature/main"
     )
@@ -32,7 +32,7 @@ def test_url_https_working_with_feature_branch():
     assert delimiter == "/"
 
 
-def test_url_https_working_with_feature_branch_dest():
+def test_url_https_working_with_feature_branch_dest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "https://github.com/evyli/gitclone@feature/main gitclone"
     )
@@ -43,7 +43,7 @@ def test_url_https_working_with_feature_branch_dest():
     assert delimiter == "/"
 
 
-def test_url_https_working_git_extension():
+def test_url_https_working_git_extension() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "https://github.com/evyli/gitclone.git gitclone"
     )
@@ -54,7 +54,7 @@ def test_url_https_working_git_extension():
     assert delimiter == "/"
 
 
-def test_url_https_working_given_extension():
+def test_url_https_working_given_extension() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "https://github.com/evyli/gitclone.git gitclone.test"
     )
@@ -65,7 +65,7 @@ def test_url_https_working_given_extension():
     assert delimiter == "/"
 
 
-def test_url_https_working_other_extension():
+def test_url_https_working_other_extension() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "https://github.com/evyli/gitclone.other gitclone"
     )
@@ -76,7 +76,7 @@ def test_url_https_working_other_extension():
     assert delimiter == "/"
 
 
-def test_url_https_working_other_extension_nodest():
+def test_url_https_working_other_extension_nodest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "https://github.com/evyli/gitclone.other"
     )
@@ -87,7 +87,7 @@ def test_url_https_working_other_extension_nodest():
     assert delimiter == "/"
 
 
-def test_url_https_working_branch():
+def test_url_https_working_branch() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "https://github.com/evyli/gitclone@main gitclone"
     )
@@ -98,7 +98,7 @@ def test_url_https_working_branch():
     assert delimiter == "/"
 
 
-def test_url_https_working_branch_nodest():
+def test_url_https_working_branch_nodest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "https://github.com/evyli/gitclone@main"
     )
@@ -109,7 +109,7 @@ def test_url_https_working_branch_nodest():
     assert delimiter == "/"
 
 
-def test_url_https_working_nodest():
+def test_url_https_working_nodest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "https://github.com/evyli/gitclone"
     )
@@ -120,7 +120,7 @@ def test_url_https_working_nodest():
     assert delimiter == "/"
 
 
-def test_url_https_failing_noscheme():
+def test_url_https_failing_noscheme() -> None:
     try:
         res = parse_url("github.com/evyli/gitclone")
         assert res is None
@@ -128,7 +128,7 @@ def test_url_https_failing_noscheme():
         pass
 
 
-def test_url_https_failing_multiple_slashes():
+def test_url_https_failing_multiple_slashes() -> None:
     try:
         res = parse_url("https://github.com/evyli//gitclone")
         assert res is None
@@ -136,7 +136,7 @@ def test_url_https_failing_multiple_slashes():
         pass
 
 
-def test_url_https_failing_nopath1():
+def test_url_https_failing_nopath1() -> None:
     try:
         res = parse_url("https://github.com/")
         assert res is None
@@ -144,7 +144,7 @@ def test_url_https_failing_nopath1():
         pass
 
 
-def test_url_https_failing_nopath2():
+def test_url_https_failing_nopath2() -> None:
     try:
         res = parse_url("https://github.com")
         assert res is None
@@ -152,7 +152,7 @@ def test_url_https_failing_nopath2():
         pass
 
 
-def test_url_https_failing_nopath_noscheme():
+def test_url_https_failing_nopath_noscheme() -> None:
     try:
         res = parse_url("github.com")
         assert res is None
@@ -160,7 +160,7 @@ def test_url_https_failing_nopath_noscheme():
         pass
 
 
-def test_url_https_failing_nopath_noscheme_dest():
+def test_url_https_failing_nopath_noscheme_dest() -> None:
     try:
         res = parse_url("github.com dest")
         assert res is None
@@ -168,7 +168,7 @@ def test_url_https_failing_nopath_noscheme_dest():
         pass
 
 
-def test_url_https_failing_nopath_noscheme_dest_branch():
+def test_url_https_failing_nopath_noscheme_dest_branch() -> None:
     try:
         res = parse_url("github.com@main dest")
         assert res is None
@@ -176,7 +176,7 @@ def test_url_https_failing_nopath_noscheme_dest_branch():
         pass
 
 
-def test_url_ssh_working():
+def test_url_ssh_working() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "git@github.com:evyli/gitclone.git"
     )
@@ -187,7 +187,7 @@ def test_url_ssh_working():
     assert delimiter == ":"
 
 
-def test_url_ssh_working_with_branch():
+def test_url_ssh_working_with_branch() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "git@github.com:evyli/gitclone.git@main"
     )
@@ -198,7 +198,7 @@ def test_url_ssh_working_with_branch():
     assert delimiter == ":"
 
 
-def test_url_ssh_working_with_branch_dest():
+def test_url_ssh_working_with_branch_dest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "git@github.com:evyli/gitclone.git@main dest"
     )
@@ -209,7 +209,7 @@ def test_url_ssh_working_with_branch_dest():
     assert delimiter == ":"
 
 
-def test_url_ssh_working_with_dest():
+def test_url_ssh_working_with_dest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "git@github.com:evyli/gitclone.git dest"
     )
@@ -220,7 +220,7 @@ def test_url_ssh_working_with_dest():
     assert delimiter == ":"
 
 
-def test_url_ssh_working_with_at_in_path():
+def test_url_ssh_working_with_at_in_path() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "git@github.com:evyli@gitclone.git"
     )
@@ -231,7 +231,7 @@ def test_url_ssh_working_with_at_in_path():
     assert delimiter == ":"
 
 
-def test_url_ssh_working_with_at_in_path_dest():
+def test_url_ssh_working_with_at_in_path_dest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "git@github.com:evyli@gitclone.git dest"
     )
@@ -242,7 +242,7 @@ def test_url_ssh_working_with_at_in_path_dest():
     assert delimiter == ":"
 
 
-def test_url_ssh_failing_with_at_in_path_dest_branch():
+def test_url_ssh_failing_with_at_in_path_dest_branch() -> None:
     try:
         res = parse_url("git@github.com:evyli@gitclone.git@main dest")
         assert res is None
@@ -250,7 +250,7 @@ def test_url_ssh_failing_with_at_in_path_dest_branch():
         pass
 
 
-def test_url_ssh_failing_with_at_in_path_dest_branch2():
+def test_url_ssh_failing_with_at_in_path_dest_branch2() -> None:
     try:
         res = parse_url("git@github.com:evyli.com@gitclone.git@main dest")
         assert res is None
@@ -258,7 +258,7 @@ def test_url_ssh_failing_with_at_in_path_dest_branch2():
         pass
 
 
-def test_url_https_failing_with_at_in_path_dest_branch():
+def test_url_https_failing_with_at_in_path_dest_branch() -> None:
     try:
         res = parse_url("https://github.com/evyli@gitclone.git@main dest")
         assert res is None
@@ -266,7 +266,7 @@ def test_url_https_failing_with_at_in_path_dest_branch():
         pass
 
 
-def test_url_https_failing_with_at_in_path_dest_branch2():
+def test_url_https_failing_with_at_in_path_dest_branch2() -> None:
     try:
         res = parse_url("https://github.com/evyli.com@gitclone.git@main dest")
         assert res is None
@@ -274,7 +274,7 @@ def test_url_https_failing_with_at_in_path_dest_branch2():
         pass
 
 
-def test_url_ssh_working_with_feature_branch():
+def test_url_ssh_working_with_feature_branch() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "git@github.com:evyli/gitclone.git@feature/main"
     )
@@ -285,7 +285,7 @@ def test_url_ssh_working_with_feature_branch():
     assert delimiter == ":"
 
 
-def test_url_ssh_working_with_feature_branch_dest():
+def test_url_ssh_working_with_feature_branch_dest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "git@github.com:evyli/gitclone.git@feature/main dest"
     )
@@ -296,7 +296,7 @@ def test_url_ssh_working_with_feature_branch_dest():
     assert delimiter == ":"
 
 
-def test_url_ssh_failing_with_empty_branch():
+def test_url_ssh_failing_with_empty_branch() -> None:
     try:
         res = parse_url("git@github.com:evyli/gitclone.git@")
         assert res is None
@@ -304,7 +304,7 @@ def test_url_ssh_failing_with_empty_branch():
         pass
 
 
-def test_url_failing_on_third_argument():
+def test_url_failing_on_third_argument() -> None:
     try:
         res = parse_url("git@github.com:evyli/gitclone.git@main dest dest2")
         assert res is None
@@ -312,7 +312,7 @@ def test_url_failing_on_third_argument():
         pass
 
 
-def test_url_oauth_working():
+def test_url_oauth_working() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "https://oauth-key@github.com/evyli/gitclone.git"
     )
@@ -323,7 +323,7 @@ def test_url_oauth_working():
     assert delimiter == "/"
 
 
-def test_url_oauth_working_with_dest():
+def test_url_oauth_working_with_dest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
         "https://oauth-key@github.com/evyli/gitclone.git dest"
     )
@@ -334,7 +334,7 @@ def test_url_oauth_working_with_dest():
     assert delimiter == "/"
 
 
-def test_url_oauth_failing_no_part_after_key():
+def test_url_oauth_failing_no_part_after_key() -> None:
     try:
         res = parse_url("https://oauth-key@/evyli/gitclone.git")
         assert res is None
@@ -342,7 +342,7 @@ def test_url_oauth_failing_no_part_after_key():
         pass
 
 
-def test_url_oauth_failing_no_part_before_key():
+def test_url_oauth_failing_no_part_before_key() -> None:
     try:
         res = parse_url("https://@github.com/evyli/gitclone.git")
         assert res is None
@@ -350,7 +350,7 @@ def test_url_oauth_failing_no_part_before_key():
         pass
 
 
-def test_url_failing_invalid_scheme():
+def test_url_failing_invalid_scheme() -> None:
     try:
         res = parse_url("https:/@github.com/evyli/gitclone.git")
         assert res is None
@@ -358,7 +358,7 @@ def test_url_failing_invalid_scheme():
         pass
 
 
-def test_url_failing_invalid_scheme22():
+def test_url_failing_invalid_scheme22() -> None:
     try:
         res = parse_url("https:/github.com/evyli/gitclone.git")
         assert res is None
@@ -366,7 +366,7 @@ def test_url_failing_invalid_scheme22():
         pass
 
 
-def test_url_failing_invalid_scheme23():
+def test_url_failing_invalid_scheme23() -> None:
     try:
         res = parse_url("https:github.com/evyli/gitclone.git")
         assert res is None
@@ -374,7 +374,7 @@ def test_url_failing_invalid_scheme23():
         pass
 
 
-def test_url_failing_invalid_scheme23():
+def test_url_failing_invalid_scheme24() -> None:
     try:
         res = parse_url("https/github.com/evyli/gitclone.git")
         assert res is None
@@ -382,7 +382,7 @@ def test_url_failing_invalid_scheme23():
         pass
 
 
-def test_url_failing_invalid_scheme2():
+def test_url_failing_invalid_scheme2() -> None:
     try:
         res = parse_url("https:@github.com/evyli/gitclone.git")
         assert res is None
@@ -390,7 +390,7 @@ def test_url_failing_invalid_scheme2():
         pass
 
 
-def test_url_failing_invalid_scheme3():
+def test_url_failing_invalid_scheme3() -> None:
     try:
         res = parse_url("https/@github.com/evyli/gitclone.git")
         assert res is None
@@ -398,7 +398,7 @@ def test_url_failing_invalid_scheme3():
         pass
 
 
-def test_url_failing_invalid_scheme4():
+def test_url_failing_invalid_scheme4() -> None:
     try:
         res = parse_url("https@github.com/evyli/gitclone.git")
         assert res is None
@@ -406,7 +406,7 @@ def test_url_failing_invalid_scheme4():
         pass
 
 
-def test_url_failing_invalid_scheme5():
+def test_url_failing_invalid_scheme5() -> None:
     try:
         res = parse_url("@github.com/evyli/gitclone.git")
         assert res is None
@@ -414,7 +414,7 @@ def test_url_failing_invalid_scheme5():
         pass
 
 
-def test_url_failing_invalid_url():
+def test_url_failing_invalid_url() -> None:
     try:
         res = parse_url("@")
         assert res is None
@@ -422,7 +422,7 @@ def test_url_failing_invalid_url():
         pass
 
 
-def test_url_failing_invalid_url2():
+def test_url_failing_invalid_url2() -> None:
     try:
         res = parse_url("@/")
         assert res is None
@@ -430,7 +430,7 @@ def test_url_failing_invalid_url2():
         pass
 
 
-def test_url_failing_invalid_url3():
+def test_url_failing_invalid_url3() -> None:
     try:
         res = parse_url("/@")
         assert res is None
@@ -438,7 +438,7 @@ def test_url_failing_invalid_url3():
         pass
 
 
-def test_url_failing_invalid_url4():
+def test_url_failing_invalid_url4() -> None:
     try:
         res = parse_url("/@/")
         assert res is None
@@ -446,7 +446,7 @@ def test_url_failing_invalid_url4():
         pass
 
 
-def test_url_failing_invalid_url5():
+def test_url_failing_invalid_url5() -> None:
     try:
         res = parse_url("@ dest")
         assert res is None

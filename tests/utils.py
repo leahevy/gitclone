@@ -2,12 +2,12 @@ import os
 import os.path
 import tempfile
 import textwrap
-
 from contextlib import contextmanager
+from typing import Generator, TextIO
 
 
 @contextmanager
-def cwd(path):
+def cwd(path: str) -> Generator[None, None, None]:
     oldpwd = os.getcwd()
     os.chdir(path)
     try:
@@ -20,26 +20,26 @@ def cwd(path):
 
 
 @contextmanager
-def tempdir():
+def tempdir() -> Generator[None, None, None]:
     with tempfile.TemporaryDirectory() as tmpdirname:
         with cwd(tmpdirname):
             yield
 
 
 @contextmanager
-def coreconfig():
+def coreconfig() -> Generator[TextIO, None, None]:
     with tempdir():
         with open("gitclone.yaml", "w+") as f:
             yield f
 
 
 @contextmanager
-def textconfig():
+def textconfig() -> Generator[TextIO, None, None]:
     with tempdir():
         with open("gitclone.txt", "w+") as f:
             yield f
 
 
-def write(f, s):
+def write(f: TextIO, s: str) -> None:
     f.write(textwrap.dedent(s))
     f.seek(0)

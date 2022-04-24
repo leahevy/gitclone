@@ -1,21 +1,21 @@
 #!/usr/bin/env python
-from setuptools import find_packages, setup
 
-import distutils.cmd
-import subprocess
 import os
-import sys
 import shutil
-
-from threading import Thread
+import subprocess
+import sys
 from queue import Queue
+from threading import Thread
+
+from setuptools import find_packages, setup
+from setuptools import Command
 
 os.chdir(os.path.dirname(__file__))
 
 REQUIRED_COVERAGE = 80
 
 
-class BaseCommand(distutils.cmd.Command):
+class BaseCommand(Command):
     user_options = []
 
     def initialize_options(self):
@@ -67,21 +67,30 @@ def shellcommand(name, cmd, desc=None):
     return InnerClass
 
 
-class OnPushCommand(BaseCommand):
-    description = "Prepare a push"
-
-    def run(self):
-        shell("./setup.py test")
-        shell("./setup.py badges")
-
-
-class OnCommitCommand(BaseCommand):
+class PreCommitCommand(BaseCommand):
     description = "Prepare a commit"
 
     def run(self):
-        shell("./setup.py check_format")
-        shell("./setup.py style")
-        shell("./setup.py typechecks")
+        shell("./setup.py check_format >/dev/null || ./setup.py check_format")
+        shell("./setup.py style >/dev/null || ./setup.py style")
+        shell("./setup.py typechecks >/dev/null || ./setup.py typechecks")
+        shell("./setup.py test >/dev/null || ./setup.py test")
+
+
+class CheckFormatCommand(BaseCommand):
+    description = "Test formatting"
+
+    def run(self):
+        shell("isort --check src tests")
+        shell("black --check -l 79 src tests")
+
+
+class FormatCommand(BaseCommand):
+    description = "Run formatter"
+
+    def run(self):
+        shell("isort src tests")
+        shell("black -l 79 src tests")
 
 
 class BadgesCommand(BaseCommand):
@@ -125,6 +134,9 @@ with open("VERSION", "r") as f:
     version = f.read().strip()
 shutil.copyfile("VERSION", "src/gitclone/VERSION")
 
+with open("README.md", "r") as f:
+    long_description = f.read().strip()
+
 setup_info = dict(
     name="gitclone",
     version=version,
@@ -136,8 +148,8 @@ setup_info = dict(
         "Source": "https://github.com/evyli/gitclone",
         "Tracker": "https://github.com/evyli/gitclone/issues",
     },
-    description="Gitclone allows you to manage multiple git repositories in a directory structure with ease ",
-    long_description=open("README.md").read(),
+    description="Gitclone allows you to manage multiple git repositories in a directory structure with ease",
+    long_description=long_description,
     long_description_content_type="text/markdown",
     platforms="Linux, Mac OSX",
     license="GPLv3",
@@ -161,26 +173,41 @@ setup_info = dict(
     install_requires=required_packages,
     cmdclass={
         "typechecks": shellcommand(
-            "Typechecks", "mypy --pretty --strict src tests", "Run typechecks"
+            "Typechecks",
+            "mypy --pretty "
+            "--warn-unused-configs "
+            "--disallow-any-generics "
+            "--disallow-subclassing-any "
+            "--disallow-untyped-calls "
+            "--disallow-untyped-defs "
+            "--disallow-incomplete-defs "
+            "--check-untyped-defs "
+            "--disallow-untyped-decorators "
+            "--no-implicit-optional "
+            "--warn-redundant-casts "
+            "--warn-return-any "
+            "--no-implicit-reexport "
+            "--strict-equality "
+            "src tests",
+            "Run typechecks",
         ),
         "style": shellcommand(
             "Stylechecks",
             [
-                "flake8 --select=E9,F63,F7,F82 --show-source --statistics src tests",
-                "flake8 --max-complexity=10 --max-line-length=127 --statistics src tests",
+                "flake8 --select=E9,F63,F7,F82 --show-source src tests",
+                "flake8 --max-complexity=12 --show-source --max-line-length=79 src tests",
             ],
             "Run stylechecks",
         ),
-        "format": shellcommand("Format", "black -l 80 src tests", "Run formatter"),
-        "check_format": shellcommand(
-            "FormatCheck", "black --check -l 80 src tests", "Run formatter"
-        ),
+        "format": FormatCommand,
+        "check_format": CheckFormatCommand,
         "test": shellcommand(
-            "Test", "pytest --cov-report html --cov=gitclone tests", "Run tests"
+            "Test",
+            "pytest --cov-report html --cov=gitclone tests",
+            "Run tests",
         ),
         "badges": BadgesCommand,
-        "on_push": OnPushCommand,
-        "on_commit": OnCommitCommand,
+        "pre_commit": PreCommitCommand,
     },
 )
 setup(**setup_info)

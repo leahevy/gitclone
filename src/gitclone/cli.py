@@ -1,21 +1,19 @@
 import functools
-import sys
 import os.path
+import sys
 import traceback
-
-from click import UsageError
+from typing import Any, Callable
 
 import typer
-
-from click.exceptions import Abort, NoSuchOption, BadArgumentUsage, UsageError
+from click import Command
+from click.exceptions import Abort, BadArgumentUsage, NoSuchOption, UsageError
 
 from gitclone.core import clone_from_config, clone_single
 from gitclone.utils import print
 from gitclone.version import __VERSION__
 
-
-DEFAULT_COMMAND = []
-COMMANDS = []
+DEFAULT_COMMAND: list[str] = []
+COMMANDS: list[str] = []
 VERBOSE_HELP = "Print more log messages during run"
 DEBUG_HELP = "Run in debug mode (print exceptions)"
 VERSION_HELP = "Print the version and exit"
@@ -24,30 +22,39 @@ cli = typer.Typer()
 state = {"verbose": False, "debug": False}
 
 
-def command():
-    def decorator(f):
-        @functools.wraps(f)
-        def inner_cmd(*args, verbose=None, debug=None, version=None, **kwargs):
+def command():  # type: ignore
+    def decorator(f):  # type: ignore
+        @functools.wraps(f)  # type: ignore
+        def inner_cmd(
+            *args: list[Any],
+            verbose: bool | None = None,
+            debug: bool | None = None,
+            version: bool | None = None,
+            **kwargs: dict[str, Any],
+        ) -> None:
             update_state(verbose=verbose, debug=debug)
             if state["verbose"]:
-                print(f"Command {f.__name__}, Args: " + str(sys.argv[1:]))
+                print(
+                    f"Command {f.__name__}"  # type: ignore
+                    ", Args: " + str(sys.argv[1:])
+                )
 
             if version:
                 print(f"v{__VERSION__}")
                 sys.exit(0)
             f(*args, verbose=verbose, debug=debug, **kwargs)
 
-        COMMANDS.append(f.__name__)
+        COMMANDS.append(f.__name__)  # type: ignore
 
-        inner_cmd = cli.command()(inner_cmd)
+        inner_cmd = cli.command()(inner_cmd)  # type: ignore
 
         return inner_cmd
 
-    return decorator
+    return decorator  # type: ignore
 
 
-def default_command():
-    def decorator(f):
+def default_command():  # type: ignore
+    def decorator(f: Callable[..., None]) -> Callable[..., None]:
         if DEFAULT_COMMAND:
             raise ValueError("There is already a default command")
         DEFAULT_COMMAND.append(f.__name__)
@@ -56,17 +63,17 @@ def default_command():
     return decorator
 
 
-@command()
+@command()  # type: ignore
 def pull(
     verbose: bool = typer.Option(None, "--verbose", "-v", help=VERBOSE_HELP),
     debug: bool = typer.Option(None, "--debug", "-d", help=DEBUG_HELP),
     version: bool = typer.Option(None, "--version", help=VERSION_HELP),
-):
+) -> None:
     raise ValueError("pull not implemented")
 
 
-@command()
-@default_command()
+@command()  # type: ignore
+@default_command()  # type: ignore
 def clone(
     repository: str = typer.Argument(
         None,
@@ -81,7 +88,7 @@ def clone(
     verbose: bool = typer.Option(None, "--verbose", "-v", help=VERBOSE_HELP),
     debug: bool = typer.Option(None, "--debug", "-d", help=DEBUG_HELP),
     version: bool = typer.Option(None, "--version", help=VERSION_HELP),
-):
+) -> None:
     if repository:
         clone_single((repository, directory), verbose=verbose, debug=debug)
     else:
@@ -93,18 +100,20 @@ def typer_main(
     verbose: bool = typer.Option(None, "--verbose", "-v", help=VERBOSE_HELP),
     debug: bool = typer.Option(None, "--debug", "-d", help=DEBUG_HELP),
     version: bool = typer.Option(None, "--version", help=VERSION_HELP),
-):
+) -> None:
     update_state(verbose=verbose, debug=debug)
 
 
-def update_state(verbose=None, debug=None):
+def update_state(
+    verbose: bool | None = None, debug: bool | None = None
+) -> None:
     if verbose is not None:
         state["verbose"] = verbose
     if debug is not None:
         state["debug"] = debug
 
 
-def main():
+def main() -> None:
     only_options = True
     for arg in sys.argv[1:]:
         if not arg.startswith("--") and not arg.startswith("-"):
@@ -116,12 +125,16 @@ def main():
         if arg == "-h":
             sys.argv[idx] = "--help"
     command = typer.main.get_command(cli)
+    run_command(command)
+
+
+def run_command(cmd: Command) -> None:
     try:
-        command(standalone_mode=False)
-    except (Abort, KeyboardInterrupt) as e:
+        cmd(standalone_mode=False)
+    except (Abort, KeyboardInterrupt):
         if state["debug"]:
             print(traceback.format_exc())
-        print(f"[red][bold]Gitclone fatal: [/]Aborted by user...[/]")
+        print("[red][bold]Gitclone fatal: [/]Aborted by user...[/]")
         sys.exit(42)
     except (NoSuchOption, BadArgumentUsage, UsageError) as e:
         if state["debug"]:
@@ -141,7 +154,7 @@ def main():
         sys.argv = list(filter(lambda arg: not arg.startswith("-"), sys.argv))
         sys.argv += ["--help"]
         print(
-            f"  [yellow]Try: "
+            "  [yellow]Try: "
             + " ".join(
                 [os.path.basename(sys.argv[0])]
                 + [f'"{arg}"' for arg in sys.argv[1:]]
@@ -154,7 +167,6 @@ def main():
             print(traceback.format_exc())
         print(f"[red][bold]Gitclone fatal: [/]{str(e)}[/]")
         sys.exit(44)
-
     sys.exit(0)
 
 

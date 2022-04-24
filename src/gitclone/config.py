@@ -1,6 +1,7 @@
 import os
+from typing import Any
 
-from pydantic import BaseModel, validator, root_validator, ValidationError
+from pydantic import ValidationError, root_validator, validator
 from pydantic_yaml import YamlModel
 
 from gitclone.exceptions import GitConfigurationException
@@ -8,11 +9,12 @@ from gitclone.exceptions import GitConfigurationException
 
 class BaseConfig(YamlModel):
     @root_validator(pre=True)
-    def check_model(cls, values):
-        for k, v in values.items():
+    def check_model(cls, values: dict[str, Any]) -> dict[str, Any]:
+        for k, _ in values.items():
             if k not in cls.__fields__.keys():
                 raise ValueError(
-                    f"Field '{k}' is not allowed in '{cls.__name__}'"
+                    f"Field '{k}' is not allowed in"
+                    f" '{cls.__name__}'"  # type: ignore
                 )
         return values
 
@@ -25,16 +27,16 @@ class GithubAutofetchConfig(BaseConfig):
     path: str = "{repo}"
 
     @validator("method")
-    def validate_method(cls, v):
+    def validate_method(cls, v: str) -> str:
         expected = ["ssh", "https"]
         if v not in expected:
             raise ValueError(f"Method '{v}' not supported.")
         return v
 
     @validator("path")
-    def validate_path(cls, v):
+    def validate_path(cls, v: str) -> str:
         if not v:
-            raise ValueError(f"Empty path given.")
+            raise ValueError("Empty path given.")
         return v
 
 
@@ -46,7 +48,7 @@ class TextConfig(BaseConfig):
     repositories: list[str] = []
 
     @classmethod
-    def from_path(cls, path):
+    def from_path(cls, path: str) -> "TextConfig":
         with open(path, "r") as f:
             return cls(
                 repositories=[
@@ -63,10 +65,10 @@ class Config(BaseConfig):
     repositories: list[str] = []
 
     @classmethod
-    def from_path(cls, path):
+    def from_path(cls, path: str) -> "Config":
         try:
             with open(path, "r") as f:
-                return cls.parse_raw(f.read())
+                return cls.parse_raw(f.read())  # type: ignore
         except ValidationError as e:
             raise GitConfigurationException(e)
 
