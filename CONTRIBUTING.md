@@ -27,14 +27,10 @@ This will generate the coverage badge for the readme file.
 
 # How to Create Releases
 
-A release commit should advance the version set in the *setup.py* file.
+A release commit should advance the version set in the *VERSION* file.
 
-```python
-setup_info = dict(
-    name="gitclone",
-    version="1.0.0",
-    ...
-)
+```txt
+1.0.0
 ```
 
 The commit should also be tagged (annotated) with the version and the tag should be pushed to *github.com*:
