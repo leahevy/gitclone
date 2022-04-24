@@ -32,7 +32,9 @@ def test_core_main_autofetch_github():
             """,
         )
         clone()
-        assert os.path.exists(os.path.join("github.com", "evyli", "gitclone", ".git"))
+        assert os.path.exists(
+            os.path.join("github.com", "evyli", "gitclone", ".git")
+        )
 
 
 def test_core_main_txt_file():
@@ -79,7 +81,8 @@ def test_core_main_noconfig():
 def test_core_main_invalid_url():
     with textconfig() as f:
         write(
-            f, "https://some-random-data-1722t2842626182.com/g1231242342353343434 test"
+            f,
+            "https://some-random-data-1722t2842626182.com/g1231242342353343434 test",
         )
         try:
             clone()
