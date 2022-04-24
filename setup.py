@@ -87,6 +87,7 @@ setup_info = dict(
     },
     package_dir={"": "src"},
     packages=find_packages(where="src"),
+    python_requires='>=3.10'
     install_requires=required_packages,
     cmdclass={
         "test": TestCommand,
