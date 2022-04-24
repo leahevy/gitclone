@@ -66,7 +66,7 @@ setup_info = dict(
         "Source": "https://github.com/evyli/gitclone",
         "Tracker": "https://github.com/evyli/gitclone/issues",
     },
-    description="Project to pull git repositories into directory structure",
+    description="Gitclone allows you to manage multiple git repositories in a directory structure with ease ",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     platforms="Linux, Mac OSX",
