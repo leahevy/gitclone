@@ -143,7 +143,8 @@ def main():
         print(
             f"  [yellow]Try: "
             + " ".join(
-                [os.path.basename(sys.argv[0])] + [f'"{arg}"' for arg in sys.argv[1:]]
+                [os.path.basename(sys.argv[0])]
+                + [f'"{arg}"' for arg in sys.argv[1:]]
             )
             + "[/]"
         )

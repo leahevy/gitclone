@@ -24,7 +24,9 @@ class GitRichProgress:
             progress.SpinnerColumn(),
             progress.TextColumn("{task.description}"),
             progress.BarColumn(),
-            progress.TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+            progress.TextColumn(
+                "[progress.percentage]{task.percentage:>3.0f}%"
+            ),
             progress.TimeRemainingColumn(),
             progress.TextColumn("{task.fields[message]}"),
         )

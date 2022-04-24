@@ -76,7 +76,9 @@ def handle_autofetch(config):
                 if github.method == "ssh":
                     repos.append(f"git@github.com:{repo.full_name}.git {path}")
                 elif github.method == "https":
-                    repos.append(f"https://github.com/{repo.full_name}.git {path}")
+                    repos.append(
+                        f"https://github.com/{repo.full_name}.git {path}"
+                    )
                 else:
                     assert False
     return repos
@@ -97,7 +99,9 @@ def clone_from_config(repos=None, verbose=False, debug=False):
     if not repos:
         repos = []
         if os.path.exists("gitclone.yaml"):
-            print("[green]Reading configuration file: [blue]gitclone.yaml[/][/]")
+            print(
+                "[green]Reading configuration file: [blue]gitclone.yaml[/][/]"
+            )
             globalconfig.config = Config.from_path("gitclone.yaml")
             repos += handle_autofetch(globalconfig.config)
             repos += globalconfig.config.repositories
@@ -112,4 +116,6 @@ def clone_from_config(repos=None, verbose=False, debug=False):
         clone_repos(globalconfig.config, repos)
         print("[green]DONE[/]")
     else:
-        print("[orange]No repositories were specified, nothing to do... exiting[/]")
+        print(
+            "[orange]No repositories were specified, nothing to do... exiting[/]"
+        )

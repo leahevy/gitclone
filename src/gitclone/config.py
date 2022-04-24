@@ -11,7 +11,9 @@ class BaseConfig(YamlModel):
     def check_model(cls, values):
         for k, v in values.items():
             if k not in cls.__fields__.keys():
-                raise ValueError(f"Field '{k}' is not allowed in '{cls.__name__}'")
+                raise ValueError(
+                    f"Field '{k}' is not allowed in '{cls.__name__}'"
+                )
         return values
 
 
