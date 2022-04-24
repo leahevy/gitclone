@@ -30,6 +30,6 @@ jobs:
     - name: Install developer dependencies
       run: |
         python -m pip install -r requirements-dev.txt
-    - name: Run mypy
+    - name: Run typechecks
       run: |
         python setup.py typechecks

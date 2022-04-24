@@ -30,6 +30,6 @@ jobs:
     - name: Install developer dependencies
       run: |
         python -m pip install -r requirements-dev.txt
-    - name: Lint with flake8
+    - name: Test style
       run: |
         python setup.py style
