@@ -19,9 +19,16 @@ The *demo.yml* file is slightly modified, e.g. modify some of the delays or omit
 
 # Tests
 
-Please run the tests before committing with `python setup.py test`.
+Please check the source code with `python setup.py on_commit` before committing.
 
-This will generate the coverage badge for the readme file.
+Also run `python setup.py on_push` prior to a push.
+
+You can also use [pre-commit](https://github.com/pre-commit/pre-commit) for that by running:
+
+```bash
+pip install -r requirements-dev.txt
+pre-commit install
+```
 
 ---
 
