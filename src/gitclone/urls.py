@@ -1,66 +1,55 @@
 import re
-import urllib
 
 from gitclone.exceptions import RepositoryFormatException
 from gitclone.utils import rpartition
 
-
-def split_url_branch(given_url):
-    url, branch = rpartition(given_url, "@")
-    url = url.strip()
-    branch = branch.strip()
-    if "/" in branch:
-        url = given_url
-        branch = ""
-    return url, branch
-
-
-ssh_base_re = r"([^@ ]+@[^:]+)"
-ssh_url_re = ssh_base_re + r":(.*)"
+ssh_re = r"^([^@/]+@[^:]+):([^@]+)(?:@([^@]+))?$"
+oauth_re = r"^([a-z]+://[^@/]+@[^@/]+)/([^@]+)(?:@([^@]+))?$"
+normal_re = r"^([a-z]+://[^@/]+)/([^@]+)(?:@([^@]+))?$"
 
 
 def parse_url(repostr):
-    repostr.strip()
-    url, dest = rpartition(repostr, " ")
-    url = url.strip()
-    dest = dest.strip()
+    try:
+        repostr.strip()
+        url, dest = rpartition(repostr, " ")
+        url = url.strip()
+        dest = dest.strip()
+        delimiter = "/"
 
-    result = re.search(ssh_url_re, url)
-    if result:
-        baseurl = result.group(1)
-        path = result.group(2)
+        if " " in url:
+            raise ValueError()
 
-        if "@" in path:
-            url, branch = split_url_branch(url)
+        result_ssh = re.search(ssh_re, url)
+        result_oauth = re.search(oauth_re, url)
+        result_normal = re.search(normal_re, url)
+
+        if result_ssh:
+            delimiter = ":"
+
+            baseurl = result_ssh.group(1)
+            path = result_ssh.group(2)
+            branch = result_ssh.group(3) or ""
+        elif result_oauth:
+            baseurl = result_oauth.group(1)
+            path = result_oauth.group(2)
+            branch = result_oauth.group(3) or ""
+        elif result_normal:
+            baseurl = result_normal.group(1)
+            path = result_normal.group(2)
+            branch = result_normal.group(3) or ""
         else:
-            url, branch = url, ""
-    else:
-        url, branch = split_url_branch(url)
+            raise ValueError()
+        if not dest:
+            dest = path.split("/")[-1]
+            dest, _ = rpartition(dest, ".")
+        fullurl = delimiter.join([baseurl, path])
 
-        url = urllib.parse.urlparse(url)
-        resstr = []
-        if url.scheme:
-            resstr.append(url.scheme)
-            resstr.append("://")
-        resstr.append(url.netloc)
-
-        baseurl = "".join(resstr)
-
-        if url.path:
-            path = url.path[1:]
-        else:
-            path = url.path
-
-    if not dest:
-        dest = path.split("/")[-1]
-    if dest.endswith(".git"):
-        dest = dest[: len(dest) - len(".git")]
-
-    if not baseurl or not path:
+        if "//" in path or "//" in dest:
+            raise ValueError()
+    except ValueError:
         raise RepositoryFormatException(
             f"[red]Got invalid repository url[/] [yellow]'{repostr}'[/]\n"
-            "  [red]Expected[/] [green]url[/][blue]@[/][green]branch[/] [green]directory[/] or just [green]url[/] [green]directory[/] ",
+            "  [red]Expected[/] [green]url[/][blue]@[/][green]branch[/] [green]directory[/] or just [green]url[/] [green]directory[/] or [green]url[/]",
             repostr=repostr,
         )
-
-    return (baseurl, path, branch, dest)
+    return (baseurl, delimiter, path, fullurl, branch, dest)

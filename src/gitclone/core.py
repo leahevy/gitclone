@@ -24,17 +24,22 @@ def clone_repos(config, repos: list[str]):
     repos_existing = []
     repos_to_clone = []
     for repostr in repos:
-        baseurl, path, branch, dest = parse_url(repostr)
+        baseurl, delimiter, path, full_url, branch, dest = parse_url(repostr)
 
         dest = os.path.expanduser(dest)
-        if os.path.normpath(dest) != ".":
-            dest_root = os.path.expanduser(config.dest)
+        dest_root = os.path.expanduser(config.dest)
+        if not os.path.isabs(dest):
             dest = os.path.join(dest_root, dest)
 
         dest_path = pathlib.Path(dest)
 
         process = CloneProcess(
-            base_url=baseurl, remote_src=path, dest=dest, branch=branch or None
+            base_url=baseurl,
+            remote_src=path,
+            delimiter=delimiter,
+            full_url=full_url,
+            dest=dest,
+            branch=branch or None,
         )
         if not dest_path.exists():
             repos_to_clone.append(process)
@@ -78,9 +83,10 @@ def handle_autofetch(config):
 
 
 def clone_single(repo_tuple, verbose=False, debug=False):
-    return clone_from_config(
-        [f"{repo_tuple[0]} {repo_tuple[1]}"], verbose=verbose, debug=debug
-    )
+    repostr = repo_tuple[0]
+    if repo_tuple[1] is not None:
+        repostr = " ".join([repostr, repo_tuple[1]])
+    return clone_from_config([repostr], verbose=verbose, debug=debug)
 
 
 def clone_from_config(repos=None, verbose=False, debug=False):

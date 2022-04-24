@@ -68,17 +68,22 @@ def pull(
 @command()
 @default_command()
 def clone(
-    repository_and_directory: tuple[str, str] = typer.Argument(
+    repository: str = typer.Argument(
         None,
-        metavar="<repository> <directory>",
-        help="Repository and directory for the 'git clone' command",
+        metavar="<repository>",
+        help="Repository for the 'git clone' command",
+    ),
+    directory: str = typer.Argument(
+        None,
+        metavar="<directory>",
+        help="Directory for the 'git clone' command",
     ),
     verbose: bool = typer.Option(None, "--verbose", "-v", help=VERBOSE_HELP),
     debug: bool = typer.Option(None, "--debug", "-d", help=DEBUG_HELP),
     version: bool = typer.Option(None, "--version", help=VERSION_HELP),
 ):
-    if repository_and_directory:
-        clone_single(repository_and_directory, verbose=verbose, debug=debug)
+    if repository:
+        clone_single((repository, directory), verbose=verbose, debug=debug)
     else:
         clone_from_config(verbose=verbose, debug=debug)
 

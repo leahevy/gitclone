@@ -12,7 +12,6 @@ from git import RemoteProgress
 from git import Repo
 
 from gitclone.exceptions import GitOperationException
-from gitclone.urls import ssh_base_re
 
 
 class GitRichProgress:
@@ -76,22 +75,11 @@ class GitRichProgress:
 @dataclass(frozen=True, eq=True)
 class CloneProcess:
     base_url: str
+    delimiter: str
     remote_src: str
+    full_url: str
     dest: str
     branch: str | None = None
-
-    @property
-    def full_url(self):
-        def is_ssh(s):
-            return re.match(ssh_base_re, s)
-
-        if is_ssh(self.base_url) and not self.base_url.endswith(":"):
-            url = self.base_url + ":" + self.remote_src
-        elif not (self.base_url.endswith("/") or self.base_url.endswith(":")):
-            url = self.base_url + "/" + self.remote_src
-        else:
-            url = self.base_url + self.remote_src
-        return url
 
 
 def _clonefunc(progress, repo, result):
