@@ -71,3 +71,16 @@ def test_core_main_noconfig():
     with textconfig():
         clone()
         assert os.listdir() == ["gitclone.txt"]
+
+
+def test_core_main_invalid_url():
+    with textconfig() as f:
+        write(
+            f, "https://some-random-data-1722t2842626182.com/g1231242342353343434 test"
+        )
+        try:
+            clone()
+            assert False
+        except Exception:
+            pass
+        assert not os.path.exists("test")
