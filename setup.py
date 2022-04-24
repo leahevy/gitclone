@@ -67,14 +67,21 @@ def shellcommand(name, cmd, desc=None):
     return InnerClass
 
 
-class ReleaseCommand(BaseCommand):
-    description = "Prepare release"
+class OnPushCommand(BaseCommand):
+    description = "Prepare a push"
+
+    def run(self):
+        shell("python setup.py test")
+        shell("python setup.py badges")
+
+
+class OnCommitCommand(BaseCommand):
+    description = "Prepare a commit"
 
     def run(self):
         shell("python setup.py format")
         shell("python setup.py style")
         shell("python setup.py typechecks")
-        shell("python setup.py test")
         shell("python setup.py badges")
 
 
@@ -173,7 +180,8 @@ setup_info = dict(
             "Test", "pytest --cov-report html --cov=gitclone tests", "Run tests"
         ),
         "badges": BadgesCommand,
-        "release": ReleaseCommand,
+        "on_push": OnPushCommand,
+        "on_commit": OnCommitCommand,
     },
 )
 setup(**setup_info)
