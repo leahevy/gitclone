@@ -74,7 +74,6 @@ class PreCommitCommand(BaseCommand):
         shell("./setup.py check_format >/dev/null || ./setup.py check_format")
         shell("./setup.py style >/dev/null || ./setup.py style")
         shell("./setup.py typechecks >/dev/null || ./setup.py typechecks")
-        shell("./setup.py test >/dev/null || ./setup.py test")
 
 
 class CheckFormatCommand(BaseCommand):
