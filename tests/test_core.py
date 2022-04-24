@@ -1,3 +1,6 @@
+import os
+import os.path
+
 from gitclone.core import clone_from_config as clone
 
 from .utils import *
