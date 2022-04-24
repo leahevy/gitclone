@@ -18,6 +18,7 @@
 !/img
 !/examples
 !/VERSION
+!/.pre-commit-config.yaml
 
 
 # Python gitignore

@@ -1,0 +1,17 @@
+repos:
+-   repo: local
+    hooks:
+    -   id: OnCommit
+        name: On Commit
+        entry: "python setup.py on_commit"
+        language: system
+        types: [python]
+        stages: [commit]
+        always_run: true
+    -   id: OnPush
+        name: On Push
+        entry: "python setup.py on_push"
+        language: system
+        types: [python]
+        stages: [push]
+        always_run: true
