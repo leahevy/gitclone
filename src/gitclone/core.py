@@ -82,11 +82,19 @@ def handle_autofetch(config: Config) -> list[str]:
                     )
                 else:
                     assert False
+            results: list[str] = []
             if github.includes:
-                results: list[str] = []
+                results.clear()
                 for include in github.includes:
                     innerresults = [r for r in repos if re.match(include, r)]
                     results += innerresults
+                repos = results
+            if github.excludes:
+                results.clear()
+                for exclude in github.excludes:
+                    for repo_str in repos:
+                        if not re.match(exclude, repo_str):
+                            results.append(repo_str)
                 repos = results
     return repos
 

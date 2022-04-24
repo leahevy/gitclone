@@ -26,6 +26,7 @@ class GithubAutofetchConfig(BaseConfig):
     private: bool = False
     path: str = "{repo}"
     includes: list[str] = []
+    excludes: list[str] = []
 
     @validator("method")
     def validate_method(cls, v: str) -> str:

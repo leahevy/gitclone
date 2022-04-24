@@ -194,7 +194,7 @@ setup_info = dict(
             "Stylechecks",
             [
                 "flake8 --select=E9,F63,F7,F82 --show-source src tests",
-                "flake8 --max-complexity=12 --show-source --max-line-length=79 src tests",
+                "flake8 --max-complexity=13 --show-source --max-line-length=79 src tests",
             ],
             "Run stylechecks",
         ),
