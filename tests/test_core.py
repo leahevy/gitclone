@@ -29,6 +29,9 @@ def test_core_main_autofetch_github() -> None:
                     github:
                         user: evyli
                         path: "github.com/{user}/{repo}"
+                        includes:
+                            - .*gitclone.*
+
             """,
         )
         clone()

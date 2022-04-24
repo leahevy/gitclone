@@ -1,5 +1,6 @@
 import os
 import pathlib
+import re
 import shutil
 from collections import OrderedDict
 
@@ -81,6 +82,12 @@ def handle_autofetch(config: Config) -> list[str]:
                     )
                 else:
                     assert False
+            if github.includes:
+                results: list[str] = []
+                for include in github.includes:
+                    innerresults = [r for r in repos if re.match(include, r)]
+                    results += innerresults
+                repos = results
     return repos
 
 
