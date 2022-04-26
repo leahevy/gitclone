@@ -20,6 +20,7 @@
 !/VERSION
 !/.pre-commit-config.yaml
 /src/gitclone/VERSION
+!/.isort.cfg
 
 
 # Python gitignore

@@ -80,7 +80,7 @@ class CheckFormatCommand(BaseCommand):
     description = "Test formatting"
 
     def run(self):
-        shell("isort --check src tests")
+        shell("isort --check -l 79 src tests")
         shell("black --check -l 79 src tests")
 
 
@@ -88,7 +88,7 @@ class FormatCommand(BaseCommand):
     description = "Run formatter"
 
     def run(self):
-        shell("isort src tests")
+        shell("isort -l 79 src tests")
         shell("black -l 79 src tests")
 
 

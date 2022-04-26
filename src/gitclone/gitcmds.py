@@ -225,7 +225,7 @@ class GitCloneAction(GitAction):
         return self.base_url
 
 
-class ClonePerServerHandler:
+class GitActionMultiprocessingHandler:
     def __init__(
         self,
         actions: list[GitAction] = [],

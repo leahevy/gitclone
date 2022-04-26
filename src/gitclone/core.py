@@ -8,7 +8,11 @@ from github import AuthenticatedUser, Github, NamedUser
 
 from gitclone.config import Config, GlobalConfig, TextConfig
 from gitclone.exceptions import CoreException
-from gitclone.gitcmds import ClonePerServerHandler, GitAction, GitCloneAction
+from gitclone.gitcmds import (
+    GitAction,
+    GitActionMultiprocessingHandler,
+    GitCloneAction,
+)
 from gitclone.urls import parse_url
 from gitclone.utils import print
 
@@ -54,7 +58,7 @@ def clone_repos(
     if repos_existing and not repos_to_clone:
         print("[yellow]Info:[/] All repositoried already exist")
     if repos_to_clone:
-        ClonePerServerHandler(repos_to_clone).run(
+        GitActionMultiprocessingHandler(repos_to_clone).run(
             verbose=verbose, dry_run=dry_run
         )
 
