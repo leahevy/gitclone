@@ -30,7 +30,7 @@ jobs:
         pip install -e .
     - name: Install developer dependencies
       run: |
-        python -m pip install -r requirements-dev.txt
+        pip install -e .[dev]
     - name: Run tests
       run: |
         python setup.py test

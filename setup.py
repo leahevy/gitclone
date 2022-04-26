@@ -129,6 +129,9 @@ class BadgesCommand(BaseCommand):
 with open("requirements.txt", "r") as f:
     required_packages = f.read().strip().split()
 
+with open("requirements-dev.txt", "r") as f:
+    required_dev_packages = f.read().strip().split()
+
 with open("VERSION", "r") as f:
     version = f.read().strip()
 shutil.copyfile("VERSION", "src/gitclone/VERSION")
@@ -170,6 +173,9 @@ setup_info = dict(
     packages=find_packages(where="src"),
     python_requires=">=3.10",
     install_requires=required_packages,
+    extras_require = {
+       'dev': required_dev_packages,
+    },
     cmdclass={
         "typechecks": shellcommand(
             "Typechecks",
