@@ -8,16 +8,21 @@ from github import AuthenticatedUser, Github, NamedUser
 
 from gitclone.config import Config, GlobalConfig, TextConfig
 from gitclone.exceptions import CoreException
-from gitclone.gitcmds import ClonePerServerHandler, CloneProcess
+from gitclone.gitcmds import ClonePerServerHandler, GitAction, GitCloneAction
 from gitclone.urls import parse_url
 from gitclone.utils import print
 
 
-def clone_repos(config: Config, repos: list[str]) -> None:
+def clone_repos(
+    config: Config,
+    repos: list[str],
+    verbose: bool = False,
+    dry_run: bool = False,
+) -> None:
     repos = list(OrderedDict.fromkeys(repos))
 
-    repos_existing: list[CloneProcess] = []
-    repos_to_clone: list[CloneProcess] = []
+    repos_existing: list[GitAction] = []
+    repos_to_clone: list[GitAction] = []
     for repostr in repos:
         baseurl, delimiter, path, full_url, branch, dest = parse_url(repostr)
 
@@ -28,7 +33,7 @@ def clone_repos(config: Config, repos: list[str]) -> None:
 
         dest_path = pathlib.Path(dest)
 
-        process = CloneProcess(
+        action = GitCloneAction(
             base_url=baseurl,
             remote_src=path,
             delimiter=delimiter,
@@ -37,18 +42,21 @@ def clone_repos(config: Config, repos: list[str]) -> None:
             branch=branch or None,
         )
         if not dest_path.exists():
-            repos_to_clone.append(process)
+            repos_to_clone.append(action)
         else:
-            repos_existing.append(process)
-    try:
-        ClonePerServerHandler(repos_to_clone).run()
-    finally:
-        if repos_existing:
-            print(
-                f"[yellow]Info:[/] {len(repos_existing)} of"
-                f" {len(repos_existing) + len(repos_to_clone)}"
-                " repositories already existed."
-            )
+            repos_existing.append(action)
+    if repos_existing and repos_to_clone:
+        print(
+            f"[yellow]Info:[/] {len(repos_existing)} of"
+            f" {len(repos_existing) + len(repos_to_clone)}"
+            " repositories already exist."
+        )
+    if repos_existing and not repos_to_clone:
+        print("[yellow]Info:[/] All repositoried already exist")
+    if repos_to_clone:
+        ClonePerServerHandler(repos_to_clone).run(
+            verbose=verbose, dry_run=dry_run
+        )
 
 
 def handle_autofetch(config: Config) -> list[str]:
@@ -100,16 +108,22 @@ def handle_autofetch(config: Config) -> list[str]:
 
 
 def clone_single(
-    repo_tuple: tuple[str, str], verbose: bool = False, debug: bool = False
+    repo_tuple: tuple[str, str],
+    verbose: bool = False,
+    debug: bool = False,
+    dry_run: bool = False,
 ) -> None:
     repostr = repo_tuple[0]
     if repo_tuple[1] is not None:
         repostr = " ".join([repostr, repo_tuple[1]])
-    clone_from_config([repostr], verbose=verbose, debug=debug)
+    clone_from_config([repostr], verbose=verbose, debug=debug, dry_run=dry_run)
 
 
 def clone_from_config(
-    repos: list[str] | None = None, verbose: bool = False, debug: bool = False
+    repos: list[str] | None = None,
+    verbose: bool = False,
+    debug: bool = False,
+    dry_run: bool = False,
 ) -> None:
     if not shutil.which("git"):
         raise CoreException("Git is not installed")
@@ -118,9 +132,11 @@ def clone_from_config(
     if not repos:
         repos = []
         if os.path.exists("gitclone.yaml"):
-            print(
-                "[green]Reading configuration file: [blue]gitclone.yaml[/][/]"
-            )
+            if verbose:
+                print(
+                    "[green]Reading configuration file:"
+                    " [blue]gitclone.yaml[/][/]"
+                )
             globalconfig.config = Config.from_path("gitclone.yaml")
             repos += handle_autofetch(globalconfig.config)
             repos += globalconfig.config.repositories
@@ -132,8 +148,9 @@ def clone_from_config(
             globalconfig.textconfig = TextConfig.from_path("gitclone.txt")
             repos += globalconfig.textconfig.repositories
     if repos:
-        clone_repos(globalconfig.config, repos)
-        print("[green]DONE[/]")
+        clone_repos(globalconfig.config, repos, verbose, dry_run)
+        if verbose:
+            print("[green]DONE[/]")
     else:
         print(
             "[orange]No repositories were specified,"

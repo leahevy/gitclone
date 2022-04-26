@@ -17,6 +17,7 @@ COMMANDS: list[str] = []
 VERBOSE_HELP = "Print more log messages during run"
 DEBUG_HELP = "Run in debug mode (print exceptions)"
 VERSION_HELP = "Print the version and exit"
+DRY_RUN_HELP = "Don't execute anything"
 
 cli = typer.Typer()
 state = {"verbose": False, "debug": False}
@@ -33,12 +34,6 @@ def command():  # type: ignore
             **kwargs: dict[str, Any],
         ) -> None:
             update_state(verbose=verbose, debug=debug)
-            if state["verbose"]:
-                print(
-                    f"Command {f.__name__}"  # type: ignore
-                    ", Args: " + str(sys.argv[1:])
-                )
-
             if version:
                 print(f"v{__VERSION__}")
                 sys.exit(0)
@@ -68,6 +63,7 @@ def pull(
     verbose: bool = typer.Option(None, "--verbose", "-v", help=VERBOSE_HELP),
     debug: bool = typer.Option(None, "--debug", "-d", help=DEBUG_HELP),
     version: bool = typer.Option(None, "--version", help=VERSION_HELP),
+    dry_run: bool = typer.Option(None, "--dry-run", "-n", help=DRY_RUN_HELP),
 ) -> None:
     raise ValueError("pull not implemented")
 
@@ -88,11 +84,17 @@ def clone(
     verbose: bool = typer.Option(None, "--verbose", "-v", help=VERBOSE_HELP),
     debug: bool = typer.Option(None, "--debug", "-d", help=DEBUG_HELP),
     version: bool = typer.Option(None, "--version", help=VERSION_HELP),
+    dry_run: bool = typer.Option(None, "--dry-run", "-n", help=DRY_RUN_HELP),
 ) -> None:
     if repository:
-        clone_single((repository, directory), verbose=verbose, debug=debug)
+        clone_single(
+            (repository, directory),
+            verbose=verbose,
+            debug=debug,
+            dry_run=dry_run,
+        )
     else:
-        clone_from_config(verbose=verbose, debug=debug)
+        clone_from_config(verbose=verbose, debug=debug, dry_run=dry_run)
 
 
 @cli.callback()
