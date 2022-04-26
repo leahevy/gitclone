@@ -1,3 +1,4 @@
+import subprocess
 import time
 from dataclasses import dataclass
 from multiprocessing.pool import ThreadPool
@@ -127,6 +128,28 @@ class GitAction(Protocol):
         ...
 
 
+def _repo_exists(url: str, branch: str | None) -> bool:
+    env = dict(GIT_TERMINAL_PROMPT="0")
+
+    if branch:
+        cmd: list[str] = [
+            "git",
+            "ls-remote",
+            "--exit-code",
+            "--heads",
+            url,
+            branch,
+        ]
+    else:
+        cmd = ["git", "ls-remote", "--exit-code", "--heads", url]
+    process = subprocess.Popen(
+        cmd, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL, env=env
+    )
+    process.communicate()
+    exit_code = process.wait()
+    return not bool(exit_code)
+
+
 @dataclass(frozen=True, eq=True)
 class GitCloneAction(GitAction):
     base_url: str
@@ -152,6 +175,16 @@ class GitCloneAction(GitAction):
                 progress.log(
                     f"[green]Repository Clone[/] [blue]'{self.dest}'[/]"
                 )
+            if not _repo_exists(self.full_url, self.branch):
+                if not _repo_exists(self.full_url, None):
+                    raise GitOperationException(
+                        f"Repository {self.full_url}" " does not exist"
+                    )
+                else:
+                    raise GitOperationException(
+                        f"Branch {self.branch}"
+                        f" does not exist at {self.full_url}"
+                    )
             if not dry_run:
                 task: GitRemoteProgress | None = None
                 try:
