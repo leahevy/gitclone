@@ -139,14 +139,16 @@ def clone_from_config(
                 )
             globalconfig.config = Config.from_path("gitclone.yaml")
             repos += handle_autofetch(globalconfig.config)
-            repos += globalconfig.config.repositories
+            if globalconfig.config.repositories:
+                repos += globalconfig.config.repositories
         if os.path.exists("gitclone.txt"):
             print(
                 "[green]Reading additional repositories from file:"
                 " [blue]gitclone.txt[/][/]"
             )
             globalconfig.textconfig = TextConfig.from_path("gitclone.txt")
-            repos += globalconfig.textconfig.repositories
+            if globalconfig.textconfig.repositories:
+                repos += globalconfig.textconfig.repositories
     if repos:
         clone_repos(globalconfig.config, repos, verbose, dry_run)
         if verbose:

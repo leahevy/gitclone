@@ -47,7 +47,7 @@ class AuofetchConfig(BaseConfig):
 
 
 class TextConfig(BaseConfig):
-    repositories: list[str] = []
+    repositories: list[str] | None = []
 
     @classmethod
     def from_path(cls, path: str) -> "TextConfig":
@@ -64,7 +64,7 @@ class TextConfig(BaseConfig):
 class Config(BaseConfig):
     dest: str = "."
     autofetch: list[AuofetchConfig] = []
-    repositories: list[str] = []
+    repositories: list[str] | None = []
 
     @classmethod
     def from_path(cls, path: str) -> "Config":
