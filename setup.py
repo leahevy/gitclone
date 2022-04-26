@@ -7,8 +7,7 @@ import sys
 from queue import Queue
 from threading import Thread
 
-from setuptools import find_packages, setup
-from setuptools import Command
+from setuptools import Command, find_packages, setup
 
 os.chdir(os.path.dirname(__file__))
 
@@ -173,8 +172,8 @@ setup_info = dict(
     packages=find_packages(where="src"),
     python_requires=">=3.10",
     install_requires=required_packages,
-    extras_require = {
-       'dev': required_dev_packages,
+    extras_require={
+        "dev": required_dev_packages,
     },
     cmdclass={
         "typechecks": shellcommand(
