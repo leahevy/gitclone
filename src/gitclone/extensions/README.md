@@ -1,6 +1,10 @@
 # Extend Gitclone
 
-In order to extend **Gitclone** you can write a Python package which should provide one or more classes implementing the following base class:
+In order to extend **Gitclone** you can write a Python package.
+
+By using the provided extension interface it is possible to add new commands to **gitclone** which will be available on the commandline afterwards.
+
+The packaage should provide one or more classes implementing the following base class:
 
 <br/><br/><br/>
 
