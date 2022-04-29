@@ -1,8 +1,5 @@
 include requirements.txt
 include requirements-dev.txt
-include CONTRIBUTING.md
 include LICENSE
 include VERSION
 recursive-include src *
-recursive-include img *
-recursive-include examples *
