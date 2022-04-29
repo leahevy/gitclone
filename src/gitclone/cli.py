@@ -8,7 +8,8 @@ import typer
 from click import Command
 from click.exceptions import Abort, BadArgumentUsage, NoSuchOption, UsageError
 
-from gitclone.core import clone_from_config, clone_single
+from gitclone.core import GitcloneCore
+from gitclone.repositories import RepoSpecification
 from gitclone.utils import print
 from gitclone.version import __VERSION__
 
@@ -86,15 +87,11 @@ def clone(
     version: bool = typer.Option(None, "--version", help=VERSION_HELP),
     dry_run: bool = typer.Option(None, "--dry-run", "-n", help=DRY_RUN_HELP),
 ) -> None:
+    repos: list[RepoSpecification] = []
     if repository:
-        clone_single(
-            (repository, directory),
-            verbose=verbose,
-            debug=debug,
-            dry_run=dry_run,
-        )
-    else:
-        clone_from_config(verbose=verbose, debug=debug, dry_run=dry_run)
+        repos.append(RepoSpecification(url=repository, dest=directory))
+    core = GitcloneCore(verbose=verbose)
+    core.clone(verbose=verbose, dry_run=dry_run)
 
 
 @cli.callback()

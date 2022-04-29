@@ -1,9 +1,13 @@
 import os
 import os.path
 
-from gitclone.core import clone_from_config as clone
+from gitclone.core import GitcloneCore
 
-from .utils import coreconfig, textconfig, write
+from .utils import coreconfig, write
+
+
+def clone() -> None:
+    GitcloneCore(load_global=False).clone()
 
 
 def test_core_main_repos() -> None:
@@ -13,10 +17,12 @@ def test_core_main_repos() -> None:
             """
             repositories:
                 - https://github.com/evyli/gitclone.git gitclone
+                - https://github.com/evyli/gitclone.git gitclone2
             """,
         )
         clone()
         assert os.path.exists(os.path.join("gitclone", ".git"))
+        assert os.path.exists(os.path.join("gitclone2", ".git"))
 
 
 def test_core_main_autofetch_github() -> None:
@@ -40,51 +46,60 @@ def test_core_main_autofetch_github() -> None:
         )
 
 
-def test_core_main_txt_file() -> None:
-    with textconfig() as f:
+def test_core_main_longer_base() -> None:
+    with coreconfig() as f:
         write(
             f,
             """
-            https://github.com/evyli/gitclone.git gitclone1
-            https://github.com/evyli/gitclone.git gitclone2
+            repositories:
+                - https://github.com/evyli/gitclone.git base/gitclone
             """,
         )
-        clone()
-        assert os.path.exists(os.path.join("gitclone1", ".git"))
-        assert os.path.exists(os.path.join("gitclone2", ".git"))
-
-
-def test_core_main_txt_file_longer_base() -> None:
-    with textconfig() as f:
-        write(f, "https://github.com/evyli/gitclone.git base/gitclone")
         clone()
         assert os.path.exists(os.path.join("base", "gitclone", ".git"))
 
 
-def test_core_main_txt_file_branch() -> None:
-    with textconfig() as f:
-        write(f, "https://github.com/evyli/gitclone.git@master gitclone")
+def test_core_main_branch() -> None:
+    with coreconfig() as f:
+        write(
+            f,
+            """
+            repositories:
+                - https://github.com/evyli/gitclone.git@master gitclone
+            """,
+        )
         clone()
         assert os.path.exists(os.path.join("gitclone", ".git"))
 
 
-def test_core_main_txt_file_default_dest() -> None:
-    with textconfig() as f:
-        write(f, "https://github.com/evyli/gitclone.git")
+def test_core_main_default_dest() -> None:
+    with coreconfig() as f:
+        write(
+            f,
+            """
+            repositories:
+                - https://github.com/evyli/gitclone.git
+            """,
+        )
         clone()
         assert os.path.exists(os.path.join("gitclone", ".git"))
 
 
 def test_core_main_noconfig() -> None:
-    with textconfig():
-        clone()
-        assert os.listdir() == ["gitclone.txt"]
+    with coreconfig():
+        try:
+            clone()
+            assert False
+        except Exception:
+            pass
+        assert os.listdir() == ["gitclone.yaml"]
 
 
 def test_core_main_invalid_url() -> None:
-    with textconfig() as f:
+    with coreconfig() as f:
         write(
             f,
+            "repositories:\n    - "
             "https://some-random-data-1722t2842626182.com/g1231242342353343434"
             " test",
         )

@@ -1,5 +1,9 @@
 from gitclone.exceptions import RepositoryFormatException
-from gitclone.urls import parse_url
+from gitclone.repositories import RepoSpecification
+
+
+def parse_url(repostr: str) -> tuple[str, str, str, str, str, str]:
+    return RepoSpecification.parse(repostr).extract()
 
 
 def test_url_failing_empty() -> None:

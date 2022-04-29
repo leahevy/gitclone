@@ -33,13 +33,6 @@ def coreconfig() -> Generator[TextIO, None, None]:
             yield f
 
 
-@contextmanager
-def textconfig() -> Generator[TextIO, None, None]:
-    with tempdir():
-        with open("gitclone.txt", "w+") as f:
-            yield f
-
-
 def write(f: TextIO, s: str) -> None:
     f.write(textwrap.dedent(s))
     f.seek(0)
