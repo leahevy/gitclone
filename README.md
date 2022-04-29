@@ -52,7 +52,7 @@ Currently this is **still in heavy development**. This Readme will be updated wh
 
 ### 💻 Installation 
 
-Install the python package with `pip install -e .`. It will be published on **pip** as soon as it is ready.
+Install the Python package with `pip install pygitclone`.
 
 To install the shell completion run:
 ```bash

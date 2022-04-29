@@ -139,7 +139,7 @@ with open("README.md", "r") as f:
     long_description = f.read().strip()
 
 setup_info = dict(
-    name="gitclone",
+    name="pygitclone",
     version=version,
     author="Leah Lackner",
     author_email="leah.lackner+github@gmail.com",
