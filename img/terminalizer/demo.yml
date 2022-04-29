@@ -76,7 +76,7 @@ config:
   # Font family
   # You can use any font that is installed on your machine
   # in CSS-like syntax
-  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  fontFamily: "MesloLGS NF"
   
   # The size of the font
   fontSize: 12
