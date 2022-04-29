@@ -171,3 +171,6 @@ class GitcloneCore:
                 "[yellow]No repositories were specified,"
                 " nothing to do... exiting[/]"
             )
+
+
+__all__ = ["GitcloneCore"]

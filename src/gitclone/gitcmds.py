@@ -349,3 +349,12 @@ class GitActionMultiprocessingHandler:
                 " occurred:"
             ] + error_strs
             raise GitOperationException("\n".join(error_strs))
+
+
+__all__ = [
+    "GitRemoteProgress",
+    "GitRichProgress",
+    "GitAction",
+    "GitCloneAction",
+    "GitActionMultiprocessingHandler",
+]

@@ -19,3 +19,6 @@ class ExampleExtension(Extension):
     @property
     def command(self) -> Typer:
         return cli
+
+
+__all__ = ["ExampleExtension"]

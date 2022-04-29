@@ -164,3 +164,12 @@ class ConfigManager:
                 )
             config = Config.from_path(configpath)
         return config
+
+
+__all__ = [
+    "BaseConfig",
+    "GithubAutofetchConfig",
+    "AuofetchConfig",
+    "Config",
+    "ConfigManager",
+]

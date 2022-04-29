@@ -186,3 +186,5 @@ def run_command(cmd: Command) -> None:
 
 if __name__ == "__main__":
     main()
+
+__all__: list[str] = []

@@ -15,3 +15,10 @@ if not _version_list:
 __MAJOR_VERSION__ = int(_version_list[0])
 __MINOR_VERSION__ = int(_version_list[1])
 __PATCH_VERSION__ = int(_version_list[2])
+
+__all__ = [
+    "__VERSION__",
+    "__MAJOR_VERSION__",
+    "__MINOR_VERSION__",
+    "__PATCH_VERSION__",
+]

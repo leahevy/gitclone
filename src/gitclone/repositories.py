@@ -92,3 +92,6 @@ class RepoSpecification(BaseConfig):
                 repostr=self,
             )
         return (baseurl, delimiter, path, fullurl, branch, dest)
+
+
+__all__ = ["RepoSpecification"]

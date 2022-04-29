@@ -13,3 +13,6 @@ class Extension(ABC):
     @abstractmethod
     def command(self) -> Typer:
         ...
+
+
+__all__ = ["Extension"]

@@ -57,3 +57,6 @@ def load_extensions(cli: Typer, registered_commands: list[str]) -> None:
     for i in installed_packages:
         if i.project_name.startswith("pygitclone-"):
             load_extension_package(cli, i, registered_commands)
+
+
+__all__ = ["load_extensions"]
