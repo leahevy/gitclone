@@ -44,7 +44,6 @@ Currently this is **still in heavy development**. This Readme will be updated wh
 * [Features](#-features)
 * [Configuration](#%EF%B8%8F-configuration)
 * [Usage](#-usage)
-* [Planned Features](#-planned-features)
 * [Contributing](#-contributing)
 * [Extensions](#-extensions)
 * [License](#-license)
@@ -75,16 +74,6 @@ Change values in directory local file `gitclone.yaml` to your needs. You can cop
 ### 😎 Usage
 
 Run `gitclone` from the same directory. Your configured git repositories will be cloned.
-
----
-
-### 🔮 Planned Features
-
-- **Pull** in existing directories.
-- **Find** local git directories.
-- **Config generation**.
-- Using of **credential stores** for used API tokens.
-- Better **CLI**.
 
 ---
 

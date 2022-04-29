@@ -22,6 +22,7 @@
 /src/gitclone/VERSION
 !/.isort.cfg
 !/ext
+!/TODO.md
 
 
 # Python gitignore
