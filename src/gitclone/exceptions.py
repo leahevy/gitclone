@@ -19,6 +19,12 @@ class GitcloneException(Exception):
                         f"  Data: {json.dumps(kwargs)}"
                     )
             setattr(self, k, v)
+        if hasattr(self.__class__, "values"):
+            if len(kwargs) != len(self.__class__.values):
+                raise GitcloneException(
+                    f"Exception fields do not match\n"
+                    f"  Class: {self.__class__}"
+                )
 
     def __str__(self) -> str:
         if not self.message:

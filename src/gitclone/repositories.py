@@ -28,6 +28,9 @@ class RepoSpecification(BaseConfig):
                 return True
         return False
 
+    def __str__(self) -> str:
+        return f"{self.url} {self.dest}"
+
     @root_validator(pre=True)
     def check_model(cls, values: dict[str, Any]) -> dict[str, Any]:
         if not values["url"] and not values["dest"]:
@@ -44,7 +47,7 @@ class RepoSpecification(BaseConfig):
         try:
             return cls(url=url, dest=dest)
         except ValidationError as e:
-            raise RepositoryFormatException(e)
+            raise RepositoryFormatException(e, repostr=repostr)
 
     def extract(self) -> tuple[str, str, str, str, str, str]:
         try:
@@ -89,7 +92,7 @@ class RepoSpecification(BaseConfig):
                 "  [red]Expected[/] [green]url[/][blue]@[/][green]branch[/] "
                 "[green]directory[/] or just [green]url[/] [green]directory[/]"
                 " or [green]url[/]",
-                repostr=self,
+                repostr=str(self),
             )
         return (baseurl, delimiter, path, fullurl, branch, dest)
 
