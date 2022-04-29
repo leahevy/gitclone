@@ -15,47 +15,49 @@ REQUIRED_COVERAGE = 80
 
 
 class BaseCommand(Command):
-    user_options = []
+    user_options: list[str] = []
 
-    def initialize_options(self):
+    def initialize_options(self) -> None:
         pass
 
-    def finalize_options(self):
+    def finalize_options(self) -> None:
         pass
 
 
-def reader(pipe, queue):
+def reader(pipe, queue: Queue):  # type: ignore
     try:
         with pipe:
-            for line in iter(pipe.readline, b""):
-                queue.put((pipe, line))
+            for line in iter(pipe.readline, b""):  # type: ignore
+                queue.put((pipe, line))  # type: ignore
     finally:
-        queue.put(None)
+        queue.put(None)  # type: ignore
 
 
-def shell(cmd):
+def shell(cmd: str) -> None:
     print(cmd)
     p = subprocess.Popen(
         cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
     )
-    q = Queue()
-    Thread(target=reader, args=[p.stdout, q]).start()
-    Thread(target=reader, args=[p.stderr, q]).start()
+    q = Queue()  # type: ignore
+    Thread(target=reader, args=[p.stdout, q]).start()  # type: ignore
+    Thread(target=reader, args=[p.stderr, q]).start()  # type: ignore
     for _ in range(2):
-        for source, line in iter(q.get, None):
-            print(line.decode("utf-8"))
+        for source, line in iter(q.get, None):  # type: ignore
+            print(line.decode("utf-8"))  # type: ignore
     p.communicate()
     if p.returncode != 0:
         sys.exit(p.returncode)
 
 
-def shellcommand(name, cmd, desc=None):
+def shellcommand(
+    name: str, cmd: list[str] | str, desc: str | None = None
+) -> type[BaseCommand]:
     class InnerClass(BaseCommand):
         description = desc
         if description is None:
-            description = cmd
+            description = str(cmd)
 
-        def run(self):
+        def run(self) -> None:
             if isinstance(cmd, list):
                 for c in cmd:
                     shell(c)
@@ -69,7 +71,7 @@ def shellcommand(name, cmd, desc=None):
 class PreCommitCommand(BaseCommand):
     description = "Prepare a commit"
 
-    def run(self):
+    def run(self) -> None:
         shell("./setup.py check_format >/dev/null || ./setup.py check_format")
         shell("./setup.py style >/dev/null || ./setup.py style")
         shell("./setup.py typechecks >/dev/null || ./setup.py typechecks")
@@ -78,15 +80,15 @@ class PreCommitCommand(BaseCommand):
 class CheckFormatCommand(BaseCommand):
     description = "Test formatting"
 
-    def run(self):
-        shell("isort --check -l 79 src tests ext")
-        shell("black --check -l 79 src tests ext")
+    def run(self) -> None:
+        shell("isort --check -l 79 .")
+        shell("black --check -l 79 .")
 
 
 class FormatCommand(BaseCommand):
     description = "Run formatter"
 
-    def run(self):
+    def run(self) -> None:
         shell("isort -l 79 .")
         shell("black -l 79 .")
 
@@ -94,35 +96,37 @@ class FormatCommand(BaseCommand):
 class BadgesCommand(BaseCommand):
     description = "Generate badges"
 
-    def run(self):
-        import anybadge
-        from coverage import coverage
+    def run(self) -> None:
+        import anybadge  # type: ignore
+        from coverage import coverage  # type: ignore
 
         cov = coverage()
-        cov.load()
-        total = int(cov.report())
+        cov.load()  # type: ignore
+        total = int(cov.report())  # type: ignore
 
         thresholds = {20: "red", 40: "orange", 60: "yellow", 100: "green"}
-        badge = anybadge.Badge(
+        badge = anybadge.Badge(  # type: ignore
             "Test coverage", total, value_suffix="%", thresholds=thresholds
         )
         try:
             os.remove(os.path.join("img", "coverage.svg"))
         except Exception:
             pass
-        badge.write_badge(os.path.join("img", "coverage.svg"))
+        badge.write_badge(os.path.join("img", "coverage.svg"))  # type: ignore
 
-        thresholds = {"passing": "green", "failing": "red"}
-        badge = anybadge.Badge(
+        thresholds_str = {"passing": "green", "failing": "red"}
+        badge = anybadge.Badge(  # type: ignore
             f"Coverage>={REQUIRED_COVERAGE}%",
             "passing" if total >= REQUIRED_COVERAGE else "failing",
-            thresholds=thresholds,
+            thresholds=thresholds_str,
         )
         try:
             os.remove(os.path.join("img", "coverage-met.svg"))
         except Exception:
             pass
-        badge.write_badge(os.path.join("img", "coverage-met.svg"))
+        badge.write_badge(  # type: ignore
+            os.path.join("img", "coverage-met.svg")
+        )
 
 
 with open("requirements.txt", "r") as f:
@@ -145,11 +149,13 @@ setup_info = dict(
     author_email="leah.lackner+github@gmail.com",
     url="https://github.com/evyli/gitclone",
     project_urls={
-        "Documentation": "https://github.com/evyli/gitclone/blob/master/README.md#gitclone",
+        "Documentation": "https://github.com/evyli/gitclone"
+        "/blob/master/README.md#gitclone",
         "Source": "https://github.com/evyli/gitclone",
         "Tracker": "https://github.com/evyli/gitclone/issues",
     },
-    description="Gitclone allows you to manage multiple git repositories in a directory structure with ease",
+    description="Gitclone allows you to manage multiple "
+    "git repositories in a directory structure with ease",
     long_description=long_description,
     long_description_content_type="text/markdown",
     platforms="Linux, Mac OSX",
@@ -179,28 +185,46 @@ setup_info = dict(
     cmdclass={
         "typechecks": shellcommand(
             "Typechecks",
-            "mypy --pretty "
-            "--warn-unused-configs "
-            "--disallow-any-generics "
-            "--disallow-subclassing-any "
-            "--disallow-untyped-calls "
-            "--disallow-untyped-defs "
-            "--disallow-incomplete-defs "
-            "--check-untyped-defs "
-            "--disallow-untyped-decorators "
-            "--no-implicit-optional "
-            "--warn-redundant-casts "
-            "--warn-return-any "
-            "--no-implicit-reexport "
-            "--strict-equality "
-            "src tests ext",
+            [
+                "mypy --pretty "
+                "--warn-unused-configs "
+                "--disallow-any-generics "
+                "--disallow-subclassing-any "
+                "--disallow-untyped-calls "
+                "--disallow-untyped-defs "
+                "--disallow-incomplete-defs "
+                "--check-untyped-defs "
+                "--disallow-untyped-decorators "
+                "--no-implicit-optional "
+                "--warn-redundant-casts "
+                "--warn-return-any "
+                "--no-implicit-reexport "
+                "--strict-equality "
+                "src tests ext",
+                "mypy --pretty "
+                "--warn-unused-configs "
+                "--disallow-any-generics "
+                "--disallow-subclassing-any "
+                "--disallow-untyped-calls "
+                "--disallow-untyped-defs "
+                "--disallow-incomplete-defs "
+                "--check-untyped-defs "
+                "--disallow-untyped-decorators "
+                "--no-implicit-optional "
+                "--warn-redundant-casts "
+                "--warn-return-any "
+                "--no-implicit-reexport "
+                "--strict-equality "
+                "setup.py",
+            ],
             "Run typechecks",
         ),
         "style": shellcommand(
             "Stylechecks",
             [
-                "flake8 --select=E9,F63,F7,F82 --show-source src tests ext",
-                "flake8 --max-complexity=13 --show-source --max-line-length=79 src tests ext",
+                "flake8 --select=E9,F63,F7,F82 --show-source .",
+                "flake8 --max-complexity=13 --show-source"
+                " --max-line-length=79 .",
             ],
             "Run stylechecks",
         ),
@@ -208,7 +232,7 @@ setup_info = dict(
         "check_format": CheckFormatCommand,
         "test": shellcommand(
             "Test",
-            "pytest src ext tests",
+            "pytest .",
             "Run tests",
         ),
         "badges": BadgesCommand,
