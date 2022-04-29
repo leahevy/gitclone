@@ -93,7 +93,9 @@ def handle_autofetch(config: Config) -> list[str]:
                         f"https://github.com/{repo.full_name}.git {path}"
                     )
                 else:
-                    assert False
+                    raise CoreException(
+                        f"Unknown github.method: {github.method}"
+                    )
             results: list[str] = []
             if github.includes:
                 results.clear()
