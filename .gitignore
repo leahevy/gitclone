@@ -23,6 +23,8 @@
 !/.isort.cfg
 !/ext
 !/TODO.md
+!/pytest.ini
+!/conftest.py
 
 
 # Python gitignore

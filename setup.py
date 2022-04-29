@@ -87,8 +87,8 @@ class FormatCommand(BaseCommand):
     description = "Run formatter"
 
     def run(self):
-        shell("isort -l 79 src tests ext")
-        shell("black -l 79 src tests ext")
+        shell("isort -l 79 .")
+        shell("black -l 79 .")
 
 
 class BadgesCommand(BaseCommand):
@@ -207,11 +207,11 @@ setup_info = dict(
         "check_format": CheckFormatCommand,
         "test": shellcommand(
             "Test",
-            "pytest --cov-report html --cov=gitclone tests",
+            "pytest src ext tests",
             "Run tests",
         ),
         "badges": BadgesCommand,
         "pre_commit": PreCommitCommand,
     },
 )
-setup(**setup_info)
+setup(**setup_info)  # type: ignore
