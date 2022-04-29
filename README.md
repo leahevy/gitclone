@@ -38,7 +38,7 @@ Currently this is **still in heavy development**. This Readme will be updated wh
 
 ---
 
-# Table of Contents
+### Table of Contents
 
 * [Installation](#-installation)
 * [Features](#-features)
@@ -46,15 +46,18 @@ Currently this is **still in heavy development**. This Readme will be updated wh
 * [Usage](#-usage)
 * [Planned Features](#-planned-features)
 * [Contributing](#-contributing)
+* [Extensions](#-extensions)
 * [License](#-license)
 
-# 💻 Installation 
+---
+
+### 💻 Installation 
 
 Install the python package with `pip install -e .`. It will be published on **pip** as soon as it is ready.
 
 ---
 
-# 💫 Features
+### 💫 Features
 
 - Clone specified *git repositories* in local directory.
 - Use a local *configuration* file.
@@ -63,19 +66,19 @@ Install the python package with `pip install -e .`. It will be published on **pi
 
 ---
 
-# ⌨️ Configuration
+### ⌨️ Configuration
 
 Change values in directory local file `gitclone.yaml` to your needs. You can copy the file from `gitclone.example.yaml`. A config generation is under development.
 
 ---
 
-# 😎 Usage
+### 😎 Usage
 
 Run `gitclone` from the same directory. Your configured git repositories will be cloned.
 
 ---
 
-# 🔮 Planned Features
+### 🔮 Planned Features
 
 - **Pull** in existing directories.
 - **Find** local git directories.
@@ -85,7 +88,7 @@ Run `gitclone` from the same directory. Your configured git repositories will be
 
 ---
 
-# 👭 Contributing
+### 👭 Contributing
 
 👋 Want to add a contribution to **gitclone**? Feel free to send me a [pull request](https://github.com/evyli/gitclone/compare).
 
@@ -93,7 +96,13 @@ See also [here](https://github.com/evyli/gitclone/blob/master/CONTRIBUTING.md).
 
 ---
 
-# 📝 License
+### 📡 Extensions
+
+To learn how to include an extension in **Gitclone** see [here](https://github.com/evyli/gitclone/blob/master/src/gitclone/extensions/README.md).
+
+---
+
+### 📝 License
 
 Copyright (C)  2022 Leah Lackner
 

@@ -9,6 +9,8 @@ from click import Command
 from click.exceptions import Abort, BadArgumentUsage, NoSuchOption, UsageError
 
 from gitclone.core import GitcloneCore
+from gitclone.exceptions import GitExtensionException
+from gitclone.extensions.loader import load_extensions
 from gitclone.repositories import RepoSpecification
 from gitclone.utils import print
 from gitclone.version import __VERSION__
@@ -120,13 +122,27 @@ def main() -> None:
         if not arg.startswith("--") and not arg.startswith("-"):
             only_options = False
             break
-    if only_options and DEFAULT_COMMAND:
-        sys.argv = [sys.argv[0]] + DEFAULT_COMMAND + sys.argv[1:]
     for idx, arg in enumerate(sys.argv):
         if arg == "-h":
             sys.argv[idx] = "--help"
+        elif arg == "-":
+            sys.argv[idx] = "--"
+    if only_options and "--help" not in sys.argv and DEFAULT_COMMAND:
+        sys.argv = [sys.argv[0]] + DEFAULT_COMMAND + sys.argv[1:]
+
+    try:
+        load_extensions(cli, COMMANDS)
+    except GitExtensionException as e:
+        fatal(e)
     command = typer.main.get_command(cli)
     run_command(command)
+
+
+def fatal(e: Exception) -> None:
+    if state["debug"]:
+        print(traceback.format_exc())
+    print(f"[red][bold]Gitclone fatal: [/]{str(e)}[/]")
+    sys.exit(44)
 
 
 def run_command(cmd: Command) -> None:
@@ -164,10 +180,7 @@ def run_command(cmd: Command) -> None:
         )
         sys.exit(43)
     except Exception as e:
-        if state["debug"]:
-            print(traceback.format_exc())
-        print(f"[red][bold]Gitclone fatal: [/]{str(e)}[/]")
-        sys.exit(44)
+        fatal(e)
     sys.exit(0)
 
 

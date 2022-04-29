@@ -39,5 +39,9 @@ class GitConfigurationException(GitcloneException):
     pass
 
 
+class GitExtensionException(GitcloneException):
+    pass
+
+
 class RepositoryFormatException(GitcloneException):
     values = ["repostr"]

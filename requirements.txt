@@ -7,3 +7,4 @@ types-PyYAML>=6.0.7
 pydantic>=1.9.0
 pydantic-yaml>=0.6.3
 click>=8.1.2
+types-setuptools==57.4.14

@@ -79,16 +79,16 @@ class CheckFormatCommand(BaseCommand):
     description = "Test formatting"
 
     def run(self):
-        shell("isort --check -l 79 src tests")
-        shell("black --check -l 79 src tests")
+        shell("isort --check -l 79 src tests ext")
+        shell("black --check -l 79 src tests ext")
 
 
 class FormatCommand(BaseCommand):
     description = "Run formatter"
 
     def run(self):
-        shell("isort -l 79 src tests")
-        shell("black -l 79 src tests")
+        shell("isort -l 79 src tests ext")
+        shell("black -l 79 src tests ext")
 
 
 class BadgesCommand(BaseCommand):
@@ -145,7 +145,7 @@ setup_info = dict(
     author_email="leah.lackner+github@gmail.com",
     url="https://github.com/evyli/gitclone",
     project_urls={
-        "Documentation": "https://github.com/evyli/gitclone/blob/master/README.md#ethclone",
+        "Documentation": "https://github.com/evyli/gitclone/blob/master/README.md#gitclone",
         "Source": "https://github.com/evyli/gitclone",
         "Tracker": "https://github.com/evyli/gitclone/issues",
     },
@@ -192,14 +192,14 @@ setup_info = dict(
             "--warn-return-any "
             "--no-implicit-reexport "
             "--strict-equality "
-            "src tests",
+            "src tests ext",
             "Run typechecks",
         ),
         "style": shellcommand(
             "Stylechecks",
             [
-                "flake8 --select=E9,F63,F7,F82 --show-source src tests",
-                "flake8 --max-complexity=13 --show-source --max-line-length=79 src tests",
+                "flake8 --select=E9,F63,F7,F82 --show-source src tests ext",
+                "flake8 --max-complexity=13 --show-source --max-line-length=79 src tests ext",
             ],
             "Run stylechecks",
         ),
