@@ -152,6 +152,8 @@ class GitcloneCore:
             config = self.config
         if verbose is None:
             verbose = self.verbose
+        if dry_run:
+            verbose = True
         repos_to_clone = list(repos)
         if not repos_to_clone:
             repos_to_clone = self.do_resolve_autofetch(*config.autofetch)

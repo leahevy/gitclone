@@ -15,6 +15,26 @@ from gitclone.exceptions import GitOperationException
 
 
 class GitRemoteProgress(RemoteProgress):
+    OP_CODES = [
+        "BEGIN",
+        "CHECKING_OUT",
+        "COMPRESSING",
+        "COUNTING",
+        "END",
+        "FINDING_SOURCES",
+        "RECEIVING",
+        "RESOLVING",
+        "WRITING",
+    ]
+    OP_CODE_MAP = {
+        getattr(RemoteProgress, _op_code): _op_code for _op_code in OP_CODES
+    }
+
+    @classmethod
+    def opcode_to_str(cls, op_code: int) -> str:
+        op_code_masked = op_code & cls.OP_MASK
+        return cls.OP_CODE_MAP.get(op_code_masked, "?").title()
+
     def __init__(
         self,
         progressbar: "GitRichProgress",
@@ -41,14 +61,15 @@ class GitRemoteProgress(RemoteProgress):
 
             if self.task is None:
                 self.progressbar.log(
-                    f"{self.text}: {cur_count}/{max_count} ({message})"
+                    f"{self.text}: {cur_count}/{max_count}"
+                    f" ({GitRemoteProgress.opcode_to_str(op_code)})"
                 )
             else:
                 self.progressbar.progressbar.update(
                     task_id=self.task,
                     completed=float(cur_count),
                     total=float(max_count),
-                    message=message,
+                    message=f"({GitRemoteProgress.opcode_to_str(op_code)})",
                 )
 
     def stop(self) -> None:
@@ -72,7 +93,7 @@ class GitRichProgress:
                 "[progress.percentage]{task.percentage:>3.0f}%"
             ),
             progress.TimeRemainingColumn(),
-            progress.TextColumn("{task.fields[message]}"),
+            progress.TextColumn("[yellow]{task.fields[message]}[/]"),
         )
         self.progressbar = self.progressbar.__enter__()
 

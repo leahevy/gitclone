@@ -87,6 +87,8 @@ def clone(
     version: bool = typer.Option(None, "--version", help=VERSION_HELP),
     dry_run: bool = typer.Option(None, "--dry-run", "-n", help=DRY_RUN_HELP),
 ) -> None:
+    if dry_run:
+        verbose = True
     repos: list[RepoSpecification] = []
     if repository:
         repos.append(RepoSpecification(url=repository, dest=directory))
