@@ -37,7 +37,7 @@ def command():  # type: ignore
             if version:
                 print(f"v{__VERSION__}")
                 sys.exit(0)
-            f(*args, verbose=verbose, debug=debug, **kwargs)
+            f(*args, verbose=state["verbose"], debug=state["debug"], **kwargs)
 
         COMMANDS.append(f.__name__)  # type: ignore
 
