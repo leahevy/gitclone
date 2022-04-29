@@ -54,6 +54,11 @@ Currently this is **still in heavy development**. This Readme will be updated wh
 
 Install the python package with `pip install -e .`. It will be published on **pip** as soon as it is ready.
 
+To install the shell completion run:
+```bash
+gitclone --install-completion [bash|zsh|fish|powershell|pwsh]
+```
+
 ---
 
 ### 💫 Features
@@ -74,6 +79,10 @@ Change values in directory local file `gitclone.yaml` to your needs. You can cop
 ### 😎 Usage
 
 Run `gitclone` from the same directory. Your configured git repositories will be cloned.
+
+The supported commands are:
+- **clone**: Clones the configured git repositories
+- **pull**: Pull new changes in the cloned repositories
 
 ---
 
