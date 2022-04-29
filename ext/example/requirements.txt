@@ -1,2 +1,2 @@
-gitclone
+pygitclone
 typer>=0.4.1

@@ -16,7 +16,7 @@ with open("README.md", "r") as f:
     long_description = f.read().strip()
 
 setup_info = dict(
-    name="gitclone-example",
+    name="pygitclone-example",
     version="0.0.1",
     author="Leah Lackner",
     author_email="leah.lackner+github@gmail.com",
@@ -37,7 +37,8 @@ setup_info = dict(
         "Development Status :: 2 - Pre-Alpha",
         "Environment :: Console",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: GPLv3",
+        "License :: OSI Approved :: GNU General"
+        " Public License v3 or later (GPLv3+)",
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: POSIX :: Linux",
         "Programming Language :: Python :: 3.10",
