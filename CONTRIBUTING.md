@@ -64,7 +64,7 @@ After that a release should be published at *github.com/evyli* named as *v1.0.0*
 
 ## See also
 
-**Full Changelog**: https://github.com/evyli/gitclone/commits/v1.0.0
+**Full Changelog**: https://github.com/evyli/gitclone/compare/v0.0.9...v1.0.0
 ```
 
 Now create an account on https://pypi.org/account/register/
