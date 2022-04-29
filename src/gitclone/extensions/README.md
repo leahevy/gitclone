@@ -2,6 +2,27 @@
 
 In order to extend **Gitclone** you can write a Python package which should provide one or more classes implementing the following base class:
 
+<br/><br/><br/>
+
+```mermaid
+classDiagram
+    Extension <|-- Example1Extension
+    Extension <|-- Example2Extension
+
+    class Extension{
+        +str command_name
+        +typer.Typer command
+    }
+
+    class Example1Extension{
+    }
+
+    class Example2Extension{
+    }
+```
+
+<br/><br/><br/>
+
 ```python
 from abc import ABC, abstractmethod
 
@@ -20,6 +41,9 @@ class Extension(ABC):
     def command(self) -> Typer:
         ...
 ```
+<br/>
+
+
 
 This package should be installed in addition to the base package **gitclone** and you should be ready to go.
 
