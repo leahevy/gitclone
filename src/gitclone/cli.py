@@ -95,7 +95,7 @@ def clone(
     if repository:
         repos.append(RepoSpecification(url=repository, dest=directory))
     core = GitcloneCore(verbose=verbose)
-    core.clone(verbose=verbose, dry_run=dry_run)
+    core.clone(*repos, verbose=verbose, dry_run=dry_run)
 
 
 @cli.callback()
