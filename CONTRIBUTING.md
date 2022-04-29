@@ -50,7 +50,7 @@ git push --tags
 After that a release should be published at *github.com/evyli* named as *v1.0.0* with a description describing the new features and fixes, e.g.:
 
 ```markdown
-# Test release
+# Version 1.0.0
 
 ## New features
 
