@@ -35,7 +35,7 @@ def load_extension_package(
                 if ext_obj.command is None or not ext_obj.command_name:
                     raise GitExtensionException(
                         f"Extension {ext.project_name} could not be"
-                        f" loaded (class {k})\n Extension provides does"
+                        f" loaded (class {k})\n Extension does"
                         " not provide the required properties"
                     )
                 elif ext_obj.command_name in registered_commands:
