@@ -4,7 +4,7 @@
 <br/>
 
 <p align="center">
-<u><b> The git clone utility. </b></u><br><b>Manages multiple git repositories with ease.</b> 
+<b> The git clone utility. </b><br><b>Manages multiple git repositories with ease.</b> 
 </p>
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/evyli/ethclone/graphs/commit-activity)
