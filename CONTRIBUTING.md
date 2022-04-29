@@ -24,7 +24,7 @@ Please check the source code with `python setup.py pre_commit` before committing
 You can also use [pre-commit](https://github.com/pre-commit/pre-commit) for that by running:
 
 ```bash
-pip install -r requirements-dev.txt
+pip install -e .[dev]
 pre-commit install
 ```
 
