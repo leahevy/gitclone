@@ -1,3 +1,5 @@
+import sys
+
 from typer import Typer
 
 from gitclone.extensions import Extension
@@ -12,6 +14,9 @@ def default(name: str) -> None:
 
 
 class ExampleExtension(Extension):
+    def __init__(self) -> None:
+        print("Running some extension init code...", file=sys.stderr)
+
     @property
     def command_name(self) -> str:
         return "example"
