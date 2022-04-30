@@ -36,9 +36,11 @@
 
 Currently this is **still in heavy development**. This Readme will be updated when it is ready. Use at your own risk at this moment.
 
+<br/><br/>
+
 ---
 
-### Table of Contents
+## Table of Contents
 
 * [Installation](#-installation)
 * [Features](#-features)
@@ -48,9 +50,41 @@ Currently this is **still in heavy development**. This Readme will be updated wh
 * [Extensions](#-extensions)
 * [License](#-license)
 
+<br/><br/>
+
 ---
 
-### 💻 Installation 
+## 💻 Installation 
+
+First install the prerequisites required by **GitClone**:
+
+<details>
+    <summary>Linux</summary>
+
+On Linux install **git** with your package manager, e.g.:
+
+```bash
+apt install git
+```
+</details>
+
+<details>
+    <summary>MacOS</summary>
+
+On MacOS install **git** with the *Xcode Command Line Tools*, e.g.:
+
+```bash
+xcode-select --install
+```
+</details>
+
+<details>
+    <summary>Windows</summary>
+
+Although not tested on Windows, you can install **git** by visiting [the git website](https://git-scm.com/download/win]).
+</details>
+
+<br/>
 
 Install the Python package with `pip install pygitclone`.
 
@@ -59,48 +93,87 @@ To install the shell completion run:
 gitclone --install-completion [bash|zsh|fish|powershell|pwsh]
 ```
 
+<br/><br/>
+
 ---
 
-### 💫 Features
+## 💫 Features
 
 - Clone specified *git repositories* in local directory.
 - Use a local *configuration* file.
 - Autofetch with **github.com** to automatically clone all your owned repositories, including *private* ones if you specify an API token.
 - **Typechecked** library code.
 
----
-
-### ⌨️ Configuration
-
-Change values in directory local file `gitclone.yaml` to your needs. You can copy the file from `gitclone.example.yaml`. A config generation is under development.
+<br/><br/>
 
 ---
 
-### 😎 Usage
+## ⌨️ Configuration
+
+You can use the configuration generator to get started by running:
+
+```bash
+gitclone config --help
+```
+
+An example (`gitclone.yml` or `.gitclone.yml`) configuration file might look like this:
+
+```yaml
+dest: ./
+
+autofetch:
+  -
+    github:
+      user: GITHUB_USER
+      method: ssh
+      token: GITHUB_TOKEN
+      private: true
+      path: "github.com/{user}/{repo}"
+
+
+repositories:
+  - https://example.com/some/repository/url.git some/destination
+```
+
+The configuration file can either be global (in `~/.config/gitclone.yml`) or local (`./gitclone.yml`).
+
+<br/><br/>
+
+---
+
+## 😎 Usage
 
 Run `gitclone` from the same directory. Your configured git repositories will be cloned.
 
 The supported commands are:
-- **clone**: Clones the configured git repositories
-- **pull**: Pull new changes in the cloned repositories
+- **clone**: Clones the configured git repositories (The default command if no command is specified).
+- **pull**: Pull new changes in the cloned repositories.
+
+To get more informaion run `gitclone --help`.
+
+<br/><br/>
 
 ---
 
-### 👭 Contributing
+## 👭 Contributing
 
 👋 Want to add a contribution to **gitclone**? Feel free to send me a [pull request](https://github.com/evyli/gitclone/compare).
 
 See also [here](https://github.com/evyli/gitclone/blob/master/CONTRIBUTING.md).
 
+<br/><br/>
+
 ---
 
-### 📡 Extensions
+## 📡 Extensions
 
 To learn how to include an extension in **Gitclone** see [here](https://github.com/evyli/gitclone/blob/master/src/gitclone/extensions/README.md).
 
+<br/><br/>
+
 ---
 
-### 📝 License
+## 📝 License
 
 Copyright (C)  2022 Leah Lackner
 

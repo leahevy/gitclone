@@ -16,7 +16,6 @@
 !/.github
 !/tests
 !/img
-!/examples
 !/VERSION
 !/.pre-commit-config.yaml
 /src/gitclone/VERSION

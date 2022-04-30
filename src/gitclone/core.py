@@ -25,7 +25,17 @@ class GitcloneCore:
         verbose: bool = False,
     ):
         if not shutil.which("git"):
-            raise CoreException("Git is not installed")
+            raise CoreException(
+                "Git is not installed.\n\n"
+                "On Linux install it with your package manager, e.g.:\n"
+                "    > apt install git\n\n"
+                "On MacOS install the Xcode Command Line Tools:\n"
+                "    > xcode-select --install\n\n"
+                "On Windows visit:\n"
+                "    https://git-scm.com/download/win\n\n"
+                "    Please note that Windows is not officially supported\n"
+                "    by GitClone yet."
+            )
 
         self.configmanager = ConfigManager(verbose=verbose)
         self.verbose = verbose
