@@ -24,7 +24,7 @@
 
 ---
 
-# 💡 Gitclone 
+# 💡 Gitclone / Pygitclone
 
 **Gitclone** allows you to *manage* multiple **git** repositories in a *directory structure*.
 
