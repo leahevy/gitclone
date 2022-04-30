@@ -55,4 +55,4 @@ The *command_name* should return the name under which the command tree will be p
 
 The *command* is a `typer.Typer` object to be registered in the typer object of the commandline interface of **Gitclone**.
 
-You can check the provided example as in [gitclone-example](https://github.com/evyli/gitclone/tree/master/ext/example).
+You can check the provided example as in [pygitclone-example](https://github.com/evyli/gitclone/tree/master/ext/example).
