@@ -55,7 +55,7 @@ def load_extension_package(
 def load_extensions(cli: Typer, registered_commands: list[str]) -> None:
     installed_packages = pkg_resources.working_set
     for i in installed_packages:
-        if i.project_name.startswith("pygitclone-"):
+        if i.project_name.startswith("gitclone-"):
             load_extension_package(cli, i, registered_commands)
 
 
