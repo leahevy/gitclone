@@ -1,11 +1,13 @@
 <div align="center">
-    <img src="https://raw.githubusercontent.com/evyli/gitclone/master/img/gitclone.png" width="350px"</img> 
+<img src="https://raw.githubusercontent.com/evyli/gitclone/master/img/gitclone.png" width="350px"</img> 
 </div>
 <br/>
 
 <p align="center">
 <b> The git clone utility. </b><br><b>Manages multiple git repositories with ease.</b> 
 </p>
+
+<!--more-->
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/evyli/ethclone/graphs/commit-activity)
 [![Build](https://github.com/evyli/gitclone/actions/workflows/build.yml/badge.svg)](https://github.com/evyli/gitclone/actions/workflows/build.yml)
