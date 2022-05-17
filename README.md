@@ -26,7 +26,7 @@
 
 ---
 
-# 💡 Gitclone / Pygitclone
+# Gitclone / Pygitclone
 
 **Gitclone** allows you to *manage* multiple **git** repositories in a *directory structure*.
 
@@ -44,19 +44,19 @@ Currently this is **still in heavy development**. This Readme will be updated wh
 
 ## Table of Contents
 
-* [Installation](#-installation)
-* [Features](#-features)
-* [Configuration](#-configuration)
-* [Usage](#-usage)
-* [Contributing](#-contributing)
-* [Extensions](#-extensions)
-* [License](#-license)
+* [Installation](#installation)
+* [Features](#features)
+* [Configuration](#configuration)
+* [Usage](#usage)
+* [Contributing](#contributing)
+* [Extensions](#extensions)
+* [License](#license)
 
 <br/><br/>
 
 ---
 
-## 💻 Installation 
+## Installation 
 
 First install the prerequisites required by **GitClone**:
 
@@ -99,7 +99,7 @@ gitclone --install-completion [bash|zsh|fish|powershell|pwsh]
 
 ---
 
-## 💫 Features
+## Features
 
 - Clone specified *git repositories* in local directory.
 - Use a local *configuration* file.
@@ -110,7 +110,7 @@ gitclone --install-completion [bash|zsh|fish|powershell|pwsh]
 
 ---
 
-## 💾 Configuration
+## Configuration
 
 You can use the configuration generator to get started by running:
 
@@ -143,7 +143,7 @@ The configuration file can either be global (in `~/.config/gitclone.yml`) or loc
 
 ---
 
-## 😎 Usage
+## Usage
 
 Run `gitclone` from the same directory. Your configured git repositories will be cloned.
 
@@ -157,9 +157,9 @@ To get more informaion run `gitclone --help`.
 
 ---
 
-## 👭 Contributing
+## Contributing
 
-👋 Want to add a contribution to **gitclone**? Feel free to send me a [pull request](https://github.com/evyli/gitclone/compare).
+Want to add a contribution to **gitclone**? Feel free to send me a [pull request](https://github.com/evyli/gitclone/compare).
 
 See also [here](https://github.com/evyli/gitclone/blob/master/CONTRIBUTING.md).
 
@@ -167,7 +167,7 @@ See also [here](https://github.com/evyli/gitclone/blob/master/CONTRIBUTING.md).
 
 ---
 
-## 📡 Extensions
+## Extensions
 
 To learn how to include an extension in **Gitclone** see [here](https://github.com/evyli/gitclone/blob/master/src/gitclone/extensions/README.md).
 
@@ -175,7 +175,7 @@ To learn how to include an extension in **Gitclone** see [here](https://github.c
 
 ---
 
-## 📝 License
+## License
 
 Copyright (C)  2022 Leah Lackner
 
