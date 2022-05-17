@@ -59,23 +59,19 @@ Currently this is **still in heavy development**. This Readme will be updated wh
 First install the prerequisites required by **GitClone**:
 
 <details>
-<summary>Linux</summary>
+<summary>Linux</summary><br/>
 On Linux install <b>git</b> with your package manager, e.g.:<br/><br/>
-<code>
-    apt install git
-</code>
+<pre><code>apt install git</code></pre>
 </details>
 
 <details>
-<summary>MacOS</summary>
+<summary>MacOS</summary><br/>
 On MacOS install <b>git</b> with the <b>Xcode Command Line Tools</b>, e.g.:<br/><br/>
-<code>
-xcode-select --install
-</code>
+<pre><code>xcode-select --install</code></pre>
 </details>
 
 <details>
-<summary>Windows</summary>
+<summary>Windows</summary><br/>
 Although not tested on Windows, you can install <b>git</b> by visiting <a href="https://git-scm.com/download/win">the git website</a>.
 </details>
 
