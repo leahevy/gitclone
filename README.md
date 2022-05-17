@@ -46,7 +46,7 @@ Currently this is **still in heavy development**. This Readme will be updated wh
 
 * [Installation](#-installation)
 * [Features](#-features)
-* [Configuration](#%EF%B8%8F-configuration)
+* [Configuration](#-configuration)
 * [Usage](#-usage)
 * [Contributing](#-contributing)
 * [Extensions](#-extensions)
@@ -110,7 +110,7 @@ gitclone --install-completion [bash|zsh|fish|powershell|pwsh]
 
 ---
 
-## ⌨️ Configuration
+## 💾 Configuration
 
 You can use the configuration generator to get started by running:
 
