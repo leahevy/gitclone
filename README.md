@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://raw.githubusercontent.com/evyli/gitclone/master/img/gitclone.png" width="350px"></img> 
+<img src="https://raw.githubusercontent.com/evyli/gitclone/master/img/gitclone.png" width="350px"/> 
 </div>
 <br/>
 
@@ -30,7 +30,7 @@
 
 <br/>
 <div align="center">
-    <img src="https://raw.githubusercontent.com/evyli/gitclone/master/img/terminalizer/demo.gif" width="600px"></img> 
+    <img src="https://raw.githubusercontent.com/evyli/gitclone/master/img/terminalizer/demo.gif" width="600px"/>
 </div>
 <br/>
 
