@@ -18,8 +18,8 @@ def test_cli_clone() -> None:
             f,
             """
             repositories:
-                - https://github.com/evyli/gitclone.git gitclone
-                - https://github.com/evyli/gitclone.git gitclone2
+                - https://github.com/leahevy/gitclone.git gitclone
+                - https://github.com/leahevy/gitclone.git gitclone2
             """,
         )
         result = runner.invoke(cli, ["clone"])
@@ -35,8 +35,8 @@ def test_cli_clone_and_pull() -> None:
             f,
             """
             repositories:
-                - https://github.com/evyli/gitclone.git gitclone
-                - https://github.com/evyli/gitclone.git gitclone2
+                - https://github.com/leahevy/gitclone.git gitclone
+                - https://github.com/leahevy/gitclone.git gitclone2
             """,
         )
         result = runner.invoke(cli, ["clone"])
@@ -46,8 +46,8 @@ def test_cli_clone_and_pull() -> None:
             f,
             """
             repositories:
-                - https://github.com/evyli/gitclone.git gitclone
-                - https://github.com/evyli/gitclone.git gitclone2
+                - https://github.com/leahevy/gitclone.git gitclone
+                - https://github.com/leahevy/gitclone.git gitclone2
             """,
         )
         result = runner.invoke(cli, ["pull"])
@@ -63,8 +63,8 @@ def test_cli_main_clone() -> None:
             f,
             """
             repositories:
-                - https://github.com/evyli/gitclone.git gitclone
-                - https://github.com/evyli/gitclone.git gitclone2
+                - https://github.com/leahevy/gitclone.git gitclone
+                - https://github.com/leahevy/gitclone.git gitclone2
             """,
         )
         sys.argv = ["gitclone"]

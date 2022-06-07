@@ -147,12 +147,12 @@ setup_info = dict(
     version=version,
     author="Leah Lackner",
     author_email="leah.lackner+github@gmail.com",
-    url="https://github.com/evyli/gitclone",
+    url="https://github.com/leahevy/gitclone",
     project_urls={
-        "Documentation": "https://github.com/evyli/gitclone"
+        "Documentation": "https://github.com/leahevy/gitclone"
         "/blob/master/README.md#gitclone",
-        "Source": "https://github.com/evyli/gitclone",
-        "Tracker": "https://github.com/evyli/gitclone/issues",
+        "Source": "https://github.com/leahevy/gitclone",
+        "Tracker": "https://github.com/leahevy/gitclone/issues",
     },
     description="Gitclone allows you to manage multiple "
     "git repositories in a directory structure with ease",

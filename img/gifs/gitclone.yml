@@ -1,0 +1,10 @@
+dest: ~/.gitclone-test
+
+autofetch:
+  -
+    github:
+      user: leahevy
+      private: false
+      path: "github.com/{user}/{repo}"
+      excludes:
+        - ".*leahevy.github.io.*"

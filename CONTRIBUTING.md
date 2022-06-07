@@ -1,19 +1,17 @@
 # Contributing
 
-👋 Want to add a contribution to **gitclone**? Feel free to send me a [pull request](https://github.com/evyli/gitclone/compare).
+👋 Want to add a contribution to **gitclone**? Feel free to send me a [pull request](https://github.com/leahevy/gitclone/compare).
 
 ---
 
 # Terminal Recording
 
-The terminal recording is done with [Terminalizer](https://github.com/faressoft/terminalizer) by running:
+The terminal recording is done with [asciinema](https://asciinema.org/) by running:
 
 ```bash
-terminalizer record demo
-terminalier render demo.yml
+asciinema rec
+asciicast2gif FILENAME gitclone.gif
 ```
-
-The *demo.yml* file is slightly modified, e.g. modify some of the delays or omit lines at the beginning of the recording session. For the other values except for `records`, the current [file](https://github.com/evyli/gitclone/blob/master/img/terminalizer/demo.yml) can be used as a reference. The resulting gif as well as the recordings file are checked into the repository.
 
 ---
 
@@ -47,7 +45,7 @@ git tag -a "v1.0.0" -m "Version v1.0.0"
 git push --tags
 ```
 
-After that a release should be published at *github.com/evyli* named as *v1.0.0* with a description describing the new features and fixes, e.g.:
+After that a release should be published at *github.com/leahevy* named as *v1.0.0* with a description describing the new features and fixes, e.g.:
 
 ```markdown
 # Version 1.0.0
@@ -64,7 +62,7 @@ After that a release should be published at *github.com/evyli* named as *v1.0.0*
 
 ## See also
 
-**Full Changelog**: https://github.com/evyli/gitclone/compare/v0.0.9...v1.0.0
+**Full Changelog**: https://github.com/leahevy/gitclone/compare/v0.0.9...v1.0.0
 ```
 
 Now create an account on https://pypi.org/account/register/

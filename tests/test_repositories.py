@@ -16,10 +16,10 @@ def test_url_failing_empty() -> None:
 
 def test_url_https_working() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "https://github.com/evyli/gitclone gitclone"
+        "https://github.com/leahevy/gitclone gitclone"
     )
     assert baseurl == "https://github.com"
-    assert path == "evyli/gitclone"
+    assert path == "leahevy/gitclone"
     assert branch == ""
     assert dest == "gitclone"
     assert delimiter == "/"
@@ -27,10 +27,10 @@ def test_url_https_working() -> None:
 
 def test_url_https_working_with_feature_branch() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "https://github.com/evyli/gitclone@feature/main"
+        "https://github.com/leahevy/gitclone@feature/main"
     )
     assert baseurl == "https://github.com"
-    assert path == "evyli/gitclone"
+    assert path == "leahevy/gitclone"
     assert branch == "feature/main"
     assert dest == "gitclone"
     assert delimiter == "/"
@@ -38,10 +38,10 @@ def test_url_https_working_with_feature_branch() -> None:
 
 def test_url_https_working_with_feature_branch_dest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "https://github.com/evyli/gitclone@feature/main gitclone"
+        "https://github.com/leahevy/gitclone@feature/main gitclone"
     )
     assert baseurl == "https://github.com"
-    assert path == "evyli/gitclone"
+    assert path == "leahevy/gitclone"
     assert branch == "feature/main"
     assert dest == "gitclone"
     assert delimiter == "/"
@@ -49,10 +49,10 @@ def test_url_https_working_with_feature_branch_dest() -> None:
 
 def test_url_https_working_git_extension() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "https://github.com/evyli/gitclone.git gitclone"
+        "https://github.com/leahevy/gitclone.git gitclone"
     )
     assert baseurl == "https://github.com"
-    assert path == "evyli/gitclone.git"
+    assert path == "leahevy/gitclone.git"
     assert branch == ""
     assert dest == "gitclone"
     assert delimiter == "/"
@@ -60,10 +60,10 @@ def test_url_https_working_git_extension() -> None:
 
 def test_url_https_working_given_extension() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "https://github.com/evyli/gitclone.git gitclone.test"
+        "https://github.com/leahevy/gitclone.git gitclone.test"
     )
     assert baseurl == "https://github.com"
-    assert path == "evyli/gitclone.git"
+    assert path == "leahevy/gitclone.git"
     assert branch == ""
     assert dest == "gitclone.test"
     assert delimiter == "/"
@@ -71,10 +71,10 @@ def test_url_https_working_given_extension() -> None:
 
 def test_url_https_working_other_extension() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "https://github.com/evyli/gitclone.other gitclone"
+        "https://github.com/leahevy/gitclone.other gitclone"
     )
     assert baseurl == "https://github.com"
-    assert path == "evyli/gitclone.other"
+    assert path == "leahevy/gitclone.other"
     assert branch == ""
     assert dest == "gitclone"
     assert delimiter == "/"
@@ -82,10 +82,10 @@ def test_url_https_working_other_extension() -> None:
 
 def test_url_https_working_other_extension_nodest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "https://github.com/evyli/gitclone.other"
+        "https://github.com/leahevy/gitclone.other"
     )
     assert baseurl == "https://github.com"
-    assert path == "evyli/gitclone.other"
+    assert path == "leahevy/gitclone.other"
     assert branch == ""
     assert dest == "gitclone"
     assert delimiter == "/"
@@ -93,10 +93,10 @@ def test_url_https_working_other_extension_nodest() -> None:
 
 def test_url_https_working_branch() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "https://github.com/evyli/gitclone@main gitclone"
+        "https://github.com/leahevy/gitclone@main gitclone"
     )
     assert baseurl == "https://github.com"
-    assert path == "evyli/gitclone"
+    assert path == "leahevy/gitclone"
     assert branch == "main"
     assert dest == "gitclone"
     assert delimiter == "/"
@@ -104,10 +104,10 @@ def test_url_https_working_branch() -> None:
 
 def test_url_https_working_branch_nodest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "https://github.com/evyli/gitclone@main"
+        "https://github.com/leahevy/gitclone@main"
     )
     assert baseurl == "https://github.com"
-    assert path == "evyli/gitclone"
+    assert path == "leahevy/gitclone"
     assert branch == "main"
     assert dest == "gitclone"
     assert delimiter == "/"
@@ -115,10 +115,10 @@ def test_url_https_working_branch_nodest() -> None:
 
 def test_url_https_working_nodest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "https://github.com/evyli/gitclone"
+        "https://github.com/leahevy/gitclone"
     )
     assert baseurl == "https://github.com"
-    assert path == "evyli/gitclone"
+    assert path == "leahevy/gitclone"
     assert branch == ""
     assert dest == "gitclone"
     assert delimiter == "/"
@@ -126,7 +126,7 @@ def test_url_https_working_nodest() -> None:
 
 def test_url_https_failing_noscheme() -> None:
     try:
-        res = parse_url("github.com/evyli/gitclone")
+        res = parse_url("github.com/leahevy/gitclone")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -134,7 +134,7 @@ def test_url_https_failing_noscheme() -> None:
 
 def test_url_https_failing_multiple_slashes() -> None:
     try:
-        res = parse_url("https://github.com/evyli//gitclone")
+        res = parse_url("https://github.com/leahevy//gitclone")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -182,10 +182,10 @@ def test_url_https_failing_nopath_noscheme_dest_branch() -> None:
 
 def test_url_ssh_working() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "git@github.com:evyli/gitclone.git"
+        "git@github.com:leahevy/gitclone.git"
     )
     assert baseurl == "git@github.com"
-    assert path == "evyli/gitclone.git"
+    assert path == "leahevy/gitclone.git"
     assert branch == ""
     assert dest == "gitclone"
     assert delimiter == ":"
@@ -193,10 +193,10 @@ def test_url_ssh_working() -> None:
 
 def test_url_ssh_working_with_branch() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "git@github.com:evyli/gitclone.git@main"
+        "git@github.com:leahevy/gitclone.git@main"
     )
     assert baseurl == "git@github.com"
-    assert path == "evyli/gitclone.git"
+    assert path == "leahevy/gitclone.git"
     assert branch == "main"
     assert dest == "gitclone"
     assert delimiter == ":"
@@ -204,10 +204,10 @@ def test_url_ssh_working_with_branch() -> None:
 
 def test_url_ssh_working_with_branch_dest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "git@github.com:evyli/gitclone.git@main dest"
+        "git@github.com:leahevy/gitclone.git@main dest"
     )
     assert baseurl == "git@github.com"
-    assert path == "evyli/gitclone.git"
+    assert path == "leahevy/gitclone.git"
     assert branch == "main"
     assert dest == "dest"
     assert delimiter == ":"
@@ -215,10 +215,10 @@ def test_url_ssh_working_with_branch_dest() -> None:
 
 def test_url_ssh_working_with_dest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "git@github.com:evyli/gitclone.git dest"
+        "git@github.com:leahevy/gitclone.git dest"
     )
     assert baseurl == "git@github.com"
-    assert path == "evyli/gitclone.git"
+    assert path == "leahevy/gitclone.git"
     assert branch == ""
     assert dest == "dest"
     assert delimiter == ":"
@@ -226,21 +226,21 @@ def test_url_ssh_working_with_dest() -> None:
 
 def test_url_ssh_working_with_at_in_path() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "git@github.com:evyli@gitclone.git"
+        "git@github.com:leahevy@gitclone.git"
     )
     assert baseurl == "git@github.com"
-    assert path == "evyli"
+    assert path == "leahevy"
     assert branch == "gitclone.git"
-    assert dest == "evyli"
+    assert dest == "leahevy"
     assert delimiter == ":"
 
 
 def test_url_ssh_working_with_at_in_path_dest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "git@github.com:evyli@gitclone.git dest"
+        "git@github.com:leahevy@gitclone.git dest"
     )
     assert baseurl == "git@github.com"
-    assert path == "evyli"
+    assert path == "leahevy"
     assert branch == "gitclone.git"
     assert dest == "dest"
     assert delimiter == ":"
@@ -248,7 +248,7 @@ def test_url_ssh_working_with_at_in_path_dest() -> None:
 
 def test_url_ssh_failing_with_at_in_path_dest_branch() -> None:
     try:
-        res = parse_url("git@github.com:evyli@gitclone.git@main dest")
+        res = parse_url("git@github.com:leahevy@gitclone.git@main dest")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -256,7 +256,7 @@ def test_url_ssh_failing_with_at_in_path_dest_branch() -> None:
 
 def test_url_ssh_failing_with_at_in_path_dest_branch2() -> None:
     try:
-        res = parse_url("git@github.com:evyli.com@gitclone.git@main dest")
+        res = parse_url("git@github.com:leahevy.com@gitclone.git@main dest")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -264,7 +264,7 @@ def test_url_ssh_failing_with_at_in_path_dest_branch2() -> None:
 
 def test_url_https_failing_with_at_in_path_dest_branch() -> None:
     try:
-        res = parse_url("https://github.com/evyli@gitclone.git@main dest")
+        res = parse_url("https://github.com/leahevy@gitclone.git@main dest")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -272,7 +272,9 @@ def test_url_https_failing_with_at_in_path_dest_branch() -> None:
 
 def test_url_https_failing_with_at_in_path_dest_branch2() -> None:
     try:
-        res = parse_url("https://github.com/evyli.com@gitclone.git@main dest")
+        res = parse_url(
+            "https://github.com/leahevy.com@gitclone.git@main dest"
+        )
         assert res is None
     except RepositoryFormatException:
         pass
@@ -280,10 +282,10 @@ def test_url_https_failing_with_at_in_path_dest_branch2() -> None:
 
 def test_url_ssh_working_with_feature_branch() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "git@github.com:evyli/gitclone.git@feature/main"
+        "git@github.com:leahevy/gitclone.git@feature/main"
     )
     assert baseurl == "git@github.com"
-    assert path == "evyli/gitclone.git"
+    assert path == "leahevy/gitclone.git"
     assert branch == "feature/main"
     assert dest == "gitclone"
     assert delimiter == ":"
@@ -291,10 +293,10 @@ def test_url_ssh_working_with_feature_branch() -> None:
 
 def test_url_ssh_working_with_feature_branch_dest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "git@github.com:evyli/gitclone.git@feature/main dest"
+        "git@github.com:leahevy/gitclone.git@feature/main dest"
     )
     assert baseurl == "git@github.com"
-    assert path == "evyli/gitclone.git"
+    assert path == "leahevy/gitclone.git"
     assert branch == "feature/main"
     assert dest == "dest"
     assert delimiter == ":"
@@ -302,7 +304,7 @@ def test_url_ssh_working_with_feature_branch_dest() -> None:
 
 def test_url_ssh_failing_with_empty_branch() -> None:
     try:
-        res = parse_url("git@github.com:evyli/gitclone.git@")
+        res = parse_url("git@github.com:leahevy/gitclone.git@")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -310,7 +312,7 @@ def test_url_ssh_failing_with_empty_branch() -> None:
 
 def test_url_failing_on_third_argument() -> None:
     try:
-        res = parse_url("git@github.com:evyli/gitclone.git@main dest dest2")
+        res = parse_url("git@github.com:leahevy/gitclone.git@main dest dest2")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -318,10 +320,10 @@ def test_url_failing_on_third_argument() -> None:
 
 def test_url_oauth_working() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "https://oauth-key@github.com/evyli/gitclone.git"
+        "https://oauth-key@github.com/leahevy/gitclone.git"
     )
     assert baseurl == "https://oauth-key@github.com"
-    assert path == "evyli/gitclone.git"
+    assert path == "leahevy/gitclone.git"
     assert branch == ""
     assert dest == "gitclone"
     assert delimiter == "/"
@@ -329,10 +331,10 @@ def test_url_oauth_working() -> None:
 
 def test_url_oauth_working_with_dest() -> None:
     baseurl, delimiter, path, _, branch, dest = parse_url(
-        "https://oauth-key@github.com/evyli/gitclone.git dest"
+        "https://oauth-key@github.com/leahevy/gitclone.git dest"
     )
     assert baseurl == "https://oauth-key@github.com"
-    assert path == "evyli/gitclone.git"
+    assert path == "leahevy/gitclone.git"
     assert branch == ""
     assert dest == "dest"
     assert delimiter == "/"
@@ -340,7 +342,7 @@ def test_url_oauth_working_with_dest() -> None:
 
 def test_url_oauth_failing_no_part_after_key() -> None:
     try:
-        res = parse_url("https://oauth-key@/evyli/gitclone.git")
+        res = parse_url("https://oauth-key@/leahevy/gitclone.git")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -348,7 +350,7 @@ def test_url_oauth_failing_no_part_after_key() -> None:
 
 def test_url_oauth_failing_no_part_before_key() -> None:
     try:
-        res = parse_url("https://@github.com/evyli/gitclone.git")
+        res = parse_url("https://@github.com/leahevy/gitclone.git")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -356,7 +358,7 @@ def test_url_oauth_failing_no_part_before_key() -> None:
 
 def test_url_failing_invalid_scheme() -> None:
     try:
-        res = parse_url("https:/@github.com/evyli/gitclone.git")
+        res = parse_url("https:/@github.com/leahevy/gitclone.git")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -364,7 +366,7 @@ def test_url_failing_invalid_scheme() -> None:
 
 def test_url_failing_invalid_scheme22() -> None:
     try:
-        res = parse_url("https:/github.com/evyli/gitclone.git")
+        res = parse_url("https:/github.com/leahevy/gitclone.git")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -372,7 +374,7 @@ def test_url_failing_invalid_scheme22() -> None:
 
 def test_url_failing_invalid_scheme23() -> None:
     try:
-        res = parse_url("https:github.com/evyli/gitclone.git")
+        res = parse_url("https:github.com/leahevy/gitclone.git")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -380,7 +382,7 @@ def test_url_failing_invalid_scheme23() -> None:
 
 def test_url_failing_invalid_scheme24() -> None:
     try:
-        res = parse_url("https/github.com/evyli/gitclone.git")
+        res = parse_url("https/github.com/leahevy/gitclone.git")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -388,7 +390,7 @@ def test_url_failing_invalid_scheme24() -> None:
 
 def test_url_failing_invalid_scheme2() -> None:
     try:
-        res = parse_url("https:@github.com/evyli/gitclone.git")
+        res = parse_url("https:@github.com/leahevy/gitclone.git")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -396,7 +398,7 @@ def test_url_failing_invalid_scheme2() -> None:
 
 def test_url_failing_invalid_scheme3() -> None:
     try:
-        res = parse_url("https/@github.com/evyli/gitclone.git")
+        res = parse_url("https/@github.com/leahevy/gitclone.git")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -404,7 +406,7 @@ def test_url_failing_invalid_scheme3() -> None:
 
 def test_url_failing_invalid_scheme4() -> None:
     try:
-        res = parse_url("https@github.com/evyli/gitclone.git")
+        res = parse_url("https@github.com/leahevy/gitclone.git")
         assert res is None
     except RepositoryFormatException:
         pass
@@ -412,7 +414,7 @@ def test_url_failing_invalid_scheme4() -> None:
 
 def test_url_failing_invalid_scheme5() -> None:
     try:
-        res = parse_url("@github.com/evyli/gitclone.git")
+        res = parse_url("@github.com/leahevy/gitclone.git")
         assert res is None
     except RepositoryFormatException:
         pass

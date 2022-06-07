@@ -20,12 +20,12 @@ setup_info = dict(
     version="0.0.1",
     author="Leah Lackner",
     author_email="leah.lackner+github@gmail.com",
-    url="https://github.com/evyli/gitclone/tree/master/ext",
+    url="https://github.com/leahevy/gitclone/tree/master/ext",
     project_urls={
-        "Documentation": "https://github.com/evyli/gitclone/blob/master/"
+        "Documentation": "https://github.com/leahevy/gitclone/blob/master/"
         "README.md#gitclone",
-        "Source": "https://github.com/evyli/gitclone/tree/master/ext",
-        "Tracker": "https://github.com/evyli/gitclone/issues",
+        "Source": "https://github.com/leahevy/gitclone/tree/master/ext",
+        "Tracker": "https://github.com/leahevy/gitclone/issues",
     },
     description="Example extension package for gitclone",
     long_description=long_description,

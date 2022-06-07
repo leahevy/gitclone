@@ -16,8 +16,8 @@ def test_core_main_repos() -> None:
             f,
             """
             repositories:
-                - https://github.com/evyli/gitclone.git gitclone
-                - https://github.com/evyli/gitclone.git gitclone2
+                - https://github.com/leahevy/gitclone.git gitclone
+                - https://github.com/leahevy/gitclone.git gitclone2
             """,
         )
         clone()
@@ -33,7 +33,7 @@ def test_core_main_autofetch_github() -> None:
             autofetch:
                 -
                     github:
-                        user: evyli
+                        user: leahevy
                         path: "github.com/{user}/{repo}"
                         includes:
                             - .*gitclone.*
@@ -42,7 +42,7 @@ def test_core_main_autofetch_github() -> None:
         )
         clone()
         assert os.path.exists(
-            os.path.join("github.com", "evyli", "gitclone", ".git")
+            os.path.join("github.com", "leahevy", "gitclone", ".git")
         )
 
 
@@ -52,7 +52,7 @@ def test_core_main_longer_base() -> None:
             f,
             """
             repositories:
-                - https://github.com/evyli/gitclone.git base/gitclone
+                - https://github.com/leahevy/gitclone.git base/gitclone
             """,
         )
         clone()
@@ -65,7 +65,7 @@ def test_core_main_branch() -> None:
             f,
             """
             repositories:
-                - https://github.com/evyli/gitclone.git@master gitclone
+                - https://github.com/leahevy/gitclone.git@master gitclone
             """,
         )
         clone()
@@ -78,7 +78,7 @@ def test_core_main_default_dest() -> None:
             f,
             """
             repositories:
-                - https://github.com/evyli/gitclone.git
+                - https://github.com/leahevy/gitclone.git
             """,
         )
         clone()

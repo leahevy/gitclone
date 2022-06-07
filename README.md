@@ -30,7 +30,7 @@
 
 <br/>
 <div align="center">
-    <img src="https://raw.githubusercontent.com/leahevy/gitclone/master/img/terminalizer/demo.gif" width="600px"/>
+    <img src="https://raw.githubusercontent.com/leahevy/gitclone/master/img/gifs/gitclone.gif" width="600px"/>
 </div>
 <br/>
 
