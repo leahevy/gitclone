@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://raw.githubusercontent.com/evyli/gitclone/master/img/gitclone.png" width="350px"/> 
+<img src="https://raw.githubusercontent.com/leahevy/gitclone/master/img/gitclone.png" width="350px"/> 
 </div>
 <br/>
 
@@ -7,15 +7,15 @@
 <b> The git clone utility. </b><br><b>Manages multiple git repositories with ease.</b> 
 </p>
 
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/evyli/ethclone/graphs/commit-activity)
-[![Build](https://github.com/evyli/gitclone/actions/workflows/build.yml/badge.svg)](https://github.com/evyli/gitclone/actions/workflows/build.yml)
-[![Tests](https://github.com/evyli/gitclone/actions/workflows/tests.yml/badge.svg)](https://github.com/evyli/gitclone/actions/workflows/tests.yml)
-[![Test coverage](https://raw.githubusercontent.com/evyli/gitclone/master/img/coverage.svg)](https://github.com/evyli/gitclone/tree/master/tests)
-[![Coverage met](https://raw.githubusercontent.com/evyli/gitclone/master/img/coverage-met.svg)](https://github.com/evyli/gitclone/tree/master/tests)
-[![Typechecks](https://github.com/evyli/gitclone/actions/workflows/typechecks.yml/badge.svg)](https://github.com/evyli/gitclone/actions/workflows/typechecks.yml)
-[![Style](https://github.com/evyli/gitclone/actions/workflows/style.yml/badge.svg)](https://github.com/evyli/gitclone/actions/workflows/style.yml)
-[![Formatting](https://github.com/evyli/gitclone/actions/workflows/formatchecks.yml/badge.svg)](https://github.com/evyli/gitclone/actions/workflows/formatchecks.yml)
-[![Analysis](https://github.com/evyli/gitclone/actions/workflows/analysis.yml/badge.svg)](https://github.com/evyli/gitclone/actions/workflows/analysis.yml)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/leahevy/gitclone/graphs/commit-activity)
+[![Build](https://github.com/leahevy/gitclone/actions/workflows/build.yml/badge.svg)](https://github.com/leahevy/gitclone/actions/workflows/build.yml)
+[![Tests](https://github.com/leahevy/gitclone/actions/workflows/tests.yml/badge.svg)](https://github.com/leahevy/gitclone/actions/workflows/tests.yml)
+[![Test coverage](https://raw.githubusercontent.com/leahevy/gitclone/master/img/coverage.svg)](https://github.com/leahevy/gitclone/tree/master/tests)
+[![Coverage met](https://raw.githubusercontent.com/leahevy/gitclone/master/img/coverage-met.svg)](https://github.com/leahevy/gitclone/tree/master/tests)
+[![Typechecks](https://github.com/leahevy/gitclone/actions/workflows/typechecks.yml/badge.svg)](https://github.com/leahevy/gitclone/actions/workflows/typechecks.yml)
+[![Style](https://github.com/leahevy/gitclone/actions/workflows/style.yml/badge.svg)](https://github.com/leahevy/gitclone/actions/workflows/style.yml)
+[![Formatting](https://github.com/leahevy/gitclone/actions/workflows/formatchecks.yml/badge.svg)](https://github.com/leahevy/gitclone/actions/workflows/formatchecks.yml)
+[![Analysis](https://github.com/leahevy/gitclone/actions/workflows/analysis.yml/badge.svg)](https://github.com/leahevy/gitclone/actions/workflows/analysis.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
@@ -30,7 +30,7 @@
 
 <br/>
 <div align="center">
-    <img src="https://raw.githubusercontent.com/evyli/gitclone/master/img/terminalizer/demo.gif" width="600px"/>
+    <img src="https://raw.githubusercontent.com/leahevy/gitclone/master/img/terminalizer/demo.gif" width="600px"/>
 </div>
 <br/>
 
@@ -150,9 +150,9 @@ To get more informaion run `gitclone --help`.
 
 ## Contributing
 
-Want to add a contribution to **gitclone**? Feel free to send me a [pull request](https://github.com/evyli/gitclone/compare).
+Want to add a contribution to **gitclone**? Feel free to send me a [pull request](https://github.com/leahevy/gitclone/compare).
 
-See also [here](https://github.com/evyli/gitclone/blob/master/CONTRIBUTING.md).
+See also [here](https://github.com/leahevy/gitclone/blob/master/CONTRIBUTING.md).
 
 <br/><br/>
 
@@ -160,7 +160,7 @@ See also [here](https://github.com/evyli/gitclone/blob/master/CONTRIBUTING.md).
 
 ## Extensions
 
-To learn how to include an extension in **Gitclone** see [here](https://github.com/evyli/gitclone/blob/master/src/gitclone/extensions/README.md).
+To learn how to include an extension in **Gitclone** see [here](https://github.com/leahevy/gitclone/blob/master/src/gitclone/extensions/README.md).
 
 <br/><br/>
 
